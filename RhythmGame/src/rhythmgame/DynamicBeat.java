@@ -518,13 +518,13 @@ public class DynamicBeat extends JFrame {
 	public void gameStart(int nowSelected, String difficulty) {
 		if (selectedMusic != null)
 			selectedMusic.close();
-		isMainScreen = false;
+		isMainScreen = true;
 		leftButton.setVisible(false);
 		rightButton.setVisible(false);
 		easyButton.setVisible(false);
 		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage()))
 				.getImage();
-		backButton.setVisible(false);
+		backButton.setVisible(true);//게임 도중 나가기 버튼
 		isGameScreen = true;
 
 		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
@@ -560,8 +560,7 @@ public class DynamicBeat extends JFrame {
 		rightButton.setVisible(false);
 		easyButton.setVisible(false);
 
-		background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg")).getImage();
-		backButton.setVisible(true); //게임 도중 나가기 버튼
+		background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg")).getImage(); 
 		nowSelected = 0;
 		selectedMusic.close();
 		introMusic = new Music("introMusic.mp3", true);
