@@ -168,6 +168,7 @@ public class DynamicBeat extends JFrame {
 		});
 		add(startButton);
 
+		/*
 		// '종료하기' 버튼 위치 조정
 		quitButton.setBounds(40, 500, 400, 100);
 		quitButton.setBorderPainted(false);
@@ -204,7 +205,9 @@ public class DynamicBeat extends JFrame {
 			}
 		});
 		add(quitButton);
+		*/
 		
+		//upButton
 		leftButton.setVisible(false);
 		leftButton.setBounds(140, 310, 64, 64);
 		leftButton.setBorderPainted(false);
@@ -237,6 +240,8 @@ public class DynamicBeat extends JFrame {
 		});
 		add(leftButton);
 		
+		
+		//downButton 
 		rightButton.setVisible(false); //처음에는 안보이게
 		rightButton.setBounds(1080, 310, 64, 64);
 		rightButton.setBorderPainted(false);
@@ -269,6 +274,7 @@ public class DynamicBeat extends JFrame {
 		});
 		add(rightButton);
 		
+		//게임 시작하기 버튼으로 사용
 		easyButton.setVisible(false); //처음에는 안보이게
 		easyButton.setBounds(500, 600, 250, 67);
 		easyButton.setBorderPainted(false);
@@ -431,23 +437,27 @@ public class DynamicBeat extends JFrame {
 	}
 	
 	public void backMain() {
-		isMainScreen = true;
-		leftButton.setVisible(true);
-		rightButton.setVisible(true);
-		easyButton.setVisible(true);
-		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg"))
+		//isMainScreen = true;
+		//leftButton.setVisible(true); //원래 코드
+		//rightButton.setVisible(true); //원래 코드
+		//easyButton.setVisible(true); //원래 코드
+		startButton.setVisible(true);
+		background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg"))
 				.getImage(); 
 		backButton.setVisible(false);
-		selectTrack(nowSelected);
+		//selectTrack(nowSelected);
+		selectedMusic.close();
+		introMusic = new Music("introMusic.mp3", true);
+		introMusic.start();
 		isGameScreen = false;
-		game.close(); 
+		game.close(); //원래 코드
 	}
 	
 	public void enterMain() {
 		// 게임 시작 이벤트
 		
 		startButton.setVisible(false); //버튼 숨기기
-		quitButton.setVisible(false);
+		//quitButton.setVisible(false);
 		
 	
 		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg"))
