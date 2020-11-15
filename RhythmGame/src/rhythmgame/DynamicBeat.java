@@ -24,9 +24,9 @@ public class DynamicBeat extends JFrame {
 	private ImageIcon exitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/exitButtonEntered.png"));
 	private ImageIcon exitButtonBasicImage = new ImageIcon(Main.class.getResource("../images/exitButtonBasic.png"));
 
-	private ImageIcon startButtonBasicImage = new ImageIcon(Main.class.getResource("../images/bang.png"));
+	private ImageIcon startButtonBasicImage = new ImageIcon(Main.class.getResource("../images/startButtonBasic.png"));
 	private ImageIcon startButtonEnteredImage = new ImageIcon(
-			Main.class.getResource("../images/bang2.png"));
+			Main.class.getResource("../images/startButtonEntered.png"));
 
 	private ImageIcon quitButtonBasicImage = new ImageIcon(Main.class.getResource("../images/quitButtonBasic.png"));
 	private ImageIcon quitButtonEnteredImage = new ImageIcon(
@@ -52,8 +52,6 @@ public class DynamicBeat extends JFrame {
 
 	private JButton exitButton = new JButton(exitButtonBasicImage);
 	private JButton startButton = new JButton(startButtonBasicImage);
-	private JButton startButton1 = new JButton(startButtonBasicImage);
-	private JButton startButton2 = new JButton(startButtonBasicImage);
 	private JButton quitButton = new JButton(quitButtonBasicImage);
 	private JButton leftButton = new JButton(leftButtonBasicImage);
 	private JButton rightButton = new JButton(rightButtonBasicImage);
@@ -137,7 +135,7 @@ public class DynamicBeat extends JFrame {
 		add(exitButton);
 
 		// '시작하기' 버튼 위치 조정
-		startButton.setBounds(400, 280, 400, 100);
+		startButton.setBounds(40, 350, 400, 100);
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);
 		startButton.setFocusPainted(false);
@@ -169,113 +167,47 @@ public class DynamicBeat extends JFrame {
 			}
 		});
 		add(startButton);
-		
-		// '시작하기' 버튼 위치 조정
-				startButton1.setBounds(400, 400, 400, 100);
-				startButton1.setBorderPainted(false);
-				startButton1.setContentAreaFilled(false);
-				startButton1.setFocusPainted(false);
-				startButton1.addMouseListener(new MouseAdapter() {
-					// 버튼에 마우스 올리면 이미지 바뀜
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						startButton1.setIcon(startButtonEnteredImage);
-						startButton1.setCursor(new Cursor(Cursor.HAND_CURSOR));
-						Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // 한번만 실행
-						buttonEnteredMusic.start();
-					}
 
-					// 떼면 다시 원래 이미지로
-					@Override
-					public void mouseExited(MouseEvent e) {
-						startButton1.setIcon(startButtonBasicImage);
-						startButton1.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-						
-					}
-
-					// 누르면 곡 선택 화면으로 감 
-					@Override
-					public void mousePressed(MouseEvent e) {
-						Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
-						buttonEnteredMusic.start();
-						enterMain(); // 코드 하단에 있음
-						
-					}
-				});
-				add(startButton1);
-				
-				
-				startButton2.setBounds(400, 520, 400, 100);
-				startButton2.setBorderPainted(false);
-				startButton2.setContentAreaFilled(false);
-				startButton2.setFocusPainted(false);
-				startButton2.addMouseListener(new MouseAdapter() {
-					// 버튼에 마우스 올리면 이미지 바뀜
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						startButton2.setIcon(startButtonEnteredImage);
-						startButton2.setCursor(new Cursor(Cursor.HAND_CURSOR));
-						Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // 한번만 실행
-						buttonEnteredMusic.start();
-					}
-
-					// 떼면 다시 원래 이미지로
-					@Override
-					public void mouseExited(MouseEvent e) {
-						startButton2.setIcon(startButtonBasicImage);
-						startButton2.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-						
-					}
-
-					// 누르면 곡 선택 화면으로 감 
-					@Override
-					public void mousePressed(MouseEvent e) {
-						Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
-						buttonEnteredMusic.start();
-						enterMain(); // 코드 하단에 있음
-						
-					}
-				});
-				add(startButton2);
-		
-
+		/*
 		// '종료하기' 버튼 위치 조정
-		//quitButton.setBounds(40, 500, 400, 100);
-		//quitButton.setBorderPainted(false);
-		//quitButton.setContentAreaFilled(false);
-		//quitButton.setFocusPainted(false);
-		//quitButton.addMouseListener(new MouseAdapter() {
+		quitButton.setBounds(40, 500, 400, 100);
+		quitButton.setBorderPainted(false);
+		quitButton.setContentAreaFilled(false);
+		quitButton.setFocusPainted(false);
+		quitButton.addMouseListener(new MouseAdapter() {
 			// 버튼에 마우스 올리면 이미지 바뀜
-		//	@Override
-			//public void mouseEntered(MouseEvent e) {
-			//	quitButton.setIcon(quitButtonEnteredImage);
-			//	quitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			//	Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // 한번만 실행
-			//	buttonEnteredMusic.start();
-			//}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				quitButton.setIcon(quitButtonEnteredImage);
+				quitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // 한번만 실행
+				buttonEnteredMusic.start();
+			}
 
 			// 떼면 다시 원래 이미지로
-			//@Override
-			//public void mouseExited(MouseEvent e) {
-			//	quitButton.setIcon(quitButtonBasicImage);
-			//	quitButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			//}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				quitButton.setIcon(quitButtonBasicImage);
+				quitButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
 
 			// 누르면 프로그램 종료
-			//@Override
-			//public void mousePressed(MouseEvent e) {
-			//	Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
-			//	buttonEnteredMusic.start();
-			//	try {
-			//		Thread.sleep(2000);
-			//	} catch (InterruptedException ex) {
-			//		ex.printStackTrace();
-			//	}
-			//	System.exit(0);
-			//}
-		//});
-		//add(quitButton);
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
+				buttonEnteredMusic.start();
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+				System.exit(0);
+			}
+		});
+		add(quitButton);
+		*/
 		
+		//upButton
 		leftButton.setVisible(false);
 		leftButton.setBounds(140, 310, 64, 64);
 		leftButton.setBorderPainted(false);
@@ -308,6 +240,8 @@ public class DynamicBeat extends JFrame {
 		});
 		add(leftButton);
 		
+		
+		//downButton 
 		rightButton.setVisible(false); //처음에는 안보이게
 		rightButton.setBounds(1080, 310, 64, 64);
 		rightButton.setBorderPainted(false);
@@ -340,6 +274,7 @@ public class DynamicBeat extends JFrame {
 		});
 		add(rightButton);
 		
+		//게임 시작하기 버튼으로 사용
 		easyButton.setVisible(false); //처음에는 안보이게
 		easyButton.setBounds(500, 600, 250, 67);
 		easyButton.setBorderPainted(false);
@@ -502,23 +437,27 @@ public class DynamicBeat extends JFrame {
 	}
 	
 	public void backMain() {
-		isMainScreen = true;
-		leftButton.setVisible(true);
-		rightButton.setVisible(true);
-		easyButton.setVisible(true);
-		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg"))
+		//isMainScreen = true;
+		//leftButton.setVisible(true); //원래 코드
+		//rightButton.setVisible(true); //원래 코드
+		//easyButton.setVisible(true); //원래 코드
+		startButton.setVisible(true);
+		background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg"))
 				.getImage(); 
 		backButton.setVisible(false);
-		selectTrack(nowSelected);
+		//selectTrack(nowSelected);
+		selectedMusic.close();
+		introMusic = new Music("introMusic.mp3", true);
+		introMusic.start();
 		isGameScreen = false;
-		game.close(); 
+		game.close(); //원래 코드
 	}
 	
 	public void enterMain() {
 		// 게임 시작 이벤트
 		
 		startButton.setVisible(false); //버튼 숨기기
-		quitButton.setVisible(false);
+		//quitButton.setVisible(false);
 		
 	
 		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg"))
