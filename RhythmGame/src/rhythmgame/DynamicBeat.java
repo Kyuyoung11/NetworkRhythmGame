@@ -72,11 +72,11 @@ public class DynamicBeat extends JFrame {
 	public DynamicBeat() {
 
 		trackList.add(new Track("StarmanTitleImage.png", "StarmanGameImage.jpg", "StarmanStartImage.jpg", "Starman.mp3",
-				"Starman.mp3", "Starman"));
+				"kk_idol.mp3", "Starman"));
 		trackList.add(new Track("OverwTitleImage.png", "OverwGameImage.jpg", "OverwStartImage.jpg", "overworld.mp3",
-				"overworld.mp3", "Over World"));
+				"nabi.mp3", "Over World"));
 		trackList.add(new Track("UnderwTitleImage.png", "DarkGameImage.jpg", "DarkStartImage.jpg", "Underworld.mp3",
-				"Underworld.mp3", "Under World"));
+				"western.mp3", "Under World"));
 
 		setUndecorated(true);
 		setTitle("네트워크 리듬게임");
