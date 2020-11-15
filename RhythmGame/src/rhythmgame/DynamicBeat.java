@@ -37,8 +37,8 @@ public class DynamicBeat extends JFrame {
 			Main.class.getResource("../images/rightButtonEntered.png"));
 	private ImageIcon easyButtonBasicImage = new ImageIcon(Main.class.getResource("../images/easyButtonBasic.png"));
 	private ImageIcon easyButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/easyButtonEntered.png"));
-	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/backButtonBasic.png"));
-	private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/backButtonEntered.png"));
+	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/nuguriBasic.png"));
+	private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/nugori.png"));
 
 	private Image background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg")).getImage();
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
@@ -309,7 +309,7 @@ public class DynamicBeat extends JFrame {
 
 		// upButton
 		leftButton.setVisible(false);
-		leftButton.setBounds(140, 310, 64, 64);
+		leftButton.setBounds(595, 460, 64, 64);
 		leftButton.setBorderPainted(false);
 		leftButton.setContentAreaFilled(false);
 		leftButton.setFocusPainted(false);
@@ -342,7 +342,7 @@ public class DynamicBeat extends JFrame {
 
 		// downButton
 		rightButton.setVisible(false); // 처음에는 안보이게
-		rightButton.setBounds(1080, 310, 64, 64);
+		rightButton.setBounds(595, 160, 64, 64);
 		rightButton.setBorderPainted(false);
 		rightButton.setContentAreaFilled(false);
 		rightButton.setFocusPainted(false);
@@ -475,7 +475,7 @@ public class DynamicBeat extends JFrame {
 	public void screenDraw(Graphics2D g) {
 		g.drawImage(background, 0, 0, null); // 변하는 이미지는 draw로
 		if (isMainScreen) {
-			g.drawImage(selectedImage, 475, 320, null);
+			g.drawImage(selectedImage, 535, 250, null);
 		}
 		if (isGameScreen) {// 게임 컨트롤 class로 가기
 			game.screenDraw(g);
