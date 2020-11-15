@@ -249,7 +249,7 @@ public class Game extends Thread {
 	
 	public void dropNotes(String titleName) {
 		Beat[] beats = null;
-		if(titleName.equals("Under World")) {
+		if(titleName.equals("K.K._Idol")) {
 	         int StartTime=3500-Main.REACH_TIME *1000;
 	         int gap=225;
 	         beats=new Beat[]{
@@ -365,7 +365,7 @@ public class Game extends Thread {
 	         };
 
 	      }
-	      else if(titleName.equals("Starman")) {
+	      else if(titleName.equals("K.K._House")) {
 	         int StartTime=3500-Main.REACH_TIME *1000;
 	         int gap=214;
 	         beats=new Beat[]{
@@ -466,7 +466,7 @@ public class Game extends Thread {
 	         };
 
 	      }
-	      else if(titleName.equals("Over World")) {
+	      else if(titleName.equals("K.K._Western")) {
 	         int startTime=4460-Main.REACH_TIME *1000;
 	         int gap=220;
 	         beats = new Beat[] {
