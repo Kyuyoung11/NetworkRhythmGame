@@ -53,6 +53,18 @@ public class DynamicBeat extends JFrame {
 	private JButton easyButton = new JButton(easyButtonBasicImage);
 	private JButton backButton = new JButton(backButtonBasicImage);
 
+	private JButton roomButton1 = new JButton("1");
+	private JButton roomButton2 = new JButton("2");
+	private JButton roomButton3 = new JButton("3");
+
+	private JButton numButton1 = new JButton("0/6");
+	private JButton numButton2 = new JButton("0/6");
+	private JButton numButton3 = new JButton("0/6");
+
+	private JButton gameButton1 = new JButton("게임중...");
+	private JButton gameButton2 = new JButton("게임중...");
+	private JButton gameButton3 = new JButton("게임중...");
+
 	private int mouseX, mouseY;
 
 	private boolean isMainScreen = false; // main함수면 true
@@ -130,7 +142,72 @@ public class DynamicBeat extends JFrame {
 		});
 		add(exitButton);
 
-		// '시작하기' 버튼 위치 조정
+		// 1번방 표시할 버튼
+		roomButton1.setBounds(430, 310, 50, 40);
+		roomButton1.setBorderPainted(true);
+		roomButton1.setFocusPainted(false);
+		roomButton1.setContentAreaFilled(false);
+		add(roomButton1);
+
+		// 2번방 표시할 버튼
+		roomButton2.setBounds(430, 430, 50, 40);
+		roomButton2.setBorderPainted(true);
+		roomButton2.setFocusPainted(false);
+		roomButton2.setContentAreaFilled(false);
+		add(roomButton2);
+
+		// 3번방 표시할 버튼
+		roomButton3.setBounds(430, 550, 50, 40);
+		roomButton3.setBorderPainted(true);
+		roomButton3.setFocusPainted(false);
+		roomButton3.setContentAreaFilled(false);
+		add(roomButton3);
+
+		// 1번방 명수 표시할 버튼
+		numButton1.setBounds(690, 310, 80, 40);
+		numButton1.setBorderPainted(true);
+		numButton1.setFocusPainted(false);
+		numButton1.setContentAreaFilled(false);
+		add(numButton1);
+
+		// 2번방 명수 표시할 버튼
+		numButton2.setBounds(690, 430, 80, 40);
+		numButton2.setBorderPainted(true);
+		numButton2.setFocusPainted(false);
+		numButton2.setContentAreaFilled(false);
+		add(numButton2);
+
+		// 3번방 명수 표시할 버튼
+		numButton3.setBounds(690, 550, 80, 40);
+		numButton3.setBorderPainted(true);
+		numButton3.setFocusPainted(false);
+		numButton3.setContentAreaFilled(false);
+		add(numButton3);
+
+		// 게임중 표시
+		gameButton1.setBounds(530, 310, 100, 40);
+		gameButton1.setBorderPainted(false);
+		gameButton1.setFocusPainted(false);
+		gameButton1.setContentAreaFilled(false);
+		add(gameButton1);
+
+		// 게임중 표시
+		gameButton2.setVisible(true);
+		gameButton2.setBounds(530, 430, 100, 40);
+		gameButton2.setBorderPainted(false);
+		gameButton2.setFocusPainted(false);
+		gameButton2.setContentAreaFilled(false);
+		add(gameButton2);
+
+		// 게임중 표시
+		gameButton3.setVisible(true);
+		gameButton3.setBounds(530, 550, 100, 40);
+		gameButton3.setBorderPainted(false);
+		gameButton3.setFocusPainted(false);
+		gameButton3.setContentAreaFilled(false);
+		add(gameButton3);
+
+		// 방 버튼 위치 조정
 		startButton.setBounds(400, 280, 400, 100);
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);
@@ -231,7 +308,6 @@ public class DynamicBeat extends JFrame {
 		});
 		add(startButton2);
 
-		
 		// upButton
 		leftButton.setVisible(false);
 		leftButton.setBounds(140, 310, 64, 64);
@@ -469,7 +545,19 @@ public class DynamicBeat extends JFrame {
 		startButton.setVisible(true);
 		startButton1.setVisible(true);
 		startButton2.setVisible(true);
-	
+
+		roomButton1.setVisible(true);
+		roomButton2.setVisible(true);
+		roomButton3.setVisible(true);
+
+		numButton1.setVisible(true);
+		numButton2.setVisible(true);
+		numButton3.setVisible(true);
+		
+		gameButton1.setVisible(true);
+		gameButton2.setVisible(true);
+		gameButton3.setVisible(true);
+
 		background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg")).getImage();
 		backButton.setVisible(false);
 		// selectTrack(nowSelected);
@@ -486,6 +574,18 @@ public class DynamicBeat extends JFrame {
 		startButton.setVisible(false); // 버튼 숨기기
 		startButton1.setVisible(false);
 		startButton2.setVisible(false);
+
+		roomButton1.setVisible(false);
+		roomButton2.setVisible(false);
+		roomButton3.setVisible(false);
+
+		numButton1.setVisible(false);
+		numButton2.setVisible(false);
+		numButton3.setVisible(false);
+		
+		gameButton1.setVisible(false);
+		gameButton2.setVisible(false);
+		gameButton3.setVisible(false);
 		// quitButton.setVisible(false);
 
 		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
