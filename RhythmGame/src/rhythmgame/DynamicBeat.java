@@ -73,7 +73,6 @@ public class DynamicBeat extends JFrame {
 	ArrayList<Track> trackList = new ArrayList<Track>();
 
 	// 곡이 선택되는 거에 필요한 변수들
-	private Image titleImage;
 	private Image selectedImage;
 	private Music selectedMusic;
 	private Music introMusic = new Music("introMusic.mp3", true);
@@ -83,12 +82,12 @@ public class DynamicBeat extends JFrame {
 
 	public DynamicBeat() {
 
-		trackList.add(new Track("StarmanTitleImage.png", "StarmanGameImage.jpg", "StarmanStartImage.jpg", "Starman.mp3",
-				"kk_idol.mp3", "Starman"));
-		trackList.add(new Track("OverwTitleImage.png", "OverwGameImage.jpg", "OverwStartImage.jpg", "overworld.mp3",
-				"nabi.mp3", "Over World"));
-		trackList.add(new Track("UnderwTitleImage.png", "DarkGameImage.jpg", "DarkStartImage.jpg", "Underworld.mp3",
-				"western.mp3", "Under World"));
+		trackList.add(new Track("IdolGameImage.jpg", "mainBackground.jpg", "kk_idol.mp3",
+				"kk_idol.mp3", "K.K._Idol"));
+		trackList.add(new Track("HouseGameImage.jpg", "mainBackground.jpg", "nabi.mp3",
+				"nabi.mp3", "K.K._House"));
+		trackList.add(new Track("WesternGameImage.jpg", "mainBackground.jpg", "western.mp3",
+				"western.mp3", "K.K._Western"));
 
 		setUndecorated(true);
 		setTitle("네트워크 리듬게임");
@@ -235,7 +234,7 @@ public class DynamicBeat extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
 				buttonEnteredMusic.start();
-				enterMain(); // 코드 하단에 있음
+				enterGame(); // 코드 하단에 있음
 
 			}
 		});
@@ -264,12 +263,12 @@ public class DynamicBeat extends JFrame {
 
 			}
 
-			// 누르면 곡 선택 화면으로 감
+			// 누르면 대기방으로 감
 			@Override
 			public void mousePressed(MouseEvent e) {
 				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
 				buttonEnteredMusic.start();
-				enterMain(); // 코드 하단에 있음
+				enterGame(); // 코드 하단에 있음
 
 			}
 		});
@@ -302,7 +301,7 @@ public class DynamicBeat extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
 				buttonEnteredMusic.start();
-				enterMain(); // 코드 하단에 있음
+				enterGame(); // 코드 하단에 있음
 
 			}
 		});
@@ -476,8 +475,7 @@ public class DynamicBeat extends JFrame {
 	public void screenDraw(Graphics2D g) {
 		g.drawImage(background, 0, 0, null); // 변하는 이미지는 draw로
 		if (isMainScreen) {
-			g.drawImage(selectedImage, 340, 100, null);
-			g.drawImage(titleImage, 340, 70, null);
+			g.drawImage(selectedImage, 475, 320, null);
 		}
 		if (isGameScreen) {// 게임 컨트롤 class로 가기
 			game.screenDraw(g);
@@ -494,8 +492,6 @@ public class DynamicBeat extends JFrame {
 	public void selectTrack(int nowSelected) {
 		if (selectedMusic != null)
 			selectedMusic.close(); // 현재 재생되고 있는 음악 멈춤
-		titleImage = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getTitleImage()))
-				.getImage();
 		selectedImage = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getStartImage()))
 				.getImage();
 		selectedMusic = new Music(trackList.get(nowSelected).getStartMusic(), true);
@@ -528,7 +524,7 @@ public class DynamicBeat extends JFrame {
 		easyButton.setVisible(false);
 		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage()))
 				.getImage();
-		backButton.setVisible(true);
+		backButton.setVisible(false);
 		isGameScreen = true;
 
 		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
@@ -557,10 +553,16 @@ public class DynamicBeat extends JFrame {
 		gameButton1.setVisible(true);
 		gameButton2.setVisible(true);
 		gameButton3.setVisible(true);
+		
+		
+		isMainScreen=false;
+		leftButton.setVisible(false);
+		rightButton.setVisible(false);
+		easyButton.setVisible(false);
 
 		background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg")).getImage();
-		backButton.setVisible(false);
-		// selectTrack(nowSelected);
+		backButton.setVisible(true); //게임 도중 나가기 버튼
+		nowSelected = 0;
 		selectedMusic.close();
 		introMusic = new Music("introMusic.mp3", true);
 		introMusic.start();
@@ -568,7 +570,7 @@ public class DynamicBeat extends JFrame {
 		game.close(); // 원래 코드
 	}
 
-	public void enterMain() {
+	public void enterGame() {
 		// 게임 시작 이벤트
 
 		startButton.setVisible(false); // 버튼 숨기기
@@ -592,11 +594,17 @@ public class DynamicBeat extends JFrame {
 		isMainScreen = true;
 		leftButton.setVisible(true); // 왼/오버튼은 보이기
 		rightButton.setVisible(true);
-		easyButton.setVisible(true);
-
-		backButton.setVisible(false);
-		introMusic.close();
+		easyButton.setVisible(true); // 게임시작버튼
+		
+		
 		selectTrack(0);
+
+		backButton.setVisible(true);
+		introMusic.close();
+		
+		
+		isGameScreen=true;
+		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
 
 	}
 
