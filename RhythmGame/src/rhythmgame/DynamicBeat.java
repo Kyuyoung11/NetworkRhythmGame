@@ -57,18 +57,28 @@ public class DynamicBeat extends JFrame {
 	private JButton roomButton2 = new JButton("2");
 	private JButton roomButton3 = new JButton("3");
 
-	private JButton numButton1 = new JButton("0/6");
-	private JButton numButton2 = new JButton("0/6");
-	private JButton numButton3 = new JButton("0/6");
+	private JButton numButton1 = new JButton("2/2");
+	private JButton numButton2 = new JButton("1/2");
+	private JButton numButton3 = new JButton("0/2");
 
 	private JButton gameButton1 = new JButton("게임중...");
 	private JButton gameButton2 = new JButton("게임중...");
 	private JButton gameButton3 = new JButton("게임중...");
 
+	private JButton enterButton1 = new JButton("입장 가능");
+	private JButton enterButton2 = new JButton("입장 가능");
+	private JButton enterButton3 = new JButton("입장 가능");
+
 	private int mouseX, mouseY;
 
 	private boolean isMainScreen = false; // main함수면 true
 	private boolean isGameScreen = false;
+	
+	//true -> 게임중 버튼 true & 입장가능 버튼 false
+	//gameButton은 isGamingroom으로 쓰고 enterButton은 !isGamingroom으로 쓰면 됨
+	private boolean isGamingroom1 = true;
+	private boolean isGamingroom2 = false;
+	private boolean isGamingroom3 = false;
 
 	ArrayList<Track> trackList = new ArrayList<Track>();
 
@@ -82,12 +92,10 @@ public class DynamicBeat extends JFrame {
 
 	public DynamicBeat() {
 
-		trackList.add(new Track("IdolGameImage.jpg", "mainBackground.jpg", "kk_idol.mp3",
-				"kk_idol.mp3", "K.K._Idol"));
-		trackList.add(new Track("HouseGameImage.jpg", "mainBackground.jpg", "nabi.mp3",
-				"nabi.mp3", "K.K._House"));
-		trackList.add(new Track("WesternGameImage.jpg", "mainBackground.jpg", "western.mp3",
-				"western.mp3", "K.K._Western"));
+		trackList.add(new Track("IdolGameImage.jpg", "mainBackground.jpg", "kk_idol.mp3", "kk_idol.mp3", "K.K._Idol"));
+		trackList.add(new Track("HouseGameImage.jpg", "mainBackground.jpg", "nabi.mp3", "nabi.mp3", "K.K._House"));
+		trackList.add(
+				new Track("WesternGameImage.jpg", "mainBackground.jpg", "western.mp3", "western.mp3", "K.K._Western"));
 
 		setUndecorated(true);
 		setTitle("네트워크 리듬게임");
@@ -183,28 +191,54 @@ public class DynamicBeat extends JFrame {
 		numButton3.setContentAreaFilled(false);
 		add(numButton3);
 
-		// 게임중 표시
+		// 게임중 표시 (방 1)
+		gameButton1.setVisible(isGamingroom1);
 		gameButton1.setBounds(530, 310, 100, 40);
 		gameButton1.setBorderPainted(false);
 		gameButton1.setFocusPainted(false);
 		gameButton1.setContentAreaFilled(false);
 		add(gameButton1);
 
-		// 게임중 표시
-		gameButton2.setVisible(true);
+		// 게임중 표시 (방 2)
+		gameButton2.setVisible(isGamingroom2);
 		gameButton2.setBounds(530, 430, 100, 40);
 		gameButton2.setBorderPainted(false);
 		gameButton2.setFocusPainted(false);
 		gameButton2.setContentAreaFilled(false);
 		add(gameButton2);
 
-		// 게임중 표시
-		gameButton3.setVisible(true);
+		// 게임중 표시 (방 3)
+		gameButton3.setVisible(isGamingroom3);
 		gameButton3.setBounds(530, 550, 100, 40);
 		gameButton3.setBorderPainted(false);
 		gameButton3.setFocusPainted(false);
 		gameButton3.setContentAreaFilled(false);
 		add(gameButton3);
+
+		// 입장 가능 표시 (방 1)
+		enterButton1.setVisible(!isGamingroom1);
+		enterButton1.setBounds(530, 310, 100, 40);
+		enterButton1.setBorderPainted(false);
+		enterButton1.setFocusPainted(false);
+		enterButton1.setContentAreaFilled(false);
+		add(enterButton1);
+
+		// 입장 가능 표시 (방 2)
+		enterButton2.setVisible(!isGamingroom2);
+		enterButton2.setBounds(530, 430, 100, 40);
+		enterButton2.setBorderPainted(false);
+		enterButton2.setFocusPainted(false);
+		enterButton2.setContentAreaFilled(false);
+		add(enterButton2);
+		
+		// 입장 가능 표시 (방 3)
+		enterButton3.setVisible(!isGamingroom3);
+		enterButton3.setBounds(530, 550, 100, 40);
+		enterButton3.setBorderPainted(false);
+		enterButton3.setFocusPainted(false);
+		enterButton3.setContentAreaFilled(false);
+		add(enterButton3);
+		
 
 		// 방 버튼 위치 조정
 		startButton.setBounds(400, 280, 400, 100);
@@ -524,7 +558,7 @@ public class DynamicBeat extends JFrame {
 		easyButton.setVisible(false);
 		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage()))
 				.getImage();
-		backButton.setVisible(true);//게임 도중 나가기 버튼
+		backButton.setVisible(true);// 게임 도중 나가기 버튼
 		isGameScreen = true;
 
 		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
@@ -549,18 +583,25 @@ public class DynamicBeat extends JFrame {
 		numButton1.setVisible(true);
 		numButton2.setVisible(true);
 		numButton3.setVisible(true);
+
 		
-		gameButton1.setVisible(true);
-		gameButton2.setVisible(true);
-		gameButton3.setVisible(true);
+		gameButton1.setVisible(isGamingroom1);
+		enterButton1.setVisible(!isGamingroom1);
+		
+		gameButton2.setVisible(isGamingroom2);
+		enterButton2.setVisible(!isGamingroom2);
+		
+		gameButton3.setVisible(isGamingroom3);
+		enterButton3.setVisible(!isGamingroom3);
 		
 		
-		isMainScreen=false;
+		isMainScreen = false;
 		leftButton.setVisible(false);
 		rightButton.setVisible(false);
 		easyButton.setVisible(false);
+		backButton.setVisible(false);
 
-		background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg")).getImage(); 
+		background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg")).getImage();
 		nowSelected = 0;
 		selectedMusic.close();
 		introMusic = new Music("introMusic.mp3", true);
@@ -583,26 +624,28 @@ public class DynamicBeat extends JFrame {
 		numButton1.setVisible(false);
 		numButton2.setVisible(false);
 		numButton3.setVisible(false);
-		
+
 		gameButton1.setVisible(false);
 		gameButton2.setVisible(false);
 		gameButton3.setVisible(false);
-		// quitButton.setVisible(false);
+		
+		enterButton1.setVisible(false);
+		enterButton2.setVisible(false);
+		enterButton3.setVisible(false);
+		
 
 		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
 		isMainScreen = true;
 		leftButton.setVisible(true); // 왼/오버튼은 보이기
 		rightButton.setVisible(true);
 		easyButton.setVisible(true); // 게임시작버튼
-		
-		
+
 		selectTrack(0);
 
 		backButton.setVisible(true);
 		introMusic.close();
-		
-		
-		isGameScreen=true;
+
+		isGameScreen = true;
 		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
 
 	}
