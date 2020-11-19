@@ -11,7 +11,13 @@ public class Note extends Thread{
 	
 	private Image noteBasicImage = new ImageIcon(Main.class.getResource("../images/leaf.png"))
 			.getImage();
-	private Image noteItemImage1 = new ImageIcon(Main.class.getResource("../images/apple.png"))
+	private Image noteItemImage1 = new ImageIcon(Main.class.getResource("../images/apple2.png"))
+			.getImage();
+	private Image noteItemImage2 = new ImageIcon(Main.class.getResource("../images/money.png"))
+			.getImage();
+	private Image noteItemImage3 = new ImageIcon(Main.class.getResource("../images/saida2.png"))
+			.getImage();
+	private Image noteItemImage4 = new ImageIcon(Main.class.getResource("../images/bee.png"))
 			.getImage();
 	
 	private int x,y = 580- (1000 /Main.SLEEP_TIME * Main.NOTE_SPEED) * Main.REACH_TIME;
@@ -52,8 +58,13 @@ public class Note extends Thread{
 	
 	public void screenDraw(Graphics2D g) {
 		if(itemType.equals("basic")) g.drawImage(noteBasicImage, x+10, y, null);
-		else if (itemType.equals("item1")) g.drawImage(noteItemImage1, x+10, y, null);
-		
+		//완전체 - 애플
+		else if (itemType.equals("item1")) g.drawImage(noteItemImage1, x+18, y, null);
+		//점수추가 - 벨주머니
+		else if (itemType.equals("item2")) g.drawImage(noteItemImage2, x+27, y, null);
+		else if (itemType.equals("item3")) g.drawImage(noteItemImage3, x+18, y, null);
+		else if (itemType.equals("item4")) g.drawImage(noteItemImage4, x+15, y+5, null);
+
 	}
 	
 	public void drop() {
