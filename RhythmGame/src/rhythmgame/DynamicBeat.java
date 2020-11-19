@@ -27,8 +27,7 @@ public class DynamicBeat extends JFrame {
 	private ImageIcon startButtonBasicImage = new ImageIcon(Main.class.getResource("../images/bang.png"));
 	private ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/bang2.png"));
 
-	private ImageIcon quitButtonBasicImage = new ImageIcon(Main.class.getResource("../images/quitButtonBasic.png"));
-	private ImageIcon quitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/quitButtonEntered.png"));
+
 
 	private ImageIcon leftButtonBasicImage = new ImageIcon(Main.class.getResource("../images/leftButtonBasic.png"));
 	private ImageIcon leftButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/leftButtonEntered.png"));
@@ -47,7 +46,6 @@ public class DynamicBeat extends JFrame {
 	private JButton startButton = new JButton(startButtonBasicImage);
 	private JButton startButton1 = new JButton(startButtonBasicImage);
 	private JButton startButton2 = new JButton(startButtonBasicImage);
-	private JButton quitButton = new JButton(quitButtonBasicImage);
 	private JButton leftButton = new JButton(leftButtonBasicImage);
 	private JButton rightButton = new JButton(rightButtonBasicImage);
 	private JButton easyButton = new JButton(easyButtonBasicImage);
