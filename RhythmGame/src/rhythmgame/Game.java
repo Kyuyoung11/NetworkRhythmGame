@@ -384,17 +384,7 @@ public class Game extends Thread {
 					new Beat(StartTime + gap*931, "J"), new Beat(StartTime + gap*933, "K"),
 					
 				
-					
-					
-					
-					
-					
-					
-					
-					
-					
 
-					//new Beat(StartTime, "D"), new Beat(StartTime, "K"),
 					
 					
 			};
