@@ -30,27 +30,27 @@ public class Note extends Thread{
 		proceeded = false;
 	}
 	public Note(String noteType) {
-		if(noteType.contentEquals("S")) {
-			x=228;
-		}
-		else if(noteType.contentEquals("D")) {
-			x=332;
+		//if(noteType.contentEquals("S")) {
+		//	x=228;
+		//}
+		if(noteType.contentEquals("D")) {
+			x=100;
 		}
 		else if(noteType.contentEquals("F")) {
-			x=436;
+			x=180;
 		}
-		else if(noteType.contentEquals("Space")) {
-			x=540;
-		}
+		//else if(noteType.contentEquals("Space")) {
+		//	x=540;
+		//}
 		else if(noteType.contentEquals("J")) {
 			x=744;
 		}
 		else if(noteType.contentEquals("K")) {
 			x=848;
 		}
-		else if(noteType.contentEquals("L")) {
-			x=952;
-		}
+		//else if(noteType.contentEquals("L")) {
+		//	x=952;
+		//}
 		this.noteType=noteType;
 	}
 	
