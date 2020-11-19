@@ -1,8 +1,13 @@
 package rhythmgame;
 
+import java.util.Random;
+
 public class Beat {
+	Random random = new Random();
 	private int time;
 	private String noteName;
+	private String type;
+	
 	public int getTime() {
 		return time;
 	}
@@ -12,6 +17,9 @@ public class Beat {
 	public String getNoteName() {
 		return noteName;
 	}
+	public String getItemType() {
+		return type;
+	}
 	public void setNoteName(String noteName) {
 		this.noteName = noteName;
 	}
@@ -19,5 +27,14 @@ public class Beat {
 		super();
 		this.time = time;
 		this.noteName = noteName;
+		this.type = setType();
+	}
+	
+	public String setType() {
+		
+		int rannum = random.nextInt(100);
+		if (rannum > 95) return "item1";
+		else return "basic";
+		
 	}
 }
