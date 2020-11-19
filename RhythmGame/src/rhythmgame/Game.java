@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class Game extends Thread {
+	
+	private String score;
+	private int scorePoint;
 
 	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("../images/noteRouteLine.png")).getImage();
 	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameinfo.png")).getImage();
@@ -88,11 +91,12 @@ public class Game extends Thread {
 		//점수 표시
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Arial Black", Font.BOLD, 30));
+		String score = Integer.toString(scorePoint);		
 		g.drawString("Score", 150, 70);
-		g.drawString("00000", 300, 70);
+		g.drawString(score, 300, 70);
 		g.drawString("User1", 239,680);
-		g.drawImage(blueFlareImage, 280, 280, null);
-		g.drawImage(judgeImage, 450, 400, null);
+		g.drawImage(blueFlareImage, 100, 400, null);
+		g.drawImage(judgeImage, 120, 470, null);
 		g.drawImage(keyPadDImage, 100, 580, null);
 		g.drawImage(keyPadFImage, 196, 580, null);
 		g.drawImage(keyPadJImage, 292, 580, null);
@@ -617,16 +621,22 @@ public class Game extends Thread {
 			blueFlareImage = new ImageIcon(Main.class.getResource("../images/blueFlare.png")).getImage();
 		}
 		if (judge.equals("Miss")) {
+			scorePoint += -1;			
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 		} else if (judge.equals("Late")) {
+			scorePoint += 2;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
 		} else if (judge.equals("Good")) {
+			scorePoint += 5;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
 		} else if (judge.equals("Great")) {
+			scorePoint += 10;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/great.png")).getImage();
 		} else if (judge.equals("Perfect")) {
+			scorePoint += 20;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
 		} else if (judge.equals("Early")) {
+			scorePoint += 4;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
 		}
 	}
