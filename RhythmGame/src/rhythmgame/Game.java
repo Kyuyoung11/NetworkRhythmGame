@@ -212,8 +212,8 @@ public class Game extends Thread {
 			int gap = 225;
 			beats = new Beat[] {
 
-					new Beat(StartTime + gap * 2, "S"), new Beat(StartTime + gap * 4, "Space"),
-					new Beat(StartTime + gap * 6, "L"), new Beat(StartTime + gap * 10, "S"),
+					new Beat(StartTime + gap * 2, "D"), new Beat(StartTime + gap * 4, "F"),
+					new Beat(StartTime + gap * 6, "J"), new Beat(StartTime + gap * 10, "K"),
 					new Beat(StartTime + gap * 12, "Space"), new Beat(StartTime + gap * 14, "L"),
 
 					new Beat(StartTime + gap * 16, "F"), new Beat(StartTime + gap * 19, "D"),

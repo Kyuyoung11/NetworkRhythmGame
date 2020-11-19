@@ -6,7 +6,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Note extends Thread{
-	private Image noteBasicImage = new ImageIcon(Main.class.getResource("../images/noteBasic.png"))
+	private Image noteBasicImage = new ImageIcon(Main.class.getResource("../images/leaf.png"))
 			.getImage();
 	
 	private int x,y = 580- (1000 /Main.SLEEP_TIME * Main.NOTE_SPEED) * Main.REACH_TIME;
@@ -29,16 +29,16 @@ public class Note extends Thread{
 	}
 	public Note(String noteType, String titleName) {
 		if(noteType.contentEquals("D")) {
-			x=332;
+			x=90;
 		}
 		else if(noteType.contentEquals("F")) {
-			x=436;
+			x=190;
 		}
 		else if(noteType.contentEquals("J")) {
-			x=744;
+			x=285;
 		}
 		else if(noteType.contentEquals("K")) {
-			x=848;
+			x=380;
 		}
 		this.noteType=noteType;
 		this.titleName= titleName;
