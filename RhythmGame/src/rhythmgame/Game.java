@@ -620,7 +620,7 @@ public class Game extends Thread {
 			blueFlareImage = new ImageIcon(Main.class.getResource("../images/blueFlare.png")).getImage();
 		}
 		if (judge.equals("Miss")) {
-			scorePoint += -1;			
+			scorePoint += -4;			
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 		} else if (judge.equals("Late")) {
 			scorePoint += 2;
