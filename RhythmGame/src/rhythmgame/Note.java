@@ -50,7 +50,8 @@ public class Note extends Thread{
 	}
 	
 	public void drop() {
-		if (titleName.equals("K.K._Idol") || titleName.equals("K.K._Western")) y+= Main.NOTE_SPEED; 
+		if (titleName.equals("K.K._Idol")) y+=(Main.NOTE_SPEED+1);
+		else if(titleName.equals("K.K._Western")) y+= (Main.NOTE_SPEED+1); 
 		else if (titleName.equals("K.K._House")) y+=(Main.NOTE_SPEED-1);
 		if(y>620) { //노트가 판정바를 벗어나는 지점
 			System.out.println("Miss");
@@ -83,32 +84,32 @@ public class Note extends Thread{
 			close();
 			return "Late";
 		}
-		else if(y>=613) {
+		else if(y>=593) {
 			System.out.println("Good");
 			close();
 			return "Good";
-		}
-		else if(y>=593) {
-			System.out.println("Great");
-			close();
-			return "Great";
-		}
-		else if(y>=565) {
-			System.out.println("Perfect");
-			close();
-			return "Perfect";
 		}
 		else if(y>=553) {
 			System.out.println("Great");
 			close();
 			return "Great";
 		}
-		else if(y>=533) {
+		else if(y>=513) {
+			System.out.println("Perfect");
+			close();
+			return "Perfect";
+		}
+		else if(y>=473) {
+			System.out.println("Great");
+			close();
+			return "Great";
+		}
+		else if(y>=433) {
 			System.out.println("Good");
 			close();
 			return "Good";
 		}
-		else if(y>=513) {
+		else if(y>=403) {
 			System.out.println("Early");
 			close();
 			return "Early";
