@@ -48,6 +48,7 @@ public class Game extends Thread {
 		this.musicTitle = musicTitle;
 		gameMusic = new Music(this.musicTitle, false); // 한번만 실행
 	}
+	
 
 	public void screenDraw(Graphics2D g) {
 		g.drawImage(noteRouteDImage, 100, 90, null);
@@ -496,7 +497,7 @@ public class Game extends Thread {
 		while (i < beats.length && !isInterrupted()) {
 			boolean dropped = false;
 			if (beats[i].getTime() <= gameMusic.getTime()) {
-				Note note = new Note(beats[i].getNoteName());
+				Note note = new Note(beats[i].getNoteName(), titleName);
 				note.start();
 				noteList.add(note);
 				i++;

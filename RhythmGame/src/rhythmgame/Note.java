@@ -11,6 +11,8 @@ public class Note extends Thread{
 	
 	private int x,y = 580- (1000 /Main.SLEEP_TIME * Main.NOTE_SPEED) * Main.REACH_TIME;
 	private String noteType;
+	private String titleName;
+	
 	
 	private boolean proceeded = true;
 	
@@ -25,7 +27,7 @@ public class Note extends Thread{
 	public void close() {
 		proceeded = false;
 	}
-	public Note(String noteType) {
+	public Note(String noteType, String titleName) {
 		if(noteType.contentEquals("D")) {
 			x=332;
 		}
@@ -39,6 +41,7 @@ public class Note extends Thread{
 			x=848;
 		}
 		this.noteType=noteType;
+		this.titleName= titleName;
 	}
 	
 	public void screenDraw(Graphics2D g) {
@@ -47,7 +50,8 @@ public class Note extends Thread{
 	}
 	
 	public void drop() {
-		y+= Main.NOTE_SPEED; 
+		if (titleName.equals("K.K._Idol") || titleName.equals("K.K._Western")) y+= Main.NOTE_SPEED; 
+		else if (titleName.equals("K.K._House")) y+=(Main.NOTE_SPEED-1);
 		if(y>620) { //노트가 판정바를 벗어나는 지점
 			System.out.println("Miss");
 			close();
