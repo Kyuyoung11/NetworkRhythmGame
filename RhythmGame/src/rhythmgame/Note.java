@@ -50,14 +50,14 @@ public class Note extends Thread{
 	}
 	
 	public void drop() {
-		if (titleName.equals("K.K._Idol")) y+=(Main.NOTE_SPEED+1);
-		else if(titleName.equals("K.K._Western")) y+= (Main.NOTE_SPEED+1); 
-		else if (titleName.equals("K.K._House")) y+=(Main.NOTE_SPEED-1);
-		if(y>620) { //노트가 판정바를 벗어나는 지점
-			System.out.println("Miss");
-			close();
-		}
-	}
+	      if (titleName.equals("K.K._Idol")) y+=(Main.NOTE_SPEED+1);
+	      else if(titleName.equals("K.K._Western")) y+= (Main.NOTE_SPEED+1); 
+	      else if (titleName.equals("K.K._House")) y+=(Main.NOTE_SPEED-1);
+	      if(y>620) { //노트가 판정바를 벗어나는 지점
+	         System.out.println("Miss");
+	         close();
+	      }
+	   }
 	
 	@Override
 	public void run() {

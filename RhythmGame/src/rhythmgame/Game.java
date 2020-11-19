@@ -448,157 +448,135 @@ public class Game extends Thread {
 			};
 
 		} else if (titleName.equals("K.K._Western")) {
-			int startTime = 4460 - Main.REACH_TIME * 1000;
-			int gap = 220;
-			beats = new Beat[] { new Beat(startTime + gap * 4, "K"), new Beat(startTime + gap * 6, "D"),
-					new Beat(startTime + gap * 8, "S"),
+			int startTime = 4450 - Main.REACH_TIME * 1000;
+			int gap = 140;
+			beats = new Beat[] { 
+					new Beat(startTime + gap * 1, "D"), 
+					new Beat(startTime + gap * 1, "K"),
+					new Beat(startTime + gap * 2, "J"),
 					// new Beat(startTime + gap *9,"D"),//+1
-					new Beat(startTime + gap * 12, "S"), // +3
-					// new Beat(startTime + gap *14,"D"),
-					new Beat(startTime + gap * 16, "J"), new Beat(startTime + gap * 16, "F"),
-					new Beat(startTime + gap * 18, "Space"),
-
-					new Beat(startTime + gap * 20, "K"), new Beat(startTime + gap * 22, "D"),
-					new Beat(startTime + gap * 24, "S"),
-					// new Beat(startTime + gap *25,"D"),//+1
-					new Beat(startTime + gap * 28, "S"), // +3
-					// new Beat(startTime + gap *29,"D"),//+1
-					new Beat(startTime + gap * 30, "J"), // +1
-					new Beat(startTime + gap * 30, "F"), new Beat(startTime + gap * 32, "Space"), // +1
-
-					new Beat(startTime + gap * 36, "K"), new Beat(startTime + gap * 38, "D"),
-					new Beat(startTime + gap * 40, "S"),
-					// new Beat(startTime + gap *41,"D"),
-					new Beat(startTime + gap * 44, "F"),
+					new Beat(startTime + gap * 2, "F"), // +3
+					
+					new Beat(startTime + gap * 24, "D"),
 					// new Beat(startTime + gap *46,"D"),
-					new Beat(startTime + gap * 48, "K"), new Beat(startTime + gap * 50, "Space"),
+					new Beat(startTime + gap * 30, "K"), 
+					new Beat(startTime + gap * 36, "F"),
+					new Beat(startTime + gap * 42, "J"),
 
-					new Beat(startTime + gap * 52, "K"), new Beat(startTime + gap * 54, "D"),
-					new Beat(startTime + gap * 56, "S"),
+					new Beat(startTime + gap * 46, "D"), 
+					new Beat(startTime + gap * 48, "F"),
+					new Beat(startTime + gap * 56, "D"),
+					new Beat(startTime + gap * 57, "F"),
+					new Beat(startTime + gap * 58, "J"),
+					new Beat(startTime + gap * 59, "K"),
 					// new Beat(startTime + gap *57,"D"),//+1
-					new Beat(startTime + gap * 60, "S"), // +3
-					// new Beat(startTime + gap *61,"D"),//+1
-					// new Beat(startTime + gap *62,"L"),//+1
-					// new Beat(startTime + gap *60,"K"),//+1
-					new Beat(startTime + gap * 62, "D"),
-					// new Beat(startTime + gap *64,"J"),//+1
-					new Beat(startTime + gap * 64, "Space"), // +1
+					new Beat(startTime + gap * 70, "K"),
+					new Beat(startTime + gap * 71, "J"),
+					new Beat(startTime + gap * 72, "F"), // +1
 
-					new Beat(startTime + gap * 69, "K"), new Beat(startTime + gap * 71, "D"),
-					new Beat(startTime + gap * 73, "K"), new Beat(startTime + gap * 75, "D"),
-					new Beat(startTime + gap * 77, "L"),
-					// new Beat(startTime + gap *78,"K"),
-					// new Beat(startTime + gap *79,"J"),
-					new Beat(startTime + gap * 80, "Space"),
-					// new Beat(startTime + gap *81,"J"),
+					new Beat(startTime + gap * 81, "J"), 
+					new Beat(startTime + gap * 85, "D"),
+					new Beat(startTime + gap * 94, "K"),
+					new Beat(startTime + gap * 95, "J"),
+					new Beat(startTime + gap * 96, "K"),
+					
+					new Beat(startTime + gap * 97, "J"),
 
-					new Beat(startTime + gap * 85, "K"), new Beat(startTime + gap * 87, "D"),
-					new Beat(startTime + gap * 89, "K"), new Beat(startTime + gap * 91, "D"),
-					new Beat(startTime + gap * 93, "L"),
+
+					new Beat(startTime + gap * 98, "F"), 
+					new Beat(startTime + gap * 105, "D"),
+					
+					new Beat(startTime + gap * 106, "F"),
+					new Beat(startTime + gap * 107, "J"), 
+					new Beat(startTime + gap * 108, "K"),
+					//new Beat(startTime + gap * 109, "F"),
 					// new Beat(startTime + gap *94,"K"),
 					// new Beat(startTime + gap *95,"J"),
-					new Beat(startTime + gap * 95, "Space"),
+					new Beat(startTime + gap * 114, "K"),
+					new Beat(startTime + gap * 114, "D"),
+					
+					new Beat(startTime + gap * 120, "F"),
+					new Beat(startTime + gap * 120, "J"),
+					new Beat(startTime + gap * 146, "K"),
+					new Beat(startTime + gap * 153, "K"),
 
-					new Beat(startTime + gap * 102, "K"), new Beat(startTime + gap * 104, "D"),
+					new Beat(startTime + gap * 156, "F"), 
+					new Beat(startTime + gap * 157, "J"),
 					// new Beat(startTime + gap *106,"S"),
-					new Beat(startTime + gap * 108, "D"),
+					new Beat(startTime + gap * 158, "D"),
+					new Beat(startTime + gap * 164, "D"),
+					new Beat(startTime + gap * 167, "F"),
+					new Beat(startTime + gap * 169, "J"),
+					new Beat(startTime + gap * 170, "K"),
+					
 					// new Beat(startTime + gap *109,"K"),
-					new Beat(startTime + gap * 110, "F"), new Beat(startTime + gap * 112, "Space"),
+					new Beat(startTime + gap * 181, "K"), 
+					new Beat(startTime + gap * 182, "D"),
 
-					new Beat(startTime + gap * 117, "J"), new Beat(startTime + gap * 118, "F"),
-					new Beat(startTime + gap * 119, "J"), new Beat(startTime + gap * 120, "F"),
-					new Beat(startTime + gap * 121, "L"), new Beat(startTime + gap * 124, "F"),
-					new Beat(startTime + gap * 124, "J"), new Beat(startTime + gap * 126, "Space"),
+					new Beat(startTime + gap * 192, "J"), 
+					new Beat(startTime + gap * 193, "F"),
+					new Beat(startTime + gap * 194, "J"),
+					new Beat(startTime + gap * 195, "F"),
+					new Beat(startTime + gap * 196, "K"), 
+					new Beat(startTime + gap * 208, "K"),
+					new Beat(startTime + gap * 211, "J"), 
+					new Beat(startTime + gap * 213, "F"),
+					new Beat(startTime + gap * 216, "D"), 
+					new Beat(startTime + gap * 219, "F"),
+					new Beat(startTime + gap * 219, "J"),
+					//นÝบน
+					new Beat(startTime + gap * 242, "D"), 
+					new Beat(startTime + gap * 244, "F"),
+					new Beat(startTime + gap * 253, "D"),
+					new Beat(startTime + gap * 254, "F"),
+					new Beat(startTime + gap * 255, "J"),
+					new Beat(startTime + gap * 256, "K"),
+					
+					new Beat(startTime + gap * 266, "K"),
+					new Beat(startTime + gap * 267, "J"),
+					new Beat(startTime + gap * 268, "F"),
+					
+					new Beat(startTime + gap * 277, "J"), 
+					new Beat(startTime + gap * 281, "D"),
+					new Beat(startTime + gap * 290, "K"),
+					new Beat(startTime + gap * 293, "F"),
+					 
+					new Beat(startTime + gap * 300, "D"),					
+					new Beat(startTime + gap * 301, "F"),
+					new Beat(startTime + gap * 302, "J"), 
+					new Beat(startTime + gap * 303, "K"),
+					
+					new Beat(startTime + gap * 311, "K"),
+					new Beat(startTime + gap * 311, "D"),
+					
+					new Beat(startTime + gap * 317, "F"),
+					new Beat(startTime + gap * 317, "J"),
+					new Beat(startTime + gap * 341, "K"),
+					new Beat(startTime + gap * 348, "K"),
 
-					new Beat(startTime + gap * 134, "K"), new Beat(startTime + gap * 137, "S"),
-					new Beat(startTime + gap * 140, "L"), new Beat(startTime + gap * 143, "D"),
-					new Beat(startTime + gap * 146, "K"), new Beat(startTime + gap * 149, "F"),
-					new Beat(startTime + gap * 152, "L"), new Beat(startTime + gap * 155, "S"),
-					new Beat(startTime + gap * 158, "J"),
-					// new Beat(startTime + gap *152,"D"),
-					// new Beat(startTime + gap *154,"K"),
-					// new Beat(startTime + gap *156,"F"),
-					// new Beat(startTime + gap *158,"S"),
-					// new Beat(startTime + gap *160,"L"),
-					// new Beat(startTime + gap *162,"D"),
-
-					new Beat(startTime + gap * 166, "K"), new Beat(startTime + gap * 168, "D"),
-					new Beat(startTime + gap * 170, "L"), new Beat(startTime + gap * 172, "S"),
-					new Beat(startTime + gap * 174, "K"),
-					// new Beat(startTime + gap *176,"D"),
-					new Beat(startTime + gap * 176, "L"), new Beat(startTime + gap * 178, "Space"),
-
-					new Beat(startTime + gap * 182, "K"), new Beat(startTime + gap * 184, "D"),
-					new Beat(startTime + gap * 186, "S"),
-					// new Beat(startTime + gap *9,"D"),//+1
-					new Beat(startTime + gap * 190, "S"), // +3
-					// new Beat(startTime + gap *14,"D"),
-					new Beat(startTime + gap * 194, "J"), new Beat(startTime + gap * 194, "F"),
-					new Beat(startTime + gap * 196, "Space"),
-
-					new Beat(startTime + gap * 199, "K"), new Beat(startTime + gap * 201, "D"),
-					new Beat(startTime + gap * 203, "S"),
-					// new Beat(startTime + gap *25,"D"),//+1
-					new Beat(startTime + gap * 207, "S"), // +3
-					// new Beat(startTime + gap *29,"D"),//+1
-					new Beat(startTime + gap * 209, "J"), // +1
-					new Beat(startTime + gap * 209, "F"), new Beat(startTime + gap * 211, "Space"), // +1
-
-					new Beat(startTime + gap * 215, "K"), new Beat(startTime + gap * 217, "D"),
-					new Beat(startTime + gap * 219, "S"),
-					// new Beat(startTime + gap *41,"D"),
-					new Beat(startTime + gap * 223, "F"),
-					// new Beat(startTime + gap *46,"D"),
-					new Beat(startTime + gap * 227, "K"), new Beat(startTime + gap * 229, "Space"),
-
-					new Beat(startTime + gap * 231, "K"), new Beat(startTime + gap * 233, "D"),
-					new Beat(startTime + gap * 235, "S"),
-					// new Beat(startTime + gap *57,"D"),//+1
-					new Beat(startTime + gap * 239, "S"), // +3
-					// new Beat(startTime + gap *61,"D"),//+1
-					// new Beat(startTime + gap *62,"L"),//+1
-					// new Beat(startTime + gap *60,"K"),//+1
-					new Beat(startTime + gap * 241, "D"),
-					// new Beat(startTime + gap *64,"J"),//+1
-					new Beat(startTime + gap * 243, "Space"), // +1
-
-					new Beat(startTime + gap * 248, "K"), new Beat(startTime + gap * 250, "D"),
-					new Beat(startTime + gap * 251, "K"), new Beat(startTime + gap * 253, "D"),
-					new Beat(startTime + gap * 255, "L"),
-					// new Beat(startTime + gap *78,"K"),
-					// new Beat(startTime + gap *79,"J"),
-					new Beat(startTime + gap * 258, "Space"),
-					// new Beat(startTime + gap *81,"J"),
-
-					new Beat(startTime + gap * 264, "K"), new Beat(startTime + gap * 266, "D"),
-					new Beat(startTime + gap * 268, "K"), new Beat(startTime + gap * 270, "D"),
-					new Beat(startTime + gap * 272, "L"),
-					// new Beat(startTime + gap *94,"K"),
-					// new Beat(startTime + gap *95,"J"),
-					new Beat(startTime + gap * 274, "Space"),
-
-					new Beat(startTime + gap * 281, "K"), new Beat(startTime + gap * 283, "D"),
+					new Beat(startTime + gap * 351, "F"), 
+					new Beat(startTime + gap * 352, "J"),
 					// new Beat(startTime + gap *106,"S"),
-					new Beat(startTime + gap * 287, "D"),
-					// new Beat(startTime + gap *109,"K"),
-					new Beat(startTime + gap * 289, "F"), new Beat(startTime + gap * 291, "Space"),
-
-					new Beat(startTime + gap * 296, "J"), new Beat(startTime + gap * 297, "F"),
-					new Beat(startTime + gap * 298, "J"), new Beat(startTime + gap * 299, "F"),
-					new Beat(startTime + gap * 300, "L"), new Beat(startTime + gap * 303, "F"),
-					new Beat(startTime + gap * 303, "J"), new Beat(startTime + gap * 305, "Space"),
-
-					new Beat(startTime + gap * 312, "K"), new Beat(startTime + gap * 315, "S"),
-					new Beat(startTime + gap * 318, "L"), new Beat(startTime + gap * 321, "D"),
-					new Beat(startTime + gap * 324, "K"), new Beat(startTime + gap * 327, "F"),
-					new Beat(startTime + gap * 330, "L"), new Beat(startTime + gap * 333, "S"),
-					new Beat(startTime + gap * 336, "J")
-					// new Beat(startTime + gap *152,"D"),
-					// new Beat(startTime + gap *154,"K"),
-					// new Beat(startTime + gap *156,"F"),
-					// new Beat(startTime + gap *158,"S"),
-					// new Beat(startTime + gap *160,"L"),
-					// new Beat(startTime + gap *162,"D"),
+					new Beat(startTime + gap * 354, "D"),
+					new Beat(startTime + gap * 359, "D"),
+					new Beat(startTime + gap * 362, "F"),
+					new Beat(startTime + gap * 365, "J"),
+					new Beat(startTime + gap * 366, "K"),
+					
+					new Beat(startTime + gap * 378, "K"), 
+					new Beat(startTime + gap * 378, "D"),
+					
+					new Beat(startTime + gap * 388, "J"), 
+					//new Beat(startTime + gap * 391, "F"),
+					new Beat(startTime + gap * 392, "K"), 
+					new Beat(startTime + gap * 404, "K"),
+					new Beat(startTime + gap * 408, "J"), 
+					new Beat(startTime + gap * 410, "F"),
+					new Beat(startTime + gap * 411, "D"), 
+					new Beat(startTime + gap * 415, "F"),
+					new Beat(startTime + gap * 415, "J")			
+					
+					
 			};
 		}
 
