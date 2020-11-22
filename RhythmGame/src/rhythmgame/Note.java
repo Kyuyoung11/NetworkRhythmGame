@@ -70,7 +70,7 @@ public class Note extends Thread{
 	public void drop() {
 	      if (titleName.equals("K.K._Idol")) y+=(Main.NOTE_SPEED+1);
 	      else if(titleName.equals("K.K._Western")) y+= (Main.NOTE_SPEED+1); 
-	      else if (titleName.equals("K.K._House")) y+=(Main.NOTE_SPEED-1);
+	      else if (titleName.equals("K.K._House")) y+=(Main.NOTE_SPEED+1);
 	      if(y>620) { //노트가 판정바를 벗어나는 지점
 	         System.out.println("Miss");
 	         close();
@@ -105,32 +105,80 @@ public class Note extends Thread{
 		else if(y>=593) {
 			System.out.println("Good");
 			close();
+			if(itemType.equals("item1"))
+				return "apple";
+			else if(itemType.equals("item2"))
+				return "money";
+			else if(itemType.equals("item3"))
+				return "saida";
+			else if(itemType.equals("item4"))
+				return "bee";
 			return "Good";
 		}
 		else if(y>=553) {
 			System.out.println("Great");
 			System.out.println(itemType);
 			close();
+			if(itemType.equals("item1"))
+				return "apple";
+			else if(itemType.equals("item2"))
+				return "money";
+			else if(itemType.equals("item3"))
+				return "saida";
+			else if(itemType.equals("item4"))
+				return "bee";
 			return "Great";
 		}
 		else if(y>=513) {
 			System.out.println("Perfect");
 			close();
+			if(itemType.equals("item1"))
+				return "apple";
+			else if(itemType.equals("item2"))
+				return "money";
+			else if(itemType.equals("item3"))
+				return "saida";
+			else if(itemType.equals("item4"))
+				return "bee";
 			return "Perfect";
 		}
 		else if(y>=473) {
 			System.out.println("Great");
 			close();
+			if(itemType.equals("item1"))
+				return "apple";
+			else if(itemType.equals("item2"))
+				return "money";
+			else if(itemType.equals("item3"))
+				return "saida";
+			else if(itemType.equals("item4"))
+				return "bee";
 			return "Great";
 		}
 		else if(y>=433) {
 			System.out.println("Good");
 			close();
+			if(itemType.equals("item1"))
+				return "apple";
+			else if(itemType.equals("item2"))
+				return "money";
+			else if(itemType.equals("item3"))
+				return "saida";
+			else if(itemType.equals("item4"))
+				return "bee";
 			return "Good";
 		}
 		else if(y>=403) {
 			System.out.println("Early");
 			close();
+			if(itemType.equals("item1"))
+				return "apple";
+			else if(itemType.equals("item2"))
+				return "money";
+			else if(itemType.equals("item3"))
+				return "saida";
+			else if(itemType.equals("item4"))
+				return "bee";
 			return "Early";
 		}
 		return "None";

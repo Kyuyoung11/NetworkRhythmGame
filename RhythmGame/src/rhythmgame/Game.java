@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 
 public class Game extends Thread {
 	
-	private String score;
+
 	private int scorePoint;
 
 	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("../images/noteRouteLine.png")).getImage();
@@ -529,12 +529,12 @@ public class Game extends Thread {
 					new Beat(startTime + gap * 222, "F"),
 					new Beat(startTime + gap * 222, "J"),
 					//นÝบน
-					new Beat(startTime + gap * 245, "D"), 
-					new Beat(startTime + gap * 247, "F"),
-					new Beat(startTime + gap * 256, "D"),
-					new Beat(startTime + gap * 257, "F"),
-					new Beat(startTime + gap * 258, "J"),
-					new Beat(startTime + gap * 259, "K"),
+					new Beat(startTime + gap * 244, "D"), 
+					new Beat(startTime + gap * 246, "F"),
+					new Beat(startTime + gap * 255, "D"),
+					new Beat(startTime + gap * 256, "F"),
+					new Beat(startTime + gap * 257, "J"),
+					new Beat(startTime + gap * 258, "K"),
 					
 					new Beat(startTime + gap * 269, "K"),
 					new Beat(startTime + gap * 270, "J"),
@@ -567,18 +567,18 @@ public class Game extends Thread {
 					new Beat(startTime + gap * 368, "J"),
 					new Beat(startTime + gap * 369, "K"),
 					
-					new Beat(startTime + gap * 372, "K"), 
+					new Beat(startTime + gap * 374, "K"), 
 					new Beat(startTime + gap * 381, "D"),
 					
 					new Beat(startTime + gap * 391, "J"), 
 					//new Beat(startTime + gap * 391, "F"),
 					new Beat(startTime + gap * 395, "K"), 
-					new Beat(startTime + gap * 407, "K"),
-					new Beat(startTime + gap * 411, "J"), 
-					new Beat(startTime + gap * 413, "F"),
+					new Beat(startTime + gap * 406, "K"),
+					new Beat(startTime + gap * 410, "J"), 
+					new Beat(startTime + gap * 412, "F"),
 					new Beat(startTime + gap * 414, "D"), 
-					new Beat(startTime + gap * 418, "F"),
-					new Beat(startTime + gap * 418, "J")			
+					new Beat(startTime + gap * 419, "F"),
+					new Beat(startTime + gap * 419, "J")			
 					
 					
 			};
@@ -626,8 +626,10 @@ public class Game extends Thread {
 		} else if (judge.equals("Late")) {
 			scorePoint += 2;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
+			
 		} else if (judge.equals("Good")) {
 			scorePoint += 5;
+			
 			judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
 		} else if (judge.equals("Great")) {
 			scorePoint += 10;
@@ -637,7 +639,28 @@ public class Game extends Thread {
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
 		} else if (judge.equals("Early")) {
 			scorePoint += 4;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+		}
+		else if (judge.equals("money")) {
+			scorePoint *=2;
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			
+		} else if (judge.equals("apple")) {
+			scorePoint *=2;
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			
+		} else if (judge.equals("money")) {
+			scorePoint *=2;
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			
+		} else if (judge.equals("saida")) {
+			scorePoint *=2;
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			
+		} else if (judge.equals("bee")) {
+			scorePoint *=2;
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			
 		}
 	}
 
