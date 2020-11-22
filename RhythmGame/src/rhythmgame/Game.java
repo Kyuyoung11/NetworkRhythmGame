@@ -14,6 +14,8 @@ public class Game extends Thread {
 	
 
 	private int scorePoint;
+	private int appleCount=0;
+	private int saidaCount=0;
 
 	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("../images/noteRouteLine.png")).getImage();
 	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameinfo.png")).getImage();
@@ -29,6 +31,9 @@ public class Game extends Thread {
 	private Image noteRouteFImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
 	private Image noteRouteJImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
 	private Image noteRouteKImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
+	
+	private Image itemSaida = new ImageIcon(Main.class.getResource("../images/saida.png")).getImage();
+	private Image itemApple = new ImageIcon(Main.class.getResource("../images/apple.png")).getImage();
 	
 	
 
@@ -92,8 +97,8 @@ public class Game extends Thread {
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Arial Black", Font.BOLD, 30));
 		String score = Integer.toString(scorePoint);		
-		g.drawString("Score", 150, 70);
-		g.drawString(score, 300, 70);
+		g.drawString("Score", 160, 70);
+		g.drawString(score, 310, 70);
 		g.drawString("User1", 239,680);
 		g.drawImage(blueFlareImage, 100, 400, null);
 		g.drawImage(judgeImage, 120, 470, null);
@@ -102,7 +107,22 @@ public class Game extends Thread {
 		g.drawImage(keyPadJImage, 292, 580, null);
 		g.drawImage(keyPadKImage, 388, 580, null);
 		
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Arial Black", Font.BOLD, 30));		
+		//g.drawString("Score", 150, 70);
+		String appCount = Integer.toString(appleCount);
+		g.drawString(appCount, 45, 280);
 		
+		
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Arial Black", Font.BOLD, 30));		
+		//g.drawString("Score", 150, 70);
+		String saiCount = Integer.toString(saidaCount);
+		g.drawString(saiCount, 45, 520);
+		
+
+		g.drawImage(itemSaida, 10, 330, null);
+		g.drawImage(itemApple, 8, 150, null);
 		
 		
 		g.drawImage(noteRouteDImageU1, 796, 90, null);
@@ -646,15 +666,11 @@ public class Game extends Thread {
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
 			
 		} else if (judge.equals("apple")) {
-			scorePoint *=2;
+			appleCount+=1;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
 			
-		} else if (judge.equals("money")) {
-			scorePoint *=2;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
-			
-		} else if (judge.equals("saida")) {
-			scorePoint *=2;
+		}  else if (judge.equals("saida")) {
+			saidaCount +=1;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
 			
 		} else if (judge.equals("bee")) {
