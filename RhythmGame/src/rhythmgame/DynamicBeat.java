@@ -321,9 +321,19 @@ public class DynamicBeat extends JFrame {
          // 누르면 곡 선택 화면으로 감
          @Override
          public void mousePressed(MouseEvent e) {
+        
             Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
             buttonEnteredMusic.start();
-            enterGame(); // 코드 하단에 있음
+            
+            ChatMsg obcm = new ChatMsg(UserName, "300");
+            obcm.setNum(1);
+            
+            SendObject(obcm);
+            
+            
+            
+            
+            
 
          }
       });
@@ -770,8 +780,10 @@ public class DynamicBeat extends JFrame {
                   case "200": // chat message
                      AppendText(msg);
                      break;
-                  case "300": // Image 첨부
-                     AppendText("[" + cm.getId() + "]");
+                  case "300": //300 입장여부
+                	 if (cm.getNum() == 1)
+                		 enterGame(); // 코드 하단에 있음
+                	 else if (cm.getNum() == -1) AppendText("방 입장 실패");
                      //AppendImage(cm.img);
                      break;
                   }
