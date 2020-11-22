@@ -51,768 +51,768 @@ import javax.swing.JToggleButton;
 import javax.swing.JList;
 
 public class DynamicBeat extends JFrame {
-
-	private JTextPane textArea;
-
-	private String UserName;
-
-	private Image screenImage;
-	private Graphics screenGraphic;
-
-	private static final int BUF_LEN = 128; // Windows Ã³·³ BUF_LEN À» Á¤ÀÇ
-	private Socket socket; // ¿¬°á¼ÒÄÏ
-	private InputStream is;
-	private OutputStream os;
-	private DataInputStream dis;
-	private DataOutputStream dos;
-
-	private ObjectInputStream ois;
-	private ObjectOutputStream oos;
-
-	// ÀÌ¹ÌÁö º¯¼ö
-	private ImageIcon exitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/exitButtonEntered.png"));
-	private ImageIcon exitButtonBasicImage = new ImageIcon(Main.class.getResource("../images/exitButtonBasic.png"));
-
-	private ImageIcon startButtonBasicImage = new ImageIcon(Main.class.getResource("../images/bang.png"));
-	private ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/bang2.png"));
-
-	private ImageIcon leftButtonBasicImage = new ImageIcon(Main.class.getResource("../images/leftButtonBasic.png"));
-	private ImageIcon leftButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/leftButtonEntered.png"));
-	private ImageIcon rightButtonBasicImage = new ImageIcon(Main.class.getResource("../images/rightButtonBasic.png"));
-	private ImageIcon rightButtonEnteredImage = new ImageIcon(
-			Main.class.getResource("../images/rightButtonEntered.png"));
-	private ImageIcon easyButtonBasicImage = new ImageIcon(Main.class.getResource("../images/oolBasic.png"));
-	private ImageIcon easyButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/oolEnter.png"));
-	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/guriguriBasic.png"));
-	private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/guriguriEntered.png"));
-
-	private Image background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg")).getImage();
-	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
-
-	private JButton exitButton = new JButton(exitButtonBasicImage);
-	private JButton startButton = new JButton(startButtonBasicImage);
-	private JButton startButton1 = new JButton(startButtonBasicImage);
-	private JButton startButton2 = new JButton(startButtonBasicImage);
-	private JButton leftButton = new JButton(leftButtonBasicImage);
-	private JButton rightButton = new JButton(rightButtonBasicImage);
-	private JButton easyButton = new JButton(easyButtonBasicImage);
-	private JButton backButton = new JButton(backButtonBasicImage);
-
-	private JButton roomButton1 = new JButton("1");
-	private JButton roomButton2 = new JButton("2");
-	private JButton roomButton3 = new JButton("3");
-
-	private JButton numButton1 = new JButton("2/2");
-	private JButton numButton2 = new JButton("1/2");
-	private JButton numButton3 = new JButton("0/2");
-
-	private JButton gameButton1 = new JButton("°ÔÀÓÁß...");
-	private JButton gameButton2 = new JButton("°ÔÀÓÁß...");
-	private JButton gameButton3 = new JButton("°ÔÀÓÁß...");
-
-	private JButton enterButton1 = new JButton("ÀÔÀå °¡´É");
-	private JButton enterButton2 = new JButton("ÀÔÀå °¡´É");
-	private JButton enterButton3 = new JButton("ÀÔÀå °¡´É");
-
-	private int mouseX, mouseY;
-
-	private boolean isMainScreen = false; // mainÇÔ¼ö¸é true
-	private boolean isGameScreen = false;
-
-	// true -> °ÔÀÓÁß ¹öÆ° true & ÀÔÀå°¡´É ¹öÆ° false
-	// gameButtonÀº isGamingroomÀ¸·Î ¾²°í enterButtonÀº !isGamingroomÀ¸·Î ¾²¸é µÊ
-	private boolean isGamingroom1 = true;
-	private boolean isGamingroom2 = false;
-	private boolean isGamingroom3 = false;
-
-	ArrayList<Track> trackList = new ArrayList<Track>();
-
-	// °îÀÌ ¼±ÅÃµÇ´Â °Å¿¡ ÇÊ¿äÇÑ º¯¼öµé
-	private Image selectedImage;
-	private Music selectedMusic;
-	private Music introMusic = new Music("introMusic.mp3", true);
-	private int nowSelected = 0; // ÇöÀç ¼±ÅÃµÈ Æ®·¢ÀÇ ¹øÈ£
-
-	public static Game game; // ÇÁ·Î±×·¥ ÀüÃ¼¿¡¼­ »ç¿ëÇÏ´Â º¯¼ö
-
-	public DynamicBeat(String username, String ip_addr, String port_no) {
-
-		UserName = username;
-
-		trackList.add(new Track("IdolGameImage.jpg", "mainBackground.jpg", "kk_idol.mp3", "kk_idol.mp3", "K.K._Idol"));
-		trackList.add(new Track("HouseGameImage.jpg", "mainBackground.jpg", "nabi.mp3", "nabi.mp3", "K.K._House"));
-		trackList.add(
-				new Track("WesternGameImage.jpg", "mainBackground.jpg", "western.mp3", "western.mp3", "K.K._Western"));
-
-		setUndecorated(true);
-		setTitle("³×Æ®¿öÅ© ¸®µë°ÔÀÓ");
-		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-		setResizable(false); // ÀÓÀÇ·Î Å©±â º¯°æ ºÒ°¡´É
-		setLocationRelativeTo(null); // °¡¿îµ¥¿¡ È­¸é ¶ß±â
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
-		setBackground(new Color(0, 0, 0, 0)); // ¹è°æ ÇÏ¾á»ö
-		setLayout(null);
-
-		addKeyListener(new KeyListener());
-
-		// ½ÃÀÛÇÏÀÚ¸¶ÀÚ À½¾Ç
-		introMusic.start();
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 10, 352, 471);
-		add(scrollPane);
-
-		textArea = new JTextPane();
-		textArea.setEditable(true);
-		textArea.setFont(new Font("±¼¸²Ã¼", Font.PLAIN, 14));
-		scrollPane.setViewportView(textArea);
-
-		// 'x'¹öÆ° À§Ä¡ Á¶Á¤ (¸Ş´º¹ÙÀÇ ¿À¸¥ÂÊ »ó´Ü)
-		exitButton.setBounds(1230, 0, 32, 32);
-		exitButton.setBorderPainted(false);
-		exitButton.setContentAreaFilled(false);
-		exitButton.setFocusPainted(false);
-		exitButton.addMouseListener(new MouseAdapter() {
-			// ¹öÆ°¿¡ ¸¶¿ì½º ¿Ã¸®¸é ÀÌ¹ÌÁö ¹Ù²ñ
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				exitButton.setIcon(exitButtonEnteredImage);
-				exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // ÇÑ¹ø¸¸ ½ÇÇà
-				buttonEnteredMusic.start();
-			}
-
-			// ¶¼¸é ´Ù½Ã ¿ø·¡ ÀÌ¹ÌÁö·Î
-			@Override
-			public void mouseExited(MouseEvent e) {
-				exitButton.setIcon(exitButtonBasicImage);
-				exitButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			}
-
-			// ´©¸£¸é ÇÁ·Î±×·¥ Á¾·á
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
-				buttonEnteredMusic.start();
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException ex) {
-					ex.printStackTrace();
-				}
-				System.exit(0);
-			}
-		});
-		add(exitButton);
-
-		// 1¹ø¹æ Ç¥½ÃÇÒ ¹öÆ°
-		roomButton1.setBounds(430, 310, 50, 40);
-		roomButton1.setBorderPainted(true);
-		roomButton1.setFocusPainted(false);
-		roomButton1.setContentAreaFilled(false);
-		add(roomButton1);
-
-		// 2¹ø¹æ Ç¥½ÃÇÒ ¹öÆ°
-		roomButton2.setBounds(430, 430, 50, 40);
-		roomButton2.setBorderPainted(true);
-		roomButton2.setFocusPainted(false);
-		roomButton2.setContentAreaFilled(false);
-		add(roomButton2);
-
-		// 3¹ø¹æ Ç¥½ÃÇÒ ¹öÆ°
-		roomButton3.setBounds(430, 550, 50, 40);
-		roomButton3.setBorderPainted(true);
-		roomButton3.setFocusPainted(false);
-		roomButton3.setContentAreaFilled(false);
-		add(roomButton3);
-
-		// 1¹ø¹æ ¸í¼ö Ç¥½ÃÇÒ ¹öÆ°
-		numButton1.setBounds(690, 310, 80, 40);
-		numButton1.setBorderPainted(true);
-		numButton1.setFocusPainted(false);
-		numButton1.setContentAreaFilled(false);
-		add(numButton1);
-
-		// 2¹ø¹æ ¸í¼ö Ç¥½ÃÇÒ ¹öÆ°
-		numButton2.setBounds(690, 430, 80, 40);
-		numButton2.setBorderPainted(true);
-		numButton2.setFocusPainted(false);
-		numButton2.setContentAreaFilled(false);
-		add(numButton2);
-
-		// 3¹ø¹æ ¸í¼ö Ç¥½ÃÇÒ ¹öÆ°
-		numButton3.setBounds(690, 550, 80, 40);
-		numButton3.setBorderPainted(true);
-		numButton3.setFocusPainted(false);
-		numButton3.setContentAreaFilled(false);
-		add(numButton3);
-
-		// °ÔÀÓÁß Ç¥½Ã (¹æ 1)
-		gameButton1.setVisible(isGamingroom1);
-		gameButton1.setBounds(530, 310, 100, 40);
-		gameButton1.setBorderPainted(false);
-		gameButton1.setFocusPainted(false);
-		gameButton1.setContentAreaFilled(false);
-		add(gameButton1);
-
-		// °ÔÀÓÁß Ç¥½Ã (¹æ 2)
-		gameButton2.setVisible(isGamingroom2);
-		gameButton2.setBounds(530, 430, 100, 40);
-		gameButton2.setBorderPainted(false);
-		gameButton2.setFocusPainted(false);
-		gameButton2.setContentAreaFilled(false);
-		add(gameButton2);
-
-		// °ÔÀÓÁß Ç¥½Ã (¹æ 3)
-		gameButton3.setVisible(isGamingroom3);
-		gameButton3.setBounds(530, 550, 100, 40);
-		gameButton3.setBorderPainted(false);
-		gameButton3.setFocusPainted(false);
-		gameButton3.setContentAreaFilled(false);
-		add(gameButton3);
-
-		// ÀÔÀå °¡´É Ç¥½Ã (¹æ 1)
-		enterButton1.setVisible(!isGamingroom1);
-		enterButton1.setBounds(530, 310, 100, 40);
-		enterButton1.setBorderPainted(false);
-		enterButton1.setFocusPainted(false);
-		enterButton1.setContentAreaFilled(false);
-		add(enterButton1);
-
-		// ÀÔÀå °¡´É Ç¥½Ã (¹æ 2)
-		enterButton2.setVisible(!isGamingroom2);
-		enterButton2.setBounds(530, 430, 100, 40);
-		enterButton2.setBorderPainted(false);
-		enterButton2.setFocusPainted(false);
-		enterButton2.setContentAreaFilled(false);
-		add(enterButton2);
-
-		// ÀÔÀå °¡´É Ç¥½Ã (¹æ 3)
-		enterButton3.setVisible(!isGamingroom3);
-		enterButton3.setBounds(530, 550, 100, 40);
-		enterButton3.setBorderPainted(false);
-		enterButton3.setFocusPainted(false);
-		enterButton3.setContentAreaFilled(false);
-		add(enterButton3);
-
-		// ¹æ ¹öÆ° À§Ä¡ Á¶Á¤
-		startButton.setBounds(400, 280, 400, 100);
-		startButton.setBorderPainted(false);
-		startButton.setContentAreaFilled(false);
-		startButton.setFocusPainted(false);
-		startButton.addMouseListener(new MouseAdapter() {
-			// ¹öÆ°¿¡ ¸¶¿ì½º ¿Ã¸®¸é ÀÌ¹ÌÁö ¹Ù²ñ
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				startButton.setIcon(startButtonEnteredImage);
-				startButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // ÇÑ¹ø¸¸ ½ÇÇà
-				buttonEnteredMusic.start();
-			}
-
-			// ¶¼¸é ´Ù½Ã ¿ø·¡ ÀÌ¹ÌÁö·Î
-			@Override
-			public void mouseExited(MouseEvent e) {
-				startButton.setIcon(startButtonBasicImage);
-				startButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-
-			}
-
-			// ´©¸£¸é °î ¼±ÅÃ È­¸éÀ¸·Î °¨
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
-				buttonEnteredMusic.start();
-				enterGame(); // ÄÚµå ÇÏ´Ü¿¡ ÀÖÀ½
-
-			}
-		});
-		add(startButton);
-
-		// '½ÃÀÛÇÏ±â' ¹öÆ° À§Ä¡ Á¶Á¤
-		startButton1.setBounds(400, 400, 400, 100);
-		startButton1.setBorderPainted(false);
-		startButton1.setContentAreaFilled(false);
-		startButton1.setFocusPainted(false);
-		startButton1.addMouseListener(new MouseAdapter() {
-			// ¹öÆ°¿¡ ¸¶¿ì½º ¿Ã¸®¸é ÀÌ¹ÌÁö ¹Ù²ñ
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				startButton1.setIcon(startButtonEnteredImage);
-				startButton1.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // ÇÑ¹ø¸¸ ½ÇÇà
-				buttonEnteredMusic.start();
-			}
-
-			// ¶¼¸é ´Ù½Ã ¿ø·¡ ÀÌ¹ÌÁö·Î
-			@Override
-			public void mouseExited(MouseEvent e) {
-				startButton1.setIcon(startButtonBasicImage);
-				startButton1.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-
-			}
-
-			// ´©¸£¸é ´ë±â¹æÀ¸·Î °¨
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
-				buttonEnteredMusic.start();
-				enterGame(); // ÄÚµå ÇÏ´Ü¿¡ ÀÖÀ½
-
-			}
-		});
-		add(startButton1);
-
-		startButton2.setBounds(400, 520, 400, 100);
-		startButton2.setBorderPainted(false);
-		startButton2.setContentAreaFilled(false);
-		startButton2.setFocusPainted(false);
-		startButton2.addMouseListener(new MouseAdapter() {
-			// ¹öÆ°¿¡ ¸¶¿ì½º ¿Ã¸®¸é ÀÌ¹ÌÁö ¹Ù²ñ
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				startButton2.setIcon(startButtonEnteredImage);
-				startButton2.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // ÇÑ¹ø¸¸ ½ÇÇà
-				buttonEnteredMusic.start();
-			}
-
-			// ¶¼¸é ´Ù½Ã ¿ø·¡ ÀÌ¹ÌÁö·Î
-			@Override
-			public void mouseExited(MouseEvent e) {
-				startButton2.setIcon(startButtonBasicImage);
-				startButton2.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-
-			}
-
-			// ´©¸£¸é °î ¼±ÅÃ È­¸éÀ¸·Î °¨
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
-				buttonEnteredMusic.start();
-				enterGame(); // ÄÚµå ÇÏ´Ü¿¡ ÀÖÀ½
-
-			}
-		});
-		add(startButton2);
-
-		// downButton
-		leftButton.setVisible(false);
-		leftButton.setBounds(610, 540, 64, 64);
-		leftButton.setBorderPainted(false);
-		leftButton.setContentAreaFilled(false);
-		leftButton.setFocusPainted(false);
-		leftButton.addMouseListener(new MouseAdapter() {
-			// ¹öÆ°¿¡ ¸¶¿ì½º ¿Ã¸®¸é ÀÌ¹ÌÁö ¹Ù²ñ
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				leftButton.setIcon(leftButtonEnteredImage);
-				leftButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // ÇÑ¹ø¸¸ ½ÇÇà
-				buttonEnteredMusic.start();
-			}
-
-			// ¶¼¸é ´Ù½Ã ¿ø·¡ ÀÌ¹ÌÁö·Î
-			@Override
-			public void mouseExited(MouseEvent e) {
-				leftButton.setIcon(leftButtonBasicImage);
-				leftButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			}
-
-			// ¿ŞÂÊ ¹öÆ° ÀÌº¥Æ®
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
-				buttonEnteredMusic.start();
-				selectLeft();
-			}
-		});
-		add(leftButton);
-
-		// UpButton
-		rightButton.setVisible(false); // Ã³À½¿¡´Â ¾Èº¸ÀÌ°Ô
-		rightButton.setBounds(610, 270, 64, 64);
-		rightButton.setBorderPainted(false);
-		rightButton.setContentAreaFilled(false);
-		rightButton.setFocusPainted(false);
-		rightButton.addMouseListener(new MouseAdapter() {
-			// ¹öÆ°¿¡ ¸¶¿ì½º ¿Ã¸®¸é ÀÌ¹ÌÁö ¹Ù²ñ
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				rightButton.setIcon(rightButtonEnteredImage);
-				rightButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // ÇÑ¹ø¸¸ ½ÇÇà
-				buttonEnteredMusic.start();
-			}
-
-			// ¶¼¸é ´Ù½Ã ¿ø·¡ ÀÌ¹ÌÁö·Î
-			@Override
-			public void mouseExited(MouseEvent e) {
-				rightButton.setIcon(rightButtonBasicImage);
-				rightButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			}
-
-			// ¿À¸¥ÂÊ ¹öÆ° ÀÌº¥Æ®
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
-				buttonEnteredMusic.start();
-				selectRight();
-			}
-		});
-		add(rightButton);
-
-		// °ÔÀÓ ½ÃÀÛÇÏ±â ¹öÆ°À¸·Î »ç¿ë
-		easyButton.setVisible(false); // Ã³À½¿¡´Â ¾Èº¸ÀÌ°Ô
-		easyButton.setBounds(540, 163, 200, 100);
-		easyButton.setBorderPainted(false);
-		easyButton.setContentAreaFilled(false);
-		easyButton.setFocusPainted(false);
-		easyButton.addMouseListener(new MouseAdapter() {
-			// ¹öÆ°¿¡ ¸¶¿ì½º ¿Ã¸®¸é ÀÌ¹ÌÁö ¹Ù²ñ
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				easyButton.setIcon(easyButtonEnteredImage);
-				easyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // ÇÑ¹ø¸¸ ½ÇÇà
-
-				buttonEnteredMusic.start();
-			}
-
-			// ¶¼¸é ´Ù½Ã ¿ø·¡ ÀÌ¹ÌÁö·Î
-			@Override
-			public void mouseExited(MouseEvent e) {
-				easyButton.setIcon(easyButtonBasicImage);
-				easyButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			}
-
-			// ¿À¸¥ÂÊ ¹öÆ° ÀÌº¥Æ®
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
-				buttonEnteredMusic.start();
-				// °ÔÀÓ ½ÃÀÛ ÀÌº¥Æ®
-				gameStart(nowSelected, "easy");
-			}
-		});
-		add(easyButton);
-
-		// °ÔÀÓµµÁß¿¡ ¸ŞÀÎÈ­¸éÀ¸·Î µ¹¾Æ°¥ ¼ö ÀÖÀ½
-		backButton.setVisible(false); // Ã³À½¿¡´Â ¾Èº¸ÀÌ°Ô
-		backButton.setBounds(540, 70, 200, 100);
-		backButton.setBorderPainted(false);
-		backButton.setContentAreaFilled(false);
-		backButton.setFocusPainted(false);
-		backButton.addMouseListener(new MouseAdapter() {
-			// ¹öÆ°¿¡ ¸¶¿ì½º ¿Ã¸®¸é ÀÌ¹ÌÁö ¹Ù²ñ
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				backButton.setIcon(backButtonEnteredImage);
-				backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // ÇÑ¹ø¸¸ ½ÇÇà
-				buttonEnteredMusic.start();
-			}
-
-			// ¶¼¸é ´Ù½Ã ¿ø·¡ ÀÌ¹ÌÁö·Î
-			@Override
-			public void mouseExited(MouseEvent e) {
-				backButton.setIcon(backButtonBasicImage);
-				backButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			}
-
-			// ¿À¸¥ÂÊ ¹öÆ° ÀÌº¥Æ®
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
-				buttonEnteredMusic.start();
-				backMain();
-
-			}
-		});
-		add(backButton);
-
-		menuBar.setBounds(0, 0, 1280, 30);
-		menuBar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				mouseX = e.getX();
-				mouseY = e.getY();
-			}
-		});
-
-		menuBar.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			// ¸Ş´º¹Ù ´©¸£°í µå·¡±× °¡´ÉÇØÁü
-			public void mouseDragged(MouseEvent e) {
-				int x = e.getXOnScreen();
-				int y = e.getYOnScreen();
-				setLocation(x - mouseX, y - mouseY);
-			}
-		});
-
-		add(menuBar);
-
-		try {
-			socket = new Socket(ip_addr, Integer.parseInt(port_no));
-//			is = socket.getInputStream();
-//			dis = new DataInputStream(is);
-//			os = socket.getOutputStream();
-//			dos = new DataOutputStream(os);
-
-			oos = new ObjectOutputStream(socket.getOutputStream());
-			oos.flush();
-			ois = new ObjectInputStream(socket.getInputStream());
-
-			//SendMessage("/login " + UserName);
-			ChatMsg obcm = new ChatMsg(UserName, "100", "Hello");
-			SendObject(obcm);
-			
-			ListenNetwork net = new ListenNetwork();
-			net.start();
-
-		} catch (NumberFormatException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			AppendText("connect error");
-		}
-
-	}
-
-	public void paint(Graphics g) {
-		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-		screenGraphic = screenImage.getGraphics();
-		screenDraw((Graphics2D) screenGraphic);
-		g.drawImage(screenImage, 0, 0, null);
-	}
-
-	public void screenDraw(Graphics2D g) {
-		g.drawImage(background, 0, 0, null); // º¯ÇÏ´Â ÀÌ¹ÌÁö´Â draw·Î
-		if (isMainScreen) {
-			g.drawImage(selectedImage, 550, 345, null);
-		}
-		if (isGameScreen) {// °ÔÀÓ ÄÁÆ®·Ñ class·Î °¡±â
-			game.screenDraw(g);
-		}
-		paintComponents(g); // Ç×»ó °íÁ¤µÇ¾îÀÖ´Â ÀÌ¹ÌÁö´Â paintComponent·Î
-		try {
-			Thread.sleep(5);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		this.repaint(); // ´Ù½Ã paint ÇÔ¼ö ºÒ·¯¿À±â --> ¸Å ÆäÀÌÁö¸¦ °è¼Ó ¹İº¹ÇØ¼­ ±×·ÁÁÜ
-	}
-
-	public void selectTrack(int nowSelected) {
-		if (selectedMusic != null)
-			selectedMusic.close(); // ÇöÀç Àç»ıµÇ°í ÀÖ´Â À½¾Ç ¸ØÃã
-		selectedImage = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getStartImage()))
-				.getImage();
-		selectedMusic = new Music(trackList.get(nowSelected).getStartMusic(), true);
-
-		selectedMusic.start();
-	}
-
-	public void selectLeft() {
-		if (nowSelected == 0)
-			nowSelected = trackList.size() - 1; // °¡Àå ¿À¸¥ÂÊ¿¡ ÀÖ°îÀÌ ¼±ÅÃ
-		else
-			nowSelected--;
-		selectTrack(nowSelected);
-	}
-
-	public void selectRight() {
-		if (nowSelected == trackList.size() - 1)
-			nowSelected = 0; //
-		else
-			nowSelected++;
-		selectTrack(nowSelected);
-	}
-
-	public void gameStart(int nowSelected, String difficulty) {
-		if (selectedMusic != null)
-			selectedMusic.close();
-		isMainScreen = true;
-		leftButton.setVisible(false);
-		rightButton.setVisible(false);
-		easyButton.setVisible(false);
-		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage()))
-				.getImage();
-		backButton.setVisible(true);// °ÔÀÓ µµÁß ³ª°¡±â ¹öÆ°
-		isGameScreen = true;
-
-		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
-		game.start();
-
-		setFocusable(true); // ¸ŞÀÎ ÇÁ·¹ÀÓ¿¡ Å°º¸µå Æ÷Ä¿½º
-	}
-
-	public void backMain() {
-		// isMainScreen = true;
-		// leftButton.setVisible(true); //¿ø·¡ ÄÚµå
-		// rightButton.setVisible(true); //¿ø·¡ ÄÚµå
-		// easyButton.setVisible(true); //¿ø·¡ ÄÚµå
-		startButton.setVisible(true);
-		startButton1.setVisible(true);
-		startButton2.setVisible(true);
-
-		roomButton1.setVisible(true);
-		roomButton2.setVisible(true);
-		roomButton3.setVisible(true);
-
-		numButton1.setVisible(true);
-		numButton2.setVisible(true);
-		numButton3.setVisible(true);
-
-		gameButton1.setVisible(isGamingroom1);
-		enterButton1.setVisible(!isGamingroom1);
-
-		gameButton2.setVisible(isGamingroom2);
-		enterButton2.setVisible(!isGamingroom2);
-
-		gameButton3.setVisible(isGamingroom3);
-		enterButton3.setVisible(!isGamingroom3);
-
-		isMainScreen = false;
-		leftButton.setVisible(false);
-		rightButton.setVisible(false);
-		easyButton.setVisible(false);
-		backButton.setVisible(false);
-
-		background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg")).getImage();
-		nowSelected = 0;
-		selectedMusic.close();
-		introMusic = new Music("introMusic.mp3", true);
-		introMusic.start();
-		isGameScreen = false;
-		game.close(); // ¿ø·¡ ÄÚµå
-	}
-
-	public void enterGame() {
-		// °ÔÀÓ ½ÃÀÛ ÀÌº¥Æ®
-
-		startButton.setVisible(false); // ¹öÆ° ¼û±â±â
-		startButton1.setVisible(false);
-		startButton2.setVisible(false);
-
-		roomButton1.setVisible(false);
-		roomButton2.setVisible(false);
-		roomButton3.setVisible(false);
-
-		numButton1.setVisible(false);
-		numButton2.setVisible(false);
-		numButton3.setVisible(false);
-
-		gameButton1.setVisible(false);
-		gameButton2.setVisible(false);
-		gameButton3.setVisible(false);
-
-		enterButton1.setVisible(false);
-		enterButton2.setVisible(false);
-		enterButton3.setVisible(false);
-
-		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
-		isMainScreen = true;
-		leftButton.setVisible(true); // ¿Ş/¿À¹öÆ°Àº º¸ÀÌ±â
-		rightButton.setVisible(true);
-		easyButton.setVisible(true); // °ÔÀÓ½ÃÀÛ¹öÆ°
-
-		selectTrack(0);
-
-		backButton.setVisible(true);
-		introMusic.close();
-
-		isGameScreen = true;
-		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
-
-	}
-
-	// Server Message¸¦ ¼ö½ÅÇØ¼­ È­¸é¿¡ Ç¥½Ã
-	class ListenNetwork extends Thread {
-		public void run() {
-				while (true) {
-					try {
-						// String msg = dis.readUTF();
-//						byte[] b = new byte[BUF_LEN];
-//						int ret;
-//						ret = dis.read(b);
-//						if (ret < 0) {
-//							AppendText("dis.read() < 0 error");
-//							try {
-//								dos.close();
-//								dis.close();
-//								socket.close();
-//								break;
-//							} catch (Exception ee) {
-//								break;
-//							}// catch¹® ³¡
-//						}
-//						String	msg = new String(b, "euc-kr");
-//						msg = msg.trim(); // ¾ÕµÚ blank NULL, \n ¸ğµÎ Á¦°Å
-
-						Object obcm = null;
-						String msg = null;
-						ChatMsg cm;
-						try {
-							obcm = ois.readObject();
-						} catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							break;
-						}
-						if (obcm == null)
-							break;
-						if (obcm instanceof ChatMsg) {
-							cm = (ChatMsg) obcm;
-							msg = String.format("[%s] %s", cm.getId(), cm.getData());
-						} else
-							continue;
-						switch (cm.getCode()) {
-						case "200": // chat message
-							AppendText(msg);
-							break;
-						case "300": // Image Ã·ºÎ
-							AppendText("[" + cm.getId() + "]");
-							//AppendImage(cm.img);
-							break;
-						}
-					} catch (IOException e) {
-						AppendText("ois.readObject() error");
-						try {
-//							dos.close();
-//							dis.close();
-							ois.close();
-							oos.close();
-							socket.close();
-
-							break;
-						} catch (Exception ee) {
-							break;
-						} // catch¹® ³¡
-					} // ¹Ù±ù catch¹®³¡
-
-				}
-			}
-	}
-
-	// È­¸é¿¡ Ãâ·Â
-	public void AppendText(String msg) {
-		// textArea.append(msg + "\n");
-		// AppendIcon(icon1);
-		msg = msg.trim(); // ¾ÕµÚ blank¿Í \nÀ» Á¦°ÅÇÑ´Ù.
-		int len = textArea.getDocument().getLength();
-		// ³¡À¸·Î ÀÌµ¿
-		textArea.setCaretPosition(len);
-		textArea.replaceSelection(msg + "\n");
-	}
-
-	public void SendObject(Object ob) { // ¼­¹ö·Î ¸Ş¼¼Áö¸¦ º¸³»´Â ¸Ş¼Òµå
-		try {
-			oos.writeObject(ob);
-		} catch (IOException e) {
-			// textArea.append("¸Ş¼¼Áö ¼Û½Å ¿¡·¯!!\n");
-			AppendText("SendObject Error");
-		}
-	}
+   private JTextPane textArea;
+
+   private String UserName;
+
+   private Image screenImage;
+   private Graphics screenGraphic;
+
+   private static final int BUF_LEN = 128; // Windows ì²˜ëŸ¼ BUF_LEN ì„ ì •ì˜
+   private Socket socket; // ì—°ê²°ì†Œì¼“
+   private InputStream is;
+   private OutputStream os;
+   private DataInputStream dis;
+   private DataOutputStream dos;
+
+   private ObjectInputStream ois;
+   private ObjectOutputStream oos;
+
+   // ì´ë¯¸ì§€ ë³€ìˆ˜
+   private ImageIcon exitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/exitButtonEntered.png"));
+   private ImageIcon exitButtonBasicImage = new ImageIcon(Main.class.getResource("../images/exitButtonBasic.png"));
+
+   private ImageIcon startButtonBasicImage = new ImageIcon(Main.class.getResource("../images/bang.png"));
+   private ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/bang2.png"));
+
+   private ImageIcon leftButtonBasicImage = new ImageIcon(Main.class.getResource("../images/leftButtonBasic.png"));
+   private ImageIcon leftButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/leftButtonEntered.png"));
+   private ImageIcon rightButtonBasicImage = new ImageIcon(Main.class.getResource("../images/rightButtonBasic.png"));
+   private ImageIcon rightButtonEnteredImage = new ImageIcon(
+         Main.class.getResource("../images/rightButtonEntered.png"));
+   private ImageIcon easyButtonBasicImage = new ImageIcon(Main.class.getResource("../images/oolBasic.png"));
+   private ImageIcon easyButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/oolEnter.png"));
+   private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/guriguriBasic.png"));
+   private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/guriguriEntered.png"));
+
+   private Image background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg")).getImage();
+   private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
+
+   private JButton exitButton = new JButton(exitButtonBasicImage);
+   private JButton startButton = new JButton(startButtonBasicImage);
+   private JButton startButton1 = new JButton(startButtonBasicImage);
+   private JButton startButton2 = new JButton(startButtonBasicImage);
+   private JButton leftButton = new JButton(leftButtonBasicImage);
+   private JButton rightButton = new JButton(rightButtonBasicImage);
+   private JButton easyButton = new JButton(easyButtonBasicImage);
+   private JButton backButton = new JButton(backButtonBasicImage);
+
+   private JButton roomButton1 = new JButton("1");
+   private JButton roomButton2 = new JButton("2");
+   private JButton roomButton3 = new JButton("3");
+
+   private JButton numButton1 = new JButton("2/2");
+   private JButton numButton2 = new JButton("1/2");
+   private JButton numButton3 = new JButton("0/2");
+
+   private JButton gameButton1 = new JButton("ê²Œì„ì¤‘...");
+   private JButton gameButton2 = new JButton("ê²Œì„ì¤‘...");
+   private JButton gameButton3 = new JButton("ê²Œì„ì¤‘...");
+
+   private JButton enterButton1 = new JButton("ì…ì¥ ê°€ëŠ¥");
+   private JButton enterButton2 = new JButton("ì…ì¥ ê°€ëŠ¥");
+   private JButton enterButton3 = new JButton("ì…ì¥ ê°€ëŠ¥");
+
+   private int mouseX, mouseY;
+
+   private boolean isMainScreen = false; // mainí•¨ìˆ˜ë©´ true
+   private boolean isGameScreen = false;
+
+   // true -> ê²Œì„ì¤‘ ë²„íŠ¼ true & ì…ì¥ê°€ëŠ¥ ë²„íŠ¼ false
+   // gameButtonì€ isGamingroomìœ¼ë¡œ ì“°ê³  enterButtonì€ !isGamingroomìœ¼ë¡œ ì“°ë©´ ë¨
+   private boolean isGamingroom1 = true;
+   private boolean isGamingroom2 = false;
+   private boolean isGamingroom3 = false;
+
+   ArrayList<Track> trackList = new ArrayList<Track>();
+
+   // ê³¡ì´ ì„ íƒë˜ëŠ” ê±°ì— í•„ìš”í•œ ë³€ìˆ˜ë“¤
+   private Image selectedImage;
+   private Music selectedMusic;
+   private Music introMusic = new Music("introMusic.mp3", true);
+   private int nowSelected = 0; // í˜„ì¬ ì„ íƒëœ íŠ¸ë™ì˜ ë²ˆí˜¸
+
+   public static Game game; // í”„ë¡œê·¸ë¨ ì „ì²´ì—ì„œ ì‚¬ìš©í•˜ëŠ” ë³€ìˆ˜
+
+   public DynamicBeat(String username, String ip_addr, String port_no) {
+
+      UserName = username;
+
+      trackList.add(new Track("IdolGameImage.jpg", "mainBackground.jpg", "kk_idol.mp3", "kk_idol.mp3", "K.K._Idol"));
+      trackList.add(new Track("HouseGameImage.jpg", "mainBackground.jpg", "nabi.mp3", "nabi.mp3", "K.K._House"));
+      trackList.add(
+            new Track("WesternGameImage.jpg", "mainBackground.jpg", "western.mp3", "western.mp3", "K.K._Western"));
+
+      setUndecorated(true);
+      setTitle("ë„¤íŠ¸ì›Œí¬ ë¦¬ë“¬ê²Œì„");
+      setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+      setResizable(false); // ì„ì˜ë¡œ í¬ê¸° ë³€ê²½ ë¶ˆê°€ëŠ¥
+      setLocationRelativeTo(null); // ê°€ìš´ë°ì— í™”ë©´ ëœ¨ê¸°
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      setVisible(true);
+      setBackground(new Color(0, 0, 0, 0)); // ë°°ê²½ í•˜ì–€ìƒ‰
+      setLayout(null);
+
+      addKeyListener(new KeyListener());
+
+      // ì‹œì‘í•˜ìë§ˆì ìŒì•…
+      introMusic.start();
+
+      JScrollPane scrollPane = new JScrollPane();
+      scrollPane.setBounds(12, 10, 352, 100);
+      add(scrollPane);
+
+      textArea = new JTextPane();
+      textArea.setEditable(true);
+      textArea.setFont(new Font("êµ´ë¦¼ì²´", Font.PLAIN, 14));
+      scrollPane.setViewportView(textArea);
+
+      // 'x'ë²„íŠ¼ ìœ„ì¹˜ ì¡°ì • (ë©”ë‰´ë°”ì˜ ì˜¤ë¥¸ìª½ ìƒë‹¨)
+      exitButton.setBounds(1230, 0, 32, 32);
+      exitButton.setBorderPainted(false);
+      exitButton.setContentAreaFilled(false);
+      exitButton.setFocusPainted(false);
+      exitButton.addMouseListener(new MouseAdapter() {
+         // ë²„íŠ¼ì— ë§ˆìš°ìŠ¤ ì˜¬ë¦¬ë©´ ì´ë¯¸ì§€ ë°”ë€œ
+         @Override
+         public void mouseEntered(MouseEvent e) {
+            exitButton.setIcon(exitButtonEnteredImage);
+            exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // í•œë²ˆë§Œ ì‹¤í–‰
+            buttonEnteredMusic.start();
+         }
+
+         // ë–¼ë©´ ë‹¤ì‹œ ì›ë˜ ì´ë¯¸ì§€ë¡œ
+         @Override
+         public void mouseExited(MouseEvent e) {
+            exitButton.setIcon(exitButtonBasicImage);
+            exitButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+         }
+
+         // ëˆ„ë¥´ë©´ í”„ë¡œê·¸ë¨ ì¢…ë£Œ
+         @Override
+         public void mousePressed(MouseEvent e) {
+            Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
+            buttonEnteredMusic.start();
+            try {
+               Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+               ex.printStackTrace();
+            }
+            System.exit(0);
+         }
+      });
+      add(exitButton);
+
+      // 1ë²ˆë°© í‘œì‹œí•  ë²„íŠ¼
+      roomButton1.setBounds(430, 310, 50, 40);
+      roomButton1.setBorderPainted(true);
+      roomButton1.setFocusPainted(false);
+      roomButton1.setContentAreaFilled(false);
+      add(roomButton1);
+
+      // 2ë²ˆë°© í‘œì‹œí•  ë²„íŠ¼
+      roomButton2.setBounds(430, 430, 50, 40);
+      roomButton2.setBorderPainted(true);
+      roomButton2.setFocusPainted(false);
+      roomButton2.setContentAreaFilled(false);
+      add(roomButton2);
+
+      // 3ë²ˆë°© í‘œì‹œí•  ë²„íŠ¼
+      roomButton3.setBounds(430, 550, 50, 40);
+      roomButton3.setBorderPainted(true);
+      roomButton3.setFocusPainted(false);
+      roomButton3.setContentAreaFilled(false);
+      add(roomButton3);
+
+      // 1ë²ˆë°© ëª…ìˆ˜ í‘œì‹œí•  ë²„íŠ¼
+      numButton1.setBounds(690, 310, 80, 40);
+      numButton1.setBorderPainted(true);
+      numButton1.setFocusPainted(false);
+      numButton1.setContentAreaFilled(false);
+      add(numButton1);
+
+      // 2ë²ˆë°© ëª…ìˆ˜ í‘œì‹œí•  ë²„íŠ¼
+      numButton2.setBounds(690, 430, 80, 40);
+      numButton2.setBorderPainted(true);
+      numButton2.setFocusPainted(false);
+      numButton2.setContentAreaFilled(false);
+      add(numButton2);
+
+      // 3ë²ˆë°© ëª…ìˆ˜ í‘œì‹œí•  ë²„íŠ¼
+      numButton3.setBounds(690, 550, 80, 40);
+      numButton3.setBorderPainted(true);
+      numButton3.setFocusPainted(false);
+      numButton3.setContentAreaFilled(false);
+      add(numButton3);
+
+      // ê²Œì„ì¤‘ í‘œì‹œ (ë°© 1)
+      gameButton1.setVisible(isGamingroom1);
+      gameButton1.setBounds(530, 310, 100, 40);
+      gameButton1.setBorderPainted(false);
+      gameButton1.setFocusPainted(false);
+      gameButton1.setContentAreaFilled(false);
+      add(gameButton1);
+
+      // ê²Œì„ì¤‘ í‘œì‹œ (ë°© 2)
+      gameButton2.setVisible(isGamingroom2);
+      gameButton2.setBounds(530, 430, 100, 40);
+      gameButton2.setBorderPainted(false);
+      gameButton2.setFocusPainted(false);
+      gameButton2.setContentAreaFilled(false);
+      add(gameButton2);
+
+      // ê²Œì„ì¤‘ í‘œì‹œ (ë°© 3)
+      gameButton3.setVisible(isGamingroom3);
+      gameButton3.setBounds(530, 550, 100, 40);
+      gameButton3.setBorderPainted(false);
+      gameButton3.setFocusPainted(false);
+      gameButton3.setContentAreaFilled(false);
+      add(gameButton3);
+
+      // ì…ì¥ ê°€ëŠ¥ í‘œì‹œ (ë°© 1)
+      enterButton1.setVisible(!isGamingroom1);
+      enterButton1.setBounds(530, 310, 100, 40);
+      enterButton1.setBorderPainted(false);
+      enterButton1.setFocusPainted(false);
+      enterButton1.setContentAreaFilled(false);
+      add(enterButton1);
+
+      // ì…ì¥ ê°€ëŠ¥ í‘œì‹œ (ë°© 2)
+      enterButton2.setVisible(!isGamingroom2);
+      enterButton2.setBounds(530, 430, 100, 40);
+      enterButton2.setBorderPainted(false);
+      enterButton2.setFocusPainted(false);
+      enterButton2.setContentAreaFilled(false);
+      add(enterButton2);
+
+      // ì…ì¥ ê°€ëŠ¥ í‘œì‹œ (ë°© 3)
+      enterButton3.setVisible(!isGamingroom3);
+      enterButton3.setBounds(530, 550, 100, 40);
+      enterButton3.setBorderPainted(false);
+      enterButton3.setFocusPainted(false);
+      enterButton3.setContentAreaFilled(false);
+      add(enterButton3);
+
+      // ë°© ë²„íŠ¼ ìœ„ì¹˜ ì¡°ì •
+      startButton.setBounds(400, 280, 400, 100);
+      startButton.setBorderPainted(false);
+      startButton.setContentAreaFilled(false);
+      startButton.setFocusPainted(false);
+      startButton.addMouseListener(new MouseAdapter() {
+         // ë²„íŠ¼ì— ë§ˆìš°ìŠ¤ ì˜¬ë¦¬ë©´ ì´ë¯¸ì§€ ë°”ë€œ
+         @Override
+         public void mouseEntered(MouseEvent e) {
+            startButton.setIcon(startButtonEnteredImage);
+            startButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // í•œë²ˆë§Œ ì‹¤í–‰
+            buttonEnteredMusic.start();
+         }
+
+         // ë–¼ë©´ ë‹¤ì‹œ ì›ë˜ ì´ë¯¸ì§€ë¡œ
+         @Override
+         public void mouseExited(MouseEvent e) {
+            startButton.setIcon(startButtonBasicImage);
+            startButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
+         }
+
+         // ëˆ„ë¥´ë©´ ê³¡ ì„ íƒ í™”ë©´ìœ¼ë¡œ ê°
+         @Override
+         public void mousePressed(MouseEvent e) {
+            Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
+            buttonEnteredMusic.start();
+            enterGame(); // ì½”ë“œ í•˜ë‹¨ì— ìˆìŒ
+
+         }
+      });
+      add(startButton);
+
+      // 'ì‹œì‘í•˜ê¸°' ë²„íŠ¼ ìœ„ì¹˜ ì¡°ì •
+      startButton1.setBounds(400, 400, 400, 100);
+      startButton1.setBorderPainted(false);
+      startButton1.setContentAreaFilled(false);
+      startButton1.setFocusPainted(false);
+      startButton1.addMouseListener(new MouseAdapter() {
+         // ë²„íŠ¼ì— ë§ˆìš°ìŠ¤ ì˜¬ë¦¬ë©´ ì´ë¯¸ì§€ ë°”ë€œ
+         @Override
+         public void mouseEntered(MouseEvent e) {
+            startButton1.setIcon(startButtonEnteredImage);
+            startButton1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // í•œë²ˆë§Œ ì‹¤í–‰
+            buttonEnteredMusic.start();
+         }
+
+         // ë–¼ë©´ ë‹¤ì‹œ ì›ë˜ ì´ë¯¸ì§€ë¡œ
+         @Override
+         public void mouseExited(MouseEvent e) {
+            startButton1.setIcon(startButtonBasicImage);
+            startButton1.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
+         }
+
+         // ëˆ„ë¥´ë©´ ëŒ€ê¸°ë°©ìœ¼ë¡œ ê°
+         @Override
+         public void mousePressed(MouseEvent e) {
+            Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
+            buttonEnteredMusic.start();
+            enterGame(); // ì½”ë“œ í•˜ë‹¨ì— ìˆìŒ
+
+         }
+      });
+      add(startButton1);
+
+      startButton2.setBounds(400, 520, 400, 100);
+      startButton2.setBorderPainted(false);
+      startButton2.setContentAreaFilled(false);
+      startButton2.setFocusPainted(false);
+      startButton2.addMouseListener(new MouseAdapter() {
+         // ë²„íŠ¼ì— ë§ˆìš°ìŠ¤ ì˜¬ë¦¬ë©´ ì´ë¯¸ì§€ ë°”ë€œ
+         @Override
+         public void mouseEntered(MouseEvent e) {
+            startButton2.setIcon(startButtonEnteredImage);
+            startButton2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // í•œë²ˆë§Œ ì‹¤í–‰
+            buttonEnteredMusic.start();
+         }
+
+         // ë–¼ë©´ ë‹¤ì‹œ ì›ë˜ ì´ë¯¸ì§€ë¡œ
+         @Override
+         public void mouseExited(MouseEvent e) {
+            startButton2.setIcon(startButtonBasicImage);
+            startButton2.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
+         }
+
+         // ëˆ„ë¥´ë©´ ê³¡ ì„ íƒ í™”ë©´ìœ¼ë¡œ ê°
+         @Override
+         public void mousePressed(MouseEvent e) {
+            Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
+            buttonEnteredMusic.start();
+            enterGame(); // ì½”ë“œ í•˜ë‹¨ì— ìˆìŒ
+
+         }
+      });
+      add(startButton2);
+
+      // downButton
+      leftButton.setVisible(false);
+      leftButton.setBounds(610, 540, 64, 64);
+      leftButton.setBorderPainted(false);
+      leftButton.setContentAreaFilled(false);
+      leftButton.setFocusPainted(false);
+      leftButton.addMouseListener(new MouseAdapter() {
+         // ë²„íŠ¼ì— ë§ˆìš°ìŠ¤ ì˜¬ë¦¬ë©´ ì´ë¯¸ì§€ ë°”ë€œ
+         @Override
+         public void mouseEntered(MouseEvent e) {
+            leftButton.setIcon(leftButtonEnteredImage);
+            leftButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // í•œë²ˆë§Œ ì‹¤í–‰
+            buttonEnteredMusic.start();
+         }
+
+         // ë–¼ë©´ ë‹¤ì‹œ ì›ë˜ ì´ë¯¸ì§€ë¡œ
+         @Override
+         public void mouseExited(MouseEvent e) {
+            leftButton.setIcon(leftButtonBasicImage);
+            leftButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+         }
+
+         // ì™¼ìª½ ë²„íŠ¼ ì´ë²¤íŠ¸
+         @Override
+         public void mousePressed(MouseEvent e) {
+            Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
+            buttonEnteredMusic.start();
+            selectLeft();
+         }
+      });
+      add(leftButton);
+
+      // UpButton
+      rightButton.setVisible(false); // ì²˜ìŒì—ëŠ” ì•ˆë³´ì´ê²Œ
+      rightButton.setBounds(610, 270, 64, 64);
+      rightButton.setBorderPainted(false);
+      rightButton.setContentAreaFilled(false);
+      rightButton.setFocusPainted(false);
+      rightButton.addMouseListener(new MouseAdapter() {
+         // ë²„íŠ¼ì— ë§ˆìš°ìŠ¤ ì˜¬ë¦¬ë©´ ì´ë¯¸ì§€ ë°”ë€œ
+         @Override
+         public void mouseEntered(MouseEvent e) {
+            rightButton.setIcon(rightButtonEnteredImage);
+            rightButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // í•œë²ˆë§Œ ì‹¤í–‰
+            buttonEnteredMusic.start();
+         }
+
+         // ë–¼ë©´ ë‹¤ì‹œ ì›ë˜ ì´ë¯¸ì§€ë¡œ
+         @Override
+         public void mouseExited(MouseEvent e) {
+            rightButton.setIcon(rightButtonBasicImage);
+            rightButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+         }
+
+         // ì˜¤ë¥¸ìª½ ë²„íŠ¼ ì´ë²¤íŠ¸
+         @Override
+         public void mousePressed(MouseEvent e) {
+            Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
+            buttonEnteredMusic.start();
+            selectRight();
+         }
+      });
+      add(rightButton);
+
+      // ê²Œì„ ì‹œì‘í•˜ê¸° ë²„íŠ¼ìœ¼ë¡œ ì‚¬ìš©
+      easyButton.setVisible(false); // ì²˜ìŒì—ëŠ” ì•ˆë³´ì´ê²Œ
+      easyButton.setBounds(540, 163, 200, 100);
+      easyButton.setBorderPainted(false);
+      easyButton.setContentAreaFilled(false);
+      easyButton.setFocusPainted(false);
+      easyButton.addMouseListener(new MouseAdapter() {
+         // ë²„íŠ¼ì— ë§ˆìš°ìŠ¤ ì˜¬ë¦¬ë©´ ì´ë¯¸ì§€ ë°”ë€œ
+         @Override
+         public void mouseEntered(MouseEvent e) {
+            easyButton.setIcon(easyButtonEnteredImage);
+            easyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // í•œë²ˆë§Œ ì‹¤í–‰
+
+            buttonEnteredMusic.start();
+         }
+
+         // ë–¼ë©´ ë‹¤ì‹œ ì›ë˜ ì´ë¯¸ì§€ë¡œ
+         @Override
+         public void mouseExited(MouseEvent e) {
+            easyButton.setIcon(easyButtonBasicImage);
+            easyButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+         }
+
+         // ì˜¤ë¥¸ìª½ ë²„íŠ¼ ì´ë²¤íŠ¸
+         @Override
+         public void mousePressed(MouseEvent e) {
+            Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
+            buttonEnteredMusic.start();
+            // ê²Œì„ ì‹œì‘ ì´ë²¤íŠ¸
+            gameStart(nowSelected, "easy");
+         }
+      });
+      add(easyButton);
+
+      // ê²Œì„ë„ì¤‘ì— ë©”ì¸í™”ë©´ìœ¼ë¡œ ëŒì•„ê°ˆ ìˆ˜ ìˆìŒ
+      backButton.setVisible(false); // ì²˜ìŒì—ëŠ” ì•ˆë³´ì´ê²Œ
+      backButton.setBounds(540, 70, 200, 100);
+      backButton.setBorderPainted(false);
+      backButton.setContentAreaFilled(false);
+      backButton.setFocusPainted(false);
+      backButton.addMouseListener(new MouseAdapter() {
+         // ë²„íŠ¼ì— ë§ˆìš°ìŠ¤ ì˜¬ë¦¬ë©´ ì´ë¯¸ì§€ ë°”ë€œ
+         @Override
+         public void mouseEntered(MouseEvent e) {
+            backButton.setIcon(backButtonEnteredImage);
+            backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            Music buttonEnteredMusic = new Music("buttonEnteredMusic.mp3", false); // í•œë²ˆë§Œ ì‹¤í–‰
+            buttonEnteredMusic.start();
+         }
+
+         // ë–¼ë©´ ë‹¤ì‹œ ì›ë˜ ì´ë¯¸ì§€ë¡œ
+         @Override
+         public void mouseExited(MouseEvent e) {
+            backButton.setIcon(backButtonBasicImage);
+            backButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+         }
+
+         // ì˜¤ë¥¸ìª½ ë²„íŠ¼ ì´ë²¤íŠ¸
+         @Override
+         public void mousePressed(MouseEvent e) {
+            Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
+            buttonEnteredMusic.start();
+            backMain();
+
+         }
+      });
+      add(backButton);
+
+      menuBar.setBounds(0, 0, 1280, 30);
+      menuBar.addMouseListener(new MouseAdapter() {
+         @Override
+         public void mousePressed(MouseEvent e) {
+            mouseX = e.getX();
+            mouseY = e.getY();
+         }
+      });
+
+      menuBar.addMouseMotionListener(new MouseMotionAdapter() {
+         @Override
+         // ë©”ë‰´ë°” ëˆ„ë¥´ê³  ë“œë˜ê·¸ ê°€ëŠ¥í•´ì§
+         public void mouseDragged(MouseEvent e) {
+            int x = e.getXOnScreen();
+            int y = e.getYOnScreen();
+            setLocation(x - mouseX, y - mouseY);
+         }
+      });
+
+      add(menuBar);
+
+      try {
+         socket = new Socket(ip_addr, Integer.parseInt(port_no));
+//         is = socket.getInputStream();
+//         dis = new DataInputStream(is);
+//         os = socket.getOutputStream();
+//         dos = new DataOutputStream(os);
+
+         oos = new ObjectOutputStream(socket.getOutputStream());
+         oos.flush();
+         ois = new ObjectInputStream(socket.getInputStream());
+
+         //SendMessage("/login " + UserName);
+         ChatMsg obcm = new ChatMsg(UserName, "100", "Hello");
+         SendObject(obcm);
+         
+         ListenNetwork net = new ListenNetwork();
+         net.start();
+
+      } catch (NumberFormatException | IOException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+         AppendText("connect error");
+      }
+
+   }
+
+   public void paint(Graphics g) {
+      screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+      screenGraphic = screenImage.getGraphics();
+      screenDraw((Graphics2D) screenGraphic);
+      g.drawImage(screenImage, 0, 0, null);
+   }
+
+   public void screenDraw(Graphics2D g) {
+      g.drawImage(background, 0, 0, null); // ë³€í•˜ëŠ” ì´ë¯¸ì§€ëŠ” drawë¡œ
+      if (isMainScreen) {
+         g.drawImage(selectedImage, 550, 345, null);
+      }
+      if (isGameScreen) {// ê²Œì„ ì»¨íŠ¸ë¡¤ classë¡œ ê°€ê¸°
+         game.screenDraw(g);
+      }
+      paintComponents(g); // í•­ìƒ ê³ ì •ë˜ì–´ìˆëŠ” ì´ë¯¸ì§€ëŠ” paintComponentë¡œ
+      try {
+         Thread.sleep(5);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      this.repaint(); // ë‹¤ì‹œ paint í•¨ìˆ˜ ë¶ˆëŸ¬ì˜¤ê¸° --> ë§¤ í˜ì´ì§€ë¥¼ ê³„ì† ë°˜ë³µí•´ì„œ ê·¸ë ¤ì¤Œ
+   }
+
+   public void selectTrack(int nowSelected) {
+      if (selectedMusic != null)
+         selectedMusic.close(); // í˜„ì¬ ì¬ìƒë˜ê³  ìˆëŠ” ìŒì•… ë©ˆì¶¤
+      selectedImage = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getStartImage()))
+            .getImage();
+      selectedMusic = new Music(trackList.get(nowSelected).getStartMusic(), true);
+
+      selectedMusic.start();
+   }
+
+   public void selectLeft() {
+      if (nowSelected == 0)
+         nowSelected = trackList.size() - 1; // ê°€ì¥ ì˜¤ë¥¸ìª½ì— ìˆê³¡ì´ ì„ íƒ
+      else
+         nowSelected--;
+      selectTrack(nowSelected);
+   }
+
+   public void selectRight() {
+      if (nowSelected == trackList.size() - 1)
+         nowSelected = 0; //
+      else
+         nowSelected++;
+      selectTrack(nowSelected);
+   }
+
+   public void gameStart(int nowSelected, String difficulty) {
+      if (selectedMusic != null)
+         selectedMusic.close();
+      isMainScreen = true;
+      leftButton.setVisible(false);
+      rightButton.setVisible(false);
+      easyButton.setVisible(false);
+      background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage()))
+            .getImage();
+      backButton.setVisible(true);// ê²Œì„ ë„ì¤‘ ë‚˜ê°€ê¸° ë²„íŠ¼
+      isGameScreen = true;
+
+      game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
+      game.start();
+
+      setFocusable(true); // ë©”ì¸ í”„ë ˆì„ì— í‚¤ë³´ë“œ í¬ì»¤ìŠ¤
+   }
+
+   public void backMain() {
+      // isMainScreen = true;
+      // leftButton.setVisible(true); //ì›ë˜ ì½”ë“œ
+      // rightButton.setVisible(true); //ì›ë˜ ì½”ë“œ
+      // easyButton.setVisible(true); //ì›ë˜ ì½”ë“œ
+      startButton.setVisible(true);
+      startButton1.setVisible(true);
+      startButton2.setVisible(true);
+
+      roomButton1.setVisible(true);
+      roomButton2.setVisible(true);
+      roomButton3.setVisible(true);
+
+      numButton1.setVisible(true);
+      numButton2.setVisible(true);
+      numButton3.setVisible(true);
+
+      gameButton1.setVisible(isGamingroom1);
+      enterButton1.setVisible(!isGamingroom1);
+
+      gameButton2.setVisible(isGamingroom2);
+      enterButton2.setVisible(!isGamingroom2);
+
+      gameButton3.setVisible(isGamingroom3);
+      enterButton3.setVisible(!isGamingroom3);
+
+      isMainScreen = false;
+      leftButton.setVisible(false);
+      rightButton.setVisible(false);
+      easyButton.setVisible(false);
+      backButton.setVisible(false);
+
+      background = new ImageIcon(Main.class.getResource("../images/introBackground(Title).jpg")).getImage();
+      nowSelected = 0;
+      selectedMusic.close();
+      introMusic = new Music("introMusic.mp3", true);
+      introMusic.start();
+      isGameScreen = false;
+      game.close(); // ì›ë˜ ì½”ë“œ
+   }
+
+   public void enterGame() {
+      // ê²Œì„ ì‹œì‘ ì´ë²¤íŠ¸
+
+      startButton.setVisible(false); // ë²„íŠ¼ ìˆ¨ê¸°ê¸°
+      startButton1.setVisible(false);
+      startButton2.setVisible(false);
+
+      roomButton1.setVisible(false);
+      roomButton2.setVisible(false);
+      roomButton3.setVisible(false);
+
+      numButton1.setVisible(false);
+      numButton2.setVisible(false);
+      numButton3.setVisible(false);
+
+      gameButton1.setVisible(false);
+      gameButton2.setVisible(false);
+      gameButton3.setVisible(false);
+
+      enterButton1.setVisible(false);
+      enterButton2.setVisible(false);
+      enterButton3.setVisible(false);
+
+      background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
+      isMainScreen = true;
+      leftButton.setVisible(true); // ì™¼/ì˜¤ë²„íŠ¼ì€ ë³´ì´ê¸°
+      rightButton.setVisible(true);
+      easyButton.setVisible(true); // ê²Œì„ì‹œì‘ë²„íŠ¼
+
+      selectTrack(0);
+
+      backButton.setVisible(true);
+      introMusic.close();
+
+      isGameScreen = true;
+      game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
+
+   }
+
+   // Server Messageë¥¼ ìˆ˜ì‹ í•´ì„œ í™”ë©´ì— í‘œì‹œ
+   class ListenNetwork extends Thread {
+      public void run() {
+            while (true) {
+               try {
+                  // String msg = dis.readUTF();
+//                  byte[] b = new byte[BUF_LEN];
+//                  int ret;
+//                  ret = dis.read(b);
+//                  if (ret < 0) {
+//                     AppendText("dis.read() < 0 error");
+//                     try {
+//                        dos.close();
+//                        dis.close();
+//                        socket.close();
+//                        break;
+//                     } catch (Exception ee) {
+//                        break;
+//                     }// catchë¬¸ ë
+//                  }
+//                  String   msg = new String(b, "euc-kr");
+//                  msg = msg.trim(); // ì•ë’¤ blank NULL, \n ëª¨ë‘ ì œê±°
+
+                  Object obcm = null;
+                  String msg = null;
+                  ChatMsg cm;
+                  try {
+                     obcm = ois.readObject();
+                  } catch (ClassNotFoundException e) {
+                     // TODO Auto-generated catch block
+                     e.printStackTrace();
+                     break;
+                  }
+                  if (obcm == null)
+                     break;
+                  if (obcm instanceof ChatMsg) {
+                     cm = (ChatMsg) obcm;
+                     msg = String.format("[%s] %s", cm.getId(), cm.getData());
+                  } else
+                     continue;
+                  switch (cm.getCode()) {
+                  case "200": // chat message
+                     AppendText(msg);
+                     break;
+                  case "300": // Image ì²¨ë¶€
+                     AppendText("[" + cm.getId() + "]");
+                     //AppendImage(cm.img);
+                     break;
+                  }
+               } catch (IOException e) {
+                  AppendText("ois.readObject() error");
+                  try {
+//                     dos.close();
+//                     dis.close();
+                     ois.close();
+                     oos.close();
+                     socket.close();
+
+                     break;
+                  } catch (Exception ee) {
+                     break;
+                  } // catchë¬¸ ë
+               } // ë°”ê¹¥ catchë¬¸ë
+
+            }
+         }
+   }
+
+   // í™”ë©´ì— ì¶œë ¥
+   public void AppendText(String msg) {
+      // textArea.append(msg + "\n");
+      // AppendIcon(icon1);
+      msg = msg.trim(); // ì•ë’¤ blankì™€ \nì„ ì œê±°í•œë‹¤.
+      int len = textArea.getDocument().getLength();
+      // ëìœ¼ë¡œ ì´ë™
+      textArea.setCaretPosition(len);
+      textArea.replaceSelection(msg + "\n");
+   }
+
+   public void SendObject(Object ob) { // ì„œë²„ë¡œ ë©”ì„¸ì§€ë¥¼ ë³´ë‚´ëŠ” ë©”ì†Œë“œ
+      try {
+         oos.writeObject(ob);
+      } catch (IOException e) {
+         // textArea.append("ë©”ì„¸ì§€ ì†¡ì‹  ì—ëŸ¬!!\n");
+         AppendText("SendObject Error");
+      }
+   }
 
 
 }
+

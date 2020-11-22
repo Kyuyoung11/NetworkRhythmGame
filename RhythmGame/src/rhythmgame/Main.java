@@ -15,11 +15,12 @@ import java.awt.event.ActionEvent;
 
 public class Main extends JFrame {
 
+
 	public static final int SCREEN_WIDTH = 1280;
 	public static final int SCREEN_HEIGHT = 720;
 	public static final int NOTE_SPEED = 3;
 	public static final int SLEEP_TIME = 8;
-	public static final int REACH_TIME = 2; // ³ëÆ®°¡ ÆÇÁ¤¹Ù¿¡ µµ´ŞÇÏ±â±îÁöÀÇ ½Ã°£
+	public static final int REACH_TIME = 2; // ë…¸íŠ¸ê°€ íŒì •ë°”ì— ë„ë‹¬í•˜ê¸°ê¹Œì§€ì˜ ì‹œê°„
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtUserName;
@@ -103,7 +104,7 @@ public class Main extends JFrame {
 	}
 
 
-	class Myaction implements ActionListener // ³»ºÎÅ¬·¡½º·Î ¾×¼Ç ÀÌº¥Æ® Ã³¸® Å¬·¡½º
+	class Myaction implements ActionListener // ë‚´ë¶€í´ë˜ìŠ¤ë¡œ ì•¡ì…˜ ì´ë²¤íŠ¸ ì²˜ë¦¬ í´ë˜ìŠ¤
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) {

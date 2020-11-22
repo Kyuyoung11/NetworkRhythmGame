@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 
 public class Game extends Thread {
 	
-	private String score;
+
 	private int scorePoint;
 
 	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("../images/noteRouteLine.png")).getImage();
@@ -461,124 +461,124 @@ public class Game extends Thread {
 					// new Beat(startTime + gap *9,"D"),//+1
 					new Beat(startTime + gap * 2, "F"), // +3
 					
-					new Beat(startTime + gap * 24, "D"),
+					new Beat(startTime + gap * 26, "D"),
 					// new Beat(startTime + gap *46,"D"),
-					new Beat(startTime + gap * 30, "K"), 
-					new Beat(startTime + gap * 36, "F"),
-					new Beat(startTime + gap * 42, "J"),
+					new Beat(startTime + gap * 32, "K"), 
+					new Beat(startTime + gap * 38, "F"),
+					new Beat(startTime + gap * 44, "J"),
 
-					new Beat(startTime + gap * 46, "D"), 
-					new Beat(startTime + gap * 48, "F"),
-					new Beat(startTime + gap * 56, "D"),
-					new Beat(startTime + gap * 57, "F"),
-					new Beat(startTime + gap * 58, "J"),
-					new Beat(startTime + gap * 59, "K"),
+					new Beat(startTime + gap * 48, "D"), 
+					new Beat(startTime + gap * 50, "F"),
+					new Beat(startTime + gap * 59, "D"),
+					new Beat(startTime + gap * 60, "F"),
+					new Beat(startTime + gap * 61, "J"),
+					new Beat(startTime + gap * 62, "K"),
 					// new Beat(startTime + gap *57,"D"),//+1
-					new Beat(startTime + gap * 70, "K"),
-					new Beat(startTime + gap * 71, "J"),
-					new Beat(startTime + gap * 72, "F"), // +1
+					new Beat(startTime + gap * 72, "K"),
+					new Beat(startTime + gap * 73, "J"),
+					new Beat(startTime + gap * 74, "F"), // +1
 
-					new Beat(startTime + gap * 81, "J"), 
-					new Beat(startTime + gap * 85, "D"),
-					new Beat(startTime + gap * 94, "K"),
-					new Beat(startTime + gap * 95, "J"),
+					new Beat(startTime + gap * 83, "J"), 
+					new Beat(startTime + gap * 88, "D"),
 					new Beat(startTime + gap * 96, "K"),
-					
 					new Beat(startTime + gap * 97, "J"),
-
-
-					new Beat(startTime + gap * 98, "F"), 
-					new Beat(startTime + gap * 105, "D"),
+					new Beat(startTime + gap * 98, "K"),
 					
-					new Beat(startTime + gap * 106, "F"),
-					new Beat(startTime + gap * 107, "J"), 
-					new Beat(startTime + gap * 108, "K"),
+					new Beat(startTime + gap * 99, "J"),
+
+
+					new Beat(startTime + gap * 100, "F"), 
+					new Beat(startTime + gap * 108, "D"),
+					
+					new Beat(startTime + gap * 109, "F"),
+					new Beat(startTime + gap * 110, "J"), 
+					new Beat(startTime + gap * 111, "K"),
 					//new Beat(startTime + gap * 109, "F"),
 					// new Beat(startTime + gap *94,"K"),
 					// new Beat(startTime + gap *95,"J"),
-					new Beat(startTime + gap * 114, "K"),
-					new Beat(startTime + gap * 114, "D"),
+					new Beat(startTime + gap * 117, "K"),
+					new Beat(startTime + gap * 117, "D"),
 					
-					new Beat(startTime + gap * 120, "F"),
-					new Beat(startTime + gap * 120, "J"),
-					new Beat(startTime + gap * 146, "K"),
-					new Beat(startTime + gap * 153, "K"),
+					new Beat(startTime + gap * 124, "F"),
+					new Beat(startTime + gap * 124, "J"),
+					new Beat(startTime + gap * 149, "K"),
+					new Beat(startTime + gap * 156, "K"),
 
-					new Beat(startTime + gap * 156, "F"), 
-					new Beat(startTime + gap * 157, "J"),
+					new Beat(startTime + gap * 158, "F"), 
+					new Beat(startTime + gap * 159, "J"),
 					// new Beat(startTime + gap *106,"S"),
-					new Beat(startTime + gap * 158, "D"),
-					new Beat(startTime + gap * 164, "D"),
-					new Beat(startTime + gap * 167, "F"),
-					new Beat(startTime + gap * 169, "J"),
-					new Beat(startTime + gap * 170, "K"),
+					new Beat(startTime + gap * 161, "D"),
+					new Beat(startTime + gap * 166, "D"),
+					new Beat(startTime + gap * 169, "F"),
+					new Beat(startTime + gap * 171, "J"),
+					new Beat(startTime + gap * 172, "K"),
 					
 					// new Beat(startTime + gap *109,"K"),
-					new Beat(startTime + gap * 181, "K"), 
-					new Beat(startTime + gap * 182, "D"),
+					new Beat(startTime + gap * 183, "K"), 
+					new Beat(startTime + gap * 184, "D"),
 
-					new Beat(startTime + gap * 192, "J"), 
-					new Beat(startTime + gap * 193, "F"),
-					new Beat(startTime + gap * 194, "J"),
-					new Beat(startTime + gap * 195, "F"),
-					new Beat(startTime + gap * 196, "K"), 
-					new Beat(startTime + gap * 208, "K"),
-					new Beat(startTime + gap * 211, "J"), 
-					new Beat(startTime + gap * 213, "F"),
-					new Beat(startTime + gap * 216, "D"), 
-					new Beat(startTime + gap * 219, "F"),
-					new Beat(startTime + gap * 219, "J"),
+					new Beat(startTime + gap * 195, "J"), 
+					new Beat(startTime + gap * 196, "F"),
+					new Beat(startTime + gap * 197, "J"),
+					new Beat(startTime + gap * 198, "F"),
+					new Beat(startTime + gap * 199, "K"), 
+					new Beat(startTime + gap * 210, "K"),
+					new Beat(startTime + gap * 213, "J"), 
+					new Beat(startTime + gap * 216, "F"),
+					new Beat(startTime + gap * 219, "D"), 
+					new Beat(startTime + gap * 222, "F"),
+					new Beat(startTime + gap * 222, "J"),
 					//นÝบน
-					new Beat(startTime + gap * 242, "D"), 
-					new Beat(startTime + gap * 244, "F"),
-					new Beat(startTime + gap * 253, "D"),
-					new Beat(startTime + gap * 254, "F"),
-					new Beat(startTime + gap * 255, "J"),
-					new Beat(startTime + gap * 256, "K"),
+					new Beat(startTime + gap * 244, "D"), 
+					new Beat(startTime + gap * 246, "F"),
+					new Beat(startTime + gap * 255, "D"),
+					new Beat(startTime + gap * 256, "F"),
+					new Beat(startTime + gap * 257, "J"),
+					new Beat(startTime + gap * 258, "K"),
 					
-					new Beat(startTime + gap * 266, "K"),
-					new Beat(startTime + gap * 267, "J"),
-					new Beat(startTime + gap * 268, "F"),
+					new Beat(startTime + gap * 269, "K"),
+					new Beat(startTime + gap * 270, "J"),
+					new Beat(startTime + gap * 271, "F"),
 					
-					new Beat(startTime + gap * 277, "J"), 
-					new Beat(startTime + gap * 281, "D"),
-					new Beat(startTime + gap * 290, "K"),
-					new Beat(startTime + gap * 293, "F"),
+					new Beat(startTime + gap * 280, "J"), 
+					new Beat(startTime + gap * 284, "D"),
+					new Beat(startTime + gap * 293, "K"),
+					new Beat(startTime + gap * 296, "F"),
 					 
-					new Beat(startTime + gap * 300, "D"),					
-					new Beat(startTime + gap * 301, "F"),
-					new Beat(startTime + gap * 302, "J"), 
-					new Beat(startTime + gap * 303, "K"),
+					new Beat(startTime + gap * 303, "D"),					
+					new Beat(startTime + gap * 304, "F"),
+					new Beat(startTime + gap * 305, "J"), 
+					new Beat(startTime + gap * 306, "K"),
 					
-					new Beat(startTime + gap * 311, "K"),
-					new Beat(startTime + gap * 311, "D"),
+					new Beat(startTime + gap * 314, "K"),
+					new Beat(startTime + gap * 314, "D"),
 					
-					new Beat(startTime + gap * 317, "F"),
-					new Beat(startTime + gap * 317, "J"),
-					new Beat(startTime + gap * 341, "K"),
-					new Beat(startTime + gap * 348, "K"),
+					new Beat(startTime + gap * 320, "F"),
+					new Beat(startTime + gap * 320, "J"),
+					new Beat(startTime + gap * 344, "K"),
+					new Beat(startTime + gap * 351, "K"),
 
-					new Beat(startTime + gap * 351, "F"), 
-					new Beat(startTime + gap * 352, "J"),
+					new Beat(startTime + gap * 354, "F"), 
+					new Beat(startTime + gap * 355, "J"),
 					// new Beat(startTime + gap *106,"S"),
-					new Beat(startTime + gap * 354, "D"),
-					new Beat(startTime + gap * 359, "D"),
-					new Beat(startTime + gap * 362, "F"),
-					new Beat(startTime + gap * 365, "J"),
-					new Beat(startTime + gap * 366, "K"),
+					new Beat(startTime + gap * 357, "D"),
+					new Beat(startTime + gap * 362, "D"),
+					new Beat(startTime + gap * 365, "F"),
+					new Beat(startTime + gap * 368, "J"),
+					new Beat(startTime + gap * 369, "K"),
 					
-					new Beat(startTime + gap * 378, "K"), 
-					new Beat(startTime + gap * 378, "D"),
+					new Beat(startTime + gap * 374, "K"), 
+					new Beat(startTime + gap * 381, "D"),
 					
-					new Beat(startTime + gap * 388, "J"), 
+					new Beat(startTime + gap * 391, "J"), 
 					//new Beat(startTime + gap * 391, "F"),
-					new Beat(startTime + gap * 392, "K"), 
-					new Beat(startTime + gap * 404, "K"),
-					new Beat(startTime + gap * 408, "J"), 
-					new Beat(startTime + gap * 410, "F"),
-					new Beat(startTime + gap * 411, "D"), 
-					new Beat(startTime + gap * 415, "F"),
-					new Beat(startTime + gap * 415, "J")			
+					new Beat(startTime + gap * 395, "K"), 
+					new Beat(startTime + gap * 406, "K"),
+					new Beat(startTime + gap * 410, "J"), 
+					new Beat(startTime + gap * 412, "F"),
+					new Beat(startTime + gap * 414, "D"), 
+					new Beat(startTime + gap * 419, "F"),
+					new Beat(startTime + gap * 419, "J")			
 					
 					
 			};
@@ -621,13 +621,15 @@ public class Game extends Thread {
 			blueFlareImage = new ImageIcon(Main.class.getResource("../images/blueFlare.png")).getImage();
 		}
 		if (judge.equals("Miss")) {
-			scorePoint += -1;			
+			scorePoint += -4;			
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 		} else if (judge.equals("Late")) {
 			scorePoint += 2;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
+			
 		} else if (judge.equals("Good")) {
 			scorePoint += 5;
+			
 			judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
 		} else if (judge.equals("Great")) {
 			scorePoint += 10;
@@ -637,7 +639,28 @@ public class Game extends Thread {
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
 		} else if (judge.equals("Early")) {
 			scorePoint += 4;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+		}
+		else if (judge.equals("money")) {
+			scorePoint *=2;
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			
+		} else if (judge.equals("apple")) {
+			scorePoint *=2;
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			
+		} else if (judge.equals("money")) {
+			scorePoint *=2;
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			
+		} else if (judge.equals("saida")) {
+			scorePoint *=2;
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			
+		} else if (judge.equals("bee")) {
+			scorePoint *=2;
+			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			
 		}
 	}
 
