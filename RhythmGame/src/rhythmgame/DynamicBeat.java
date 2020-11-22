@@ -160,7 +160,7 @@ public class DynamicBeat extends JFrame {
       introMusic.start();
 
       JScrollPane scrollPane = new JScrollPane();
-      scrollPane.setBounds(12, 10, 352, 471);
+      scrollPane.setBounds(12, 10, 200, 100);
       add(scrollPane);
 
       textArea = new JTextPane();
