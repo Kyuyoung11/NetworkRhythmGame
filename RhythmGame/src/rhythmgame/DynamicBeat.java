@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class DynamicBeat extends JFrame {
+	
+	
 
 	private Image screenImage;
 	private Graphics screenGraphic;
