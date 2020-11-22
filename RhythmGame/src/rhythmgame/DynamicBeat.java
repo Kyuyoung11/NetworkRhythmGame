@@ -14,11 +14,59 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.FileDialog;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.Socket;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Color;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.JToggleButton;
+import javax.swing.JList;
 
 public class DynamicBeat extends JFrame {
 
+	private String UserName;
+
 	private Image screenImage;
 	private Graphics screenGraphic;
+
+	private static final int BUF_LEN = 128; // Windows 처럼 BUF_LEN 을 정의
+	private Socket socket; // 연결소켓
+	private InputStream is;
+	private OutputStream os;
+	private DataInputStream dis;
+	private DataOutputStream dos;
+
+	private ObjectInputStream ois;
+	private ObjectOutputStream oos;
+	
+	private JTextPane textArea;
 
 	// 이미지 변수
 	private ImageIcon exitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/exitButtonEntered.png"));
@@ -26,8 +74,6 @@ public class DynamicBeat extends JFrame {
 
 	private ImageIcon startButtonBasicImage = new ImageIcon(Main.class.getResource("../images/bang.png"));
 	private ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/bang2.png"));
-
-
 
 	private ImageIcon leftButtonBasicImage = new ImageIcon(Main.class.getResource("../images/leftButtonBasic.png"));
 	private ImageIcon leftButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/leftButtonEntered.png"));
@@ -71,9 +117,9 @@ public class DynamicBeat extends JFrame {
 
 	private boolean isMainScreen = false; // main함수면 true
 	private boolean isGameScreen = false;
-	
-	//true -> 게임중 버튼 true & 입장가능 버튼 false
-	//gameButton은 isGamingroom으로 쓰고 enterButton은 !isGamingroom으로 쓰면 됨
+
+	// true -> 게임중 버튼 true & 입장가능 버튼 false
+	// gameButton은 isGamingroom으로 쓰고 enterButton은 !isGamingroom으로 쓰면 됨
 	private boolean isGamingroom1 = true;
 	private boolean isGamingroom2 = false;
 	private boolean isGamingroom3 = false;
@@ -88,7 +134,9 @@ public class DynamicBeat extends JFrame {
 
 	public static Game game; // 프로그램 전체에서 사용하는 변수
 
-	public DynamicBeat() {
+	public DynamicBeat(String username, String ip_addr, String port_no) {
+
+		UserName = username;
 
 		trackList.add(new Track("IdolGameImage.jpg", "mainBackground.jpg", "kk_idol.mp3", "kk_idol.mp3", "K.K._Idol"));
 		trackList.add(new Track("HouseGameImage.jpg", "mainBackground.jpg", "nabi.mp3", "nabi.mp3", "K.K._House"));
@@ -109,6 +157,15 @@ public class DynamicBeat extends JFrame {
 
 		// 시작하자마자 음악
 		introMusic.start();
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 10, 352, 100);
+		add(scrollPane);
+
+		textArea = new JTextPane();
+		textArea.setEditable(true);
+		textArea.setFont(new Font("굴림체", Font.PLAIN, 14));
+		scrollPane.setViewportView(textArea);
 
 		// 'x'버튼 위치 조정 (메뉴바의 오른쪽 상단)
 		exitButton.setBounds(1230, 0, 32, 32);
@@ -228,7 +285,7 @@ public class DynamicBeat extends JFrame {
 		enterButton2.setFocusPainted(false);
 		enterButton2.setContentAreaFilled(false);
 		add(enterButton2);
-		
+
 		// 입장 가능 표시 (방 3)
 		enterButton3.setVisible(!isGamingroom3);
 		enterButton3.setBounds(530, 550, 100, 40);
@@ -236,7 +293,6 @@ public class DynamicBeat extends JFrame {
 		enterButton3.setFocusPainted(false);
 		enterButton3.setContentAreaFilled(false);
 		add(enterButton3);
-		
 
 		// 방 버튼 위치 조정
 		startButton.setBounds(400, 280, 400, 100);
@@ -495,6 +551,29 @@ public class DynamicBeat extends JFrame {
 
 		add(menuBar);
 
+		try {
+			socket = new Socket(ip_addr, Integer.parseInt(port_no));
+//			is = socket.getInputStream();
+//			dis = new DataInputStream(is);
+//			os = socket.getOutputStream();
+//			dos = new DataOutputStream(os);
+
+			oos = new ObjectOutputStream(socket.getOutputStream());
+			oos.flush();
+			ois = new ObjectInputStream(socket.getInputStream());
+
+			// SendMessage("/login " + UserName);
+			ChatMsg obcm = new ChatMsg(UserName, "100", "Hello");
+			SendObject(obcm);
+
+			ListenNetwork net = new ListenNetwork();
+			net.start();
+		} catch (NumberFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			AppendText("connect error");
+		}
+
 	}
 
 	public void paint(Graphics g) {
@@ -582,17 +661,15 @@ public class DynamicBeat extends JFrame {
 		numButton2.setVisible(true);
 		numButton3.setVisible(true);
 
-		
 		gameButton1.setVisible(isGamingroom1);
 		enterButton1.setVisible(!isGamingroom1);
-		
+
 		gameButton2.setVisible(isGamingroom2);
 		enterButton2.setVisible(!isGamingroom2);
-		
+
 		gameButton3.setVisible(isGamingroom3);
 		enterButton3.setVisible(!isGamingroom3);
-		
-		
+
 		isMainScreen = false;
 		leftButton.setVisible(false);
 		rightButton.setVisible(false);
@@ -626,11 +703,10 @@ public class DynamicBeat extends JFrame {
 		gameButton1.setVisible(false);
 		gameButton2.setVisible(false);
 		gameButton3.setVisible(false);
-		
+
 		enterButton1.setVisible(false);
 		enterButton2.setVisible(false);
 		enterButton3.setVisible(false);
-		
 
 		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
 		isMainScreen = true;
@@ -647,5 +723,92 @@ public class DynamicBeat extends JFrame {
 		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
 
 	}
+	
+	// Server Message를 수신해서 화면에 표시
+		class ListenNetwork extends Thread {
+			public void run() {
+				while (true) {
+					try {
+						// String msg = dis.readUTF();
+//						byte[] b = new byte[BUF_LEN];
+//						int ret;
+//						ret = dis.read(b);
+//						if (ret < 0) {
+//							AppendText("dis.read() < 0 error");
+//							try {
+//								dos.close();
+//								dis.close();
+//								socket.close();
+//								break;
+//							} catch (Exception ee) {
+//								break;
+//							}// catch문 끝
+//						}
+//						String	msg = new String(b, "euc-kr");
+//						msg = msg.trim(); // 앞뒤 blank NULL, \n 모두 제거
 
+						Object obcm = null;
+						String msg = null;
+						ChatMsg cm;
+						try {
+							obcm = ois.readObject();
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							break;
+						}
+						if (obcm == null)
+							break;
+						if (obcm instanceof ChatMsg) {
+							cm = (ChatMsg) obcm;
+							msg = String.format("[%s] %s", cm.getId(), cm.getData());
+						} else
+							continue;
+						switch (cm.getCode()) {
+						case "200": // chat message
+							AppendText(msg);
+							break;
+						case "300": // Image 첨부
+							AppendText("[" + cm.getId() + "]");
+							//AppendImage(cm.img);
+							break;
+						}
+					} catch (IOException e) {
+						AppendText("ois.readObject() error");
+						try {
+//							dos.close();
+//							dis.close();
+							ois.close();
+							oos.close();
+							socket.close();
+
+							break;
+						} catch (Exception ee) {
+							break;
+						} // catch문 끝
+					} // 바깥 catch문끝
+
+				}
+			}
+		}
+
+	// 화면에 출력
+	public void AppendText(String msg) {
+		// textArea.append(msg + "\n");
+		// AppendIcon(icon1);
+		msg = msg.trim(); // 앞뒤 blank와 \n을 제거한다.
+		int len = textArea.getDocument().getLength();
+		// 끝으로 이동
+		textArea.setCaretPosition(len);
+		textArea.replaceSelection(msg + "\n");
+	}
+
+	public void SendObject(Object ob) { // 서버로 메세지를 보내는 메소드
+		try {
+			oos.writeObject(ob);
+		} catch (IOException e) {
+			// textArea.append("메세지 송신 에러!!\n");
+			AppendText("SendObject Error");
+		}
+	}
 }
