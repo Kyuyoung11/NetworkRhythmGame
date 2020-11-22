@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-<<<<<<< HEAD
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FileDialog;
@@ -27,53 +27,37 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.Socket;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+
 import javax.swing.SwingConstants;
-import java.awt.Font;
+
 import java.awt.Frame;
-import java.awt.Image;
-import java.awt.Color;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+
 import javax.swing.JToggleButton;
 import javax.swing.JList;
-=======
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
->>>>>>> refs/remotes/origin/kyuyoung
 
 public class DynamicBeat extends JFrame {
-	
+
 	private JTextPane textArea;
 
 	private String UserName;
 
 	private Image screenImage;
 	private Graphics screenGraphic;
-	private static final int BUF_LEN = 128; // Windows 처럼 BUF_LEN 을 정의
-	private Socket socket; // 연결소켓
-
-	private ObjectInputStream ois;
-	private ObjectOutputStream oos;
-
-	private String UserName;
 
 	private static final int BUF_LEN = 128; // Windows 처럼 BUF_LEN 을 정의
 	private Socket socket; // 연결소켓
@@ -84,8 +68,6 @@ public class DynamicBeat extends JFrame {
 
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
-	
-	private JTextPane textArea;
 
 	// 이미지 변수
 	private ImageIcon exitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/exitButtonEntered.png"));
@@ -154,11 +136,7 @@ public class DynamicBeat extends JFrame {
 	public static Game game; // 프로그램 전체에서 사용하는 변수
 
 	public DynamicBeat(String username, String ip_addr, String port_no) {
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> refs/remotes/origin/kyuyoung
 		UserName = username;
 
 		trackList.add(new Track("IdolGameImage.jpg", "mainBackground.jpg", "kk_idol.mp3", "kk_idol.mp3", "K.K._Idol"));
@@ -180,19 +158,9 @@ public class DynamicBeat extends JFrame {
 
 		// 시작하자마자 음악
 		introMusic.start();
-		
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 10, 352, 471);
-		add(scrollPane);
-		
-		textArea = new JTextPane();
-		textArea.setEditable(true);
-		textArea.setFont(new Font("굴림체", Font.PLAIN, 14));
-		scrollPane.setViewportView(textArea);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 10, 352, 100);
+		scrollPane.setBounds(12, 10, 352, 471);
 		add(scrollPane);
 
 		textArea = new JTextPane();
@@ -586,7 +554,6 @@ public class DynamicBeat extends JFrame {
 
 		try {
 			socket = new Socket(ip_addr, Integer.parseInt(port_no));
-<<<<<<< HEAD
 //			is = socket.getInputStream();
 //			dis = new DataInputStream(is);
 //			os = socket.getOutputStream();
@@ -596,27 +563,10 @@ public class DynamicBeat extends JFrame {
 			oos.flush();
 			ois = new ObjectInputStream(socket.getInputStream());
 
-			// SendMessage("/login " + UserName);
+			//SendMessage("/login " + UserName);
 			ChatMsg obcm = new ChatMsg(UserName, "100", "Hello");
 			SendObject(obcm);
-
-			ListenNetwork net = new ListenNetwork();
-			net.start();
-		} catch (NumberFormatException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			AppendText("connect error");
-		}
-
-=======
-
-			oos = new ObjectOutputStream(socket.getOutputStream());
-			oos.flush();
-			ois = new ObjectInputStream(socket.getInputStream());
-
-			ChatMsg obcm = new ChatMsg(UserName, "100", "Hello");
-			SendChatMsg(obcm);
-
+			
 			ListenNetwork net = new ListenNetwork();
 			net.start();
 
@@ -626,58 +576,6 @@ public class DynamicBeat extends JFrame {
 			AppendText("connect error");
 		}
 
-	}
-
-	public ChatMsg ReadChatMsg() {
-		Object obj = null;
-		String msg = null;
-		ChatMsg cm = new ChatMsg("", "", "");
-		// Android와 호환성을 위해 각각의 Field를 따로따로 읽는다.
-
-			try {
-				obj = ois.readObject();
-				cm.code = (String) obj;
-				obj = ois.readObject();
-				cm.UserName = (String) obj;
-				obj = ois.readObject();
-				cm.data = (String) obj;
-				if (cm.code.equals("300")) {
-					obj = ois.readObject();
-					cm.imgbytes = (byte[]) obj;
-				}
-			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
-				AppendText("ReadChatMsg Error");
-				e.printStackTrace();
-				try {
-					oos.close();
-					socket.close();
-					ois.close();
-					socket = null;
-					return null;
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					try {
-						oos.close();
-						socket.close();
-						ois.close();
-					} catch (IOException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
-
-					socket = null;
-					return null;
-				}
-
-				// textArea.append("메세지 송신 에러!!\n");
-				// System.exit(0);
-			}
-
-
-		return cm;
->>>>>>> refs/remotes/origin/kyuyoung
 	}
 
 	public void paint(Graphics g) {
@@ -827,10 +725,10 @@ public class DynamicBeat extends JFrame {
 		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
 
 	}
-	
+
 	// Server Message를 수신해서 화면에 표시
-		class ListenNetwork extends Thread {
-			public void run() {
+	class ListenNetwork extends Thread {
+		public void run() {
 				while (true) {
 					try {
 						// String msg = dis.readUTF();
@@ -851,7 +749,6 @@ public class DynamicBeat extends JFrame {
 //						String	msg = new String(b, "euc-kr");
 //						msg = msg.trim(); // 앞뒤 blank NULL, \n 모두 제거
 
-<<<<<<< HEAD
 						Object obcm = null;
 						String msg = null;
 						ChatMsg cm;
@@ -895,7 +792,7 @@ public class DynamicBeat extends JFrame {
 
 				}
 			}
-		}
+	}
 
 	// 화면에 출력
 	public void AppendText(String msg) {
@@ -916,79 +813,6 @@ public class DynamicBeat extends JFrame {
 			AppendText("SendObject Error");
 		}
 	}
-=======
-	// Server Message를 수신해서 화면에 표시
-	class ListenNetwork extends Thread {
-		public void run() {
-			while (true) {
-				ChatMsg cm = ReadChatMsg();
-				if (cm == null)
-					break;
-				if (socket == null)
-					break;
-				String msg;
-				msg = String.format("[%s] %s", cm.UserName, cm.data);
-				switch (cm.code) {
-				 case "200": // chat message
-					 AppendText(msg);
-					 break;
-				 //case "300": // Image 첨부
-					 //AppendText("[" + cm.UserName + "]" + " " + cm.data);
-					 //AppendImage(cm.img);
-					 //AppendImageBytes(cm.imgbytes);
 
-				// break;
-				}
 
-			}
-		}
-	}
-
-	// Server에게 network으로 전송
-	public void SendMessage(String msg) {
-		ChatMsg obcm = new ChatMsg(UserName, "200", msg);
-		SendChatMsg(obcm);
-	}
-
-	// 하나의 Message 보내는 함수
-	// Android와 호환성을 위해 code, UserName, data 모드 각각 전송한다.
-	public void SendChatMsg(ChatMsg obj) {
-		try {
-			oos.writeObject(obj.code);
-			oos.writeObject(obj.UserName);
-			oos.writeObject(obj.data);
-			if (obj.code.equals("300")) { // 이미지 첨부 있는 경우
-				oos.writeObject(obj.imgbytes);
-			}
-			oos.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-			try {
-				oos.close();
-				socket.close();
-				ois.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
-			// textArea.append("메세지 송신 에러!!\n");
-			// System.exit(0);
-		}
-	}
-	
-	
-	
-	// 화면에 출력
-		public void AppendText(String msg) {
-			// textArea.append(msg + "\n");
-			// AppendIcon(icon1);
-			msg = msg.trim(); // 앞뒤 blank와 \n을 제거한다.
-			int len = textArea.getDocument().getLength();
-			// 끝으로 이동
-			textArea.setCaretPosition(len);
-			textArea.replaceSelection(msg + "\n");
-		}
-
->>>>>>> refs/remotes/origin/kyuyoung
 }
