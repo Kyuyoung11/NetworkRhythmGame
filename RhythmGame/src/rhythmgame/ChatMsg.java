@@ -14,6 +14,10 @@ class ChatMsg implements Serializable {
 	
 	private int num;
 	
+	private int room1;
+	private int room2;
+	private int room3;
+	
 	public ChatMsg(String id, String code) {
 		this.id = id;
 		this.code = code;
@@ -24,6 +28,30 @@ class ChatMsg implements Serializable {
 		this.id = id;
 		this.code = code;
 		this.data = msg;
+	}
+	
+	public int getRoom1() {
+		return room1;
+	}
+	
+	public int getRoom2() {
+		return room2;
+	}
+	
+	public int getRoom3() {
+		return room3;
+	}
+	
+	public void setRoom1(int room1) {
+		this.room1 = room1;
+	}
+	
+	public void setRoom2(int room2) {
+		this.room2 = room2;
+	}
+	
+	public void setRoom3(int room3) {
+		this.room3 = room3;
 	}
 	
 	public int getNum() {

@@ -55,6 +55,10 @@ public class DynamicBeat extends JFrame {
    private JTextPane textArea;
 
    private String UserName;
+   
+   private int room1 = 0;
+   private int room2 = 0;
+   private int room3 = 0;
 
    private Image screenImage;
    private Graphics screenGraphic;
@@ -102,25 +106,22 @@ public class DynamicBeat extends JFrame {
    private JButton roomButton2 = new JButton("2");
    private JButton roomButton3 = new JButton("3");
 
-   private JButton numButton1 = new JButton("2/2");
-   private JButton numButton2 = new JButton("1/2");
+   private JButton numButton1 = new JButton("0/2");
+   private JButton numButton2 = new JButton("0/2");
    private JButton numButton3 = new JButton("0/2");
 
    private JButton gameButton1 = new JButton("게임중...");
    private JButton gameButton2 = new JButton("게임중...");
    private JButton gameButton3 = new JButton("게임중...");
 
-   private JButton enterButton1 = new JButton("입장 가능");
-   private JButton enterButton2 = new JButton("입장 가능");
-   private JButton enterButton3 = new JButton("입장 가능");
 
    private int mouseX, mouseY;
 
    private boolean isMainScreen = false; // main함수면 true
    private boolean isGameScreen = false;
 
-   // true -> 게임중 버튼 true & 입장가능 버튼 false
-   // gameButton은 isGamingroom으로 쓰고 enterButton은 !isGamingroom으로 쓰면 됨
+   // true -> 게임중 버튼 true 
+   // gameButton isGamingroom으로 쓰면 됨
    private boolean isGamingroom1 = true;
    private boolean isGamingroom2 = false;
    private boolean isGamingroom3 = false;
@@ -226,25 +227,28 @@ public class DynamicBeat extends JFrame {
       roomButton3.setContentAreaFilled(false);
       add(roomButton3);
 
-      // 1번방 명수 표시할 버튼
+      // 1번방 인원수 표시할 버튼
       numButton1.setBounds(690, 310, 80, 40);
       numButton1.setBorderPainted(true);
       numButton1.setFocusPainted(false);
       numButton1.setContentAreaFilled(false);
+      numButton1.setText(Integer.toString(room1)+"/2");
       add(numButton1);
 
-      // 2번방 명수 표시할 버튼
+      // 2번방 인원수 표시할 버튼
       numButton2.setBounds(690, 430, 80, 40);
       numButton2.setBorderPainted(true);
       numButton2.setFocusPainted(false);
       numButton2.setContentAreaFilled(false);
+      numButton2.setText(Integer.toString(room2)+"/2");
       add(numButton2);
 
-      // 3번방 명수 표시할 버튼
+      // 3번방 인원수 표시할 버튼
       numButton3.setBounds(690, 550, 80, 40);
       numButton3.setBorderPainted(true);
       numButton3.setFocusPainted(false);
       numButton3.setContentAreaFilled(false);
+      numButton3.setText(Integer.toString(room3)+"/2");
       add(numButton3);
 
       // 게임중 표시 (방 1)
@@ -271,29 +275,7 @@ public class DynamicBeat extends JFrame {
       gameButton3.setContentAreaFilled(false);
       add(gameButton3);
 
-      // 입장 가능 표시 (방 1)
-      enterButton1.setVisible(!isGamingroom1);
-      enterButton1.setBounds(530, 310, 100, 40);
-      enterButton1.setBorderPainted(false);
-      enterButton1.setFocusPainted(false);
-      enterButton1.setContentAreaFilled(false);
-      add(enterButton1);
-
-      // 입장 가능 표시 (방 2)
-      enterButton2.setVisible(!isGamingroom2);
-      enterButton2.setBounds(530, 430, 100, 40);
-      enterButton2.setBorderPainted(false);
-      enterButton2.setFocusPainted(false);
-      enterButton2.setContentAreaFilled(false);
-      add(enterButton2);
-
-      // 입장 가능 표시 (방 3)
-      enterButton3.setVisible(!isGamingroom3);
-      enterButton3.setBounds(530, 550, 100, 40);
-      enterButton3.setBorderPainted(false);
-      enterButton3.setFocusPainted(false);
-      enterButton3.setContentAreaFilled(false);
-      add(enterButton3);
+     
 
       // 방 버튼 위치 조정
       startButton.setBounds(400, 280, 400, 100);
@@ -367,7 +349,10 @@ public class DynamicBeat extends JFrame {
          public void mousePressed(MouseEvent e) {
             Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
             buttonEnteredMusic.start();
-            enterGame(); // 코드 하단에 있음
+            ChatMsg obcm = new ChatMsg(UserName, "300");
+            obcm.setNum(2);
+            
+            SendObject(obcm);
 
          }
       });
@@ -400,7 +385,10 @@ public class DynamicBeat extends JFrame {
          public void mousePressed(MouseEvent e) {
             Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
             buttonEnteredMusic.start();
-            enterGame(); // 코드 하단에 있음
+            ChatMsg obcm = new ChatMsg(UserName, "300");
+            obcm.setNum(3);
+            
+            SendObject(obcm);
 
          }
       });
@@ -674,13 +662,10 @@ public class DynamicBeat extends JFrame {
       numButton3.setVisible(true);
 
       gameButton1.setVisible(isGamingroom1);
-      enterButton1.setVisible(!isGamingroom1);
 
       gameButton2.setVisible(isGamingroom2);
-      enterButton2.setVisible(!isGamingroom2);
 
       gameButton3.setVisible(isGamingroom3);
-      enterButton3.setVisible(!isGamingroom3);
 
       isMainScreen = false;
       leftButton.setVisible(false);
@@ -716,9 +701,6 @@ public class DynamicBeat extends JFrame {
       gameButton2.setVisible(false);
       gameButton3.setVisible(false);
 
-      enterButton1.setVisible(false);
-      enterButton2.setVisible(false);
-      enterButton3.setVisible(false);
 
       background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
       isMainScreen = true;
@@ -786,7 +768,17 @@ public class DynamicBeat extends JFrame {
                 	 else if (cm.getNum() == -1) AppendText("방 입장 실패");
                      //AppendImage(cm.img);
                      break;
+          
+                  case "301": //301 room1인원 room2인원 room3인원
+                	 room1 = cm.getRoom1();
+                	 room2 = cm.getRoom2();
+                	 room3 = cm.getRoom3();
+                	 numButton1.setText(Integer.toString(room1)+"/2");
+                	 numButton2.setText(Integer.toString(room2)+"/2");
+                	 numButton3.setText(Integer.toString(room3)+"/2");
+                	 
                   }
+                	  
                } catch (IOException e) {
                   AppendText("ois.readObject() error");
                   try {
@@ -816,7 +808,8 @@ public class DynamicBeat extends JFrame {
       textArea.setCaretPosition(len);
       textArea.replaceSelection(msg + "\n");
    }
- //커밋을 위한 거짓 주석
+   
+   //커밋을 위한 거짓 주석
    public void SendObject(Object ob) { // 서버로 메세지를 보내는 메소드
       try {
          oos.writeObject(ob);
