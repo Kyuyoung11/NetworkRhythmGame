@@ -588,7 +588,7 @@ public class DynamicBeat extends JFrame {
 		}
 		paintComponents(g); // 항상 고정되어있는 이미지는 paintComponent로
 		try {
-			Thread.sleep(5);
+			Thread.sleep(3);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -765,7 +765,6 @@ public class DynamicBeat extends JFrame {
 						break;
 
 					case "301": // 301 room1인원 room2인원 room3인원
-						AppendText("301 " + cm.getRoom2());
 						room1 = cm.getRoom1();
 						room2 = cm.getRoom2();
 						room3 = cm.getRoom3();
