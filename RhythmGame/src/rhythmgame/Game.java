@@ -587,7 +587,7 @@ public class Game extends Thread {
 		} else if (judge.equals("Late")) {
 			scorePoint += 2;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
-			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+			
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
 	         obcm.setOtherScore(scorePoint);
 	         SendObject(obcm);
@@ -595,31 +595,30 @@ public class Game extends Thread {
 			scorePoint += 5;
 
 			judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
-			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+			
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
 	         obcm.setOtherScore(scorePoint);
 	         SendObject(obcm);
 		} else if (judge.equals("Great")) {
 			scorePoint += 10;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/great.png")).getImage();
-			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+			
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
 	         obcm.setOtherScore(scorePoint);
 	         SendObject(obcm);
 		} else if (judge.equals("Perfect")) {
 			scorePoint += 20;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
-			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+			
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
 	         obcm.setOtherScore(scorePoint);
 	         SendObject(obcm);
 		} else if (judge.equals("Early")) {
 			scorePoint += 4;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			judgeImage = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
 		} else if (judge.equals("money")) {
 			scorePoint *= 2;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
-
 		} else if (judge.equals("apple")) {
 			appleCount += 1;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
@@ -660,6 +659,7 @@ public class Game extends Thread {
 						continue;
 					switch (cm.getCode()) {
 					case "800":
+						System.out.println("800");
 						otherScorePoint = cm.getOtherScore();
 		                break;
 
@@ -683,7 +683,6 @@ public class Game extends Thread {
 		}
 	}
 
-	// 커밋을 위한 거짓 주석
 	public void SendObject(Object ob) { // 서버로 메세지를 보내는 메소드
 		try {
 			oos.writeObject(ob);
