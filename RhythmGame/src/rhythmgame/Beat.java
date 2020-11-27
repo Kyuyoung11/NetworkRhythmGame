@@ -33,10 +33,10 @@ public class Beat {
 	public String setType() {
 		
 		int rannum = random.nextInt(100);
-		if (rannum > 95) return "item1"; //애플
-		else if (rannum > 85) return "item2"; //벨주머니
-		else if (rannum >80) return "item3"; //사이다
-		else if (rannum >75) return "item4"; //벌집
+		if (rannum > 97) return "item1"; //애플
+		else if (rannum > 94) return "item2"; //벨주머니
+		else if (rannum >91) return "item3"; //사이다
+		else if (rannum >88) return "item4"; //벌집
 		else return "basic";
 		
 	}
