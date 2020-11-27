@@ -59,7 +59,7 @@ public class DynamicBeat extends JFrame {
 	private int room1 = 0;
 	private int room2 = 0;
 	private int room3 = 0;
-	
+
 	private String songTitle;
 
 	private Image screenImage;
@@ -306,14 +306,13 @@ public class DynamicBeat extends JFrame {
 				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
 				buttonEnteredMusic.start();
 
-				//enterGame();
+				// enterGame();
 
-				
-				 ChatMsg obcm = new ChatMsg(UserName, "300"); 
-				 obcm.setNum(1);
-				 
-				 SendObject(obcm);
-				 
+				ChatMsg obcm = new ChatMsg(UserName, "300");
+				obcm.setNum(1);
+
+				SendObject(obcm);
+
 			}
 		});
 		add(startButton);
@@ -487,7 +486,12 @@ public class DynamicBeat extends JFrame {
 				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
 				buttonEnteredMusic.start();
 				// 게임 시작 이벤트
-				gameStart(nowSelected, "easy");
+				// gameStart(nowSelected, "easy");
+
+				ChatMsg obcm = new ChatMsg(UserName, "1000");
+				obcm.setroomStatus(1);
+
+				SendObject(obcm);
 			}
 		});
 		add(easyButton);
@@ -613,31 +617,32 @@ public class DynamicBeat extends JFrame {
 			ChatMsg obcm = new ChatMsg(UserName, "600");
 			obcm.setNowSelected(nowSelected);
 			SendObject(obcm);
-		}// 가장 오른쪽에 있곡이 선택
+		} // 가장 오른쪽에 있곡이 선택
 		else {
 			nowSelected--;
 			ChatMsg obcm = new ChatMsg(UserName, "600");
 			obcm.setNowSelected(nowSelected);
 			SendObject(obcm);
-			selectTrack(nowSelected);
+			//selectTrack(nowSelected);
 		}
 	}
 
 	public void selectRight() {
 		if (nowSelected == trackList.size() - 1) {
-			ChatMsg obcm = new ChatMsg(UserName, "600");	
+			nowSelected = 0;
+			ChatMsg obcm = new ChatMsg(UserName, "600");
 			obcm.setNowSelected(nowSelected);
 			SendObject(obcm);
-			
-			nowSelected = 0; //
+
+			 //
 		}
-			
+
 		else {
 			nowSelected++;
-			ChatMsg obcm = new ChatMsg(UserName, "600");	
+			ChatMsg obcm = new ChatMsg(UserName, "600");
 			obcm.setNowSelected(nowSelected);
 			SendObject(obcm);
-			selectTrack(nowSelected);
+			//selectTrack(nowSelected);
 		}
 	}
 
@@ -794,8 +799,13 @@ public class DynamicBeat extends JFrame {
 						break;
 					case "600":
 						AppendText("600");
-						nowSelected = cm.getNowSelected();	
+						nowSelected = cm.getNowSelected();
 						selectTrack(nowSelected);
+						break;
+
+					case "1000":
+						gameStart(nowSelected, "easy");
+						break;
 					}
 
 				} catch (IOException e) {
