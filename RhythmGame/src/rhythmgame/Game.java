@@ -609,13 +609,15 @@ public class Game extends Thread {
 		} else if (judge.equals("Perfect")) {
 			scorePoint += 20;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
-			
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
 	         obcm.setOtherScore(scorePoint);
 	         SendObject(obcm);
 		} else if (judge.equals("Early")) {
 			scorePoint += 4;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
+			ChatMsg obcm = new ChatMsg(UserName, "800");
+	        obcm.setOtherScore(scorePoint);
+	        SendObject(obcm);
 		} else if (judge.equals("money")) {
 			scorePoint *= 2;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
