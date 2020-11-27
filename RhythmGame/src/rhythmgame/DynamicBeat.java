@@ -727,7 +727,7 @@ public class DynamicBeat extends JFrame {
 		rightButton.setVisible(true);
 		easyButton.setVisible(true); // 게임시작버튼
 
-		selectTrack(0);
+		selectTrack(nowSelected);
 
 		backButton.setVisible(true);
 		introMusic.close();
@@ -782,8 +782,10 @@ public class DynamicBeat extends JFrame {
 						AppendText(msg);
 						break;
 					case "300": // 300 입장여부
-						if (cm.getNum() == 1)
+						if (cm.getNum() == 1) {
+							nowSelected = cm.getNowSelected();
 							enterGame(); // 코드 하단에 있음
+						}
 						else if (cm.getNum() == -1)
 							AppendText("방 입장 실패");
 						// AppendImage(cm.img);
