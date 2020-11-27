@@ -54,7 +54,7 @@ public class DynamicBeat extends JFrame {
 
 	private JTextPane textArea;
 
-	private String UserName;
+	public String UserName;
 
 	private int room1 = 0;
 	private int room2 = 0;

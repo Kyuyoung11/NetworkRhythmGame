@@ -8,7 +8,7 @@ public class KeyListener extends KeyAdapter{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(DynamicBeat.game ==null) { //게임진행중 아니면 키 입력 무시
+		if(DynamicBeat.game == null) { //게임진행중 아니면 키 입력 무시
 			return;
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_D) {

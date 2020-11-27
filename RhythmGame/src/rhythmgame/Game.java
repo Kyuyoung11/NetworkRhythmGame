@@ -643,6 +643,7 @@ public class Game extends Thread {
 		if (judge.equals("Miss")) {
 			scorePoint += -4;			
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+			
 		} else if (judge.equals("Late")) {
 			scorePoint += 2;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
