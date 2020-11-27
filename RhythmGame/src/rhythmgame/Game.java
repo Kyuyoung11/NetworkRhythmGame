@@ -23,8 +23,6 @@ import rhythmgame.DynamicBeat.ListenNetwork;
 public class Game extends Thread {
 
 	private String UserName;
-	private String ip_addr;
-	private String port_no;
 
 	private int scorePoint;
 	private int otherScorePoint;
@@ -73,33 +71,16 @@ public class Game extends Thread {
 
 	ArrayList<Note> noteList = new ArrayList<Note>(); // 각 note를 저장할 배열
 
-	public Game(String titleName, String musicTitle, String username, String ip_addr, String port_no) {
+	public Game(String titleName, String musicTitle, String username, ObjectInputStream ois, ObjectOutputStream oos, Socket socket) {
 		this.titleName = titleName;
 		this.musicTitle = musicTitle;
 		UserName = username;
-		this.ip_addr = ip_addr;
-		this.port_no = port_no;
+		this.ois = ois;
+		this.oos = oos;
+		this.socket = socket;
 		gameMusic = new Music(this.musicTitle, false); // 한번만 실행
-
-		try {
-			socket = new Socket(ip_addr, Integer.parseInt(port_no));
-//         is = socket.getInputStream();
-//         dis = new DataInputStream(is);
-//         os = socket.getOutputStream();
-//         dos = new DataOutputStream(os);
-
-			oos = new ObjectOutputStream(socket.getOutputStream());
-			oos.flush();
-			ois = new ObjectInputStream(socket.getInputStream());
-
-
-			ListenNetwork net = new ListenNetwork();
-			net.start();
-
-		} catch (NumberFormatException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		
 
 	}
 
@@ -587,7 +568,7 @@ public class Game extends Thread {
 		} else if (judge.equals("Late")) {
 			scorePoint += 2;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
-			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+			
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
 	         obcm.setOtherScore(scorePoint);
 	         SendObject(obcm);
@@ -595,27 +576,27 @@ public class Game extends Thread {
 			scorePoint += 5;
 
 			judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
-			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+			
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
 	         obcm.setOtherScore(scorePoint);
 	         SendObject(obcm);
 		} else if (judge.equals("Great")) {
 			scorePoint += 10;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/great.png")).getImage();
-			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+			
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
 	         obcm.setOtherScore(scorePoint);
 	         SendObject(obcm);
 		} else if (judge.equals("Perfect")) {
 			scorePoint += 20;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
-			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+			
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
 	         obcm.setOtherScore(scorePoint);
 	         SendObject(obcm);
 		} else if (judge.equals("Early")) {
 			scorePoint += 4;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			judgeImage = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
 		} else if (judge.equals("money")) {
 			scorePoint *= 2;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
@@ -634,58 +615,39 @@ public class Game extends Thread {
 
 		}
 	}
+	
+	public void gameCode(Object obcm) {
+		String msg = null;
+		ChatMsg cm = null;
+		try {
+			obcm = ois.readObject();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (obcm instanceof ChatMsg) {
+			cm = (ChatMsg) obcm;
+			msg = String.format("[%s] %s", cm.getId(), cm.getData());
+		}
+		switch (cm.getCode()) {
+		case "800":
+			
+			otherScorePoint = cm.getOtherScore();
+			System.out.println(otherScorePoint);
+            break;
 
-	// Server Message를 수신해서 화면에 표시
-	class ListenNetwork extends Thread {
-		public void run() {
-			while (true) {
-				try {
-
-					Object obcm = null;
-					String msg = null;
-					ChatMsg cm;
-					try {
-						obcm = ois.readObject();
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						break;
-					}
-					if (obcm == null)
-						break;
-					if (obcm instanceof ChatMsg) {
-						cm = (ChatMsg) obcm;
-						msg = String.format("[%s] %s", cm.getId(), cm.getData());
-					} else
-						continue;
-					switch (cm.getCode()) {
-					case "800":
-						otherScorePoint = cm.getOtherScore();
-		                break;
-
-					}
-
-				} catch (IOException e) {
-					try {
-//                        dos.close();
-//                        dis.close();
-						ois.close();
-						oos.close();
-						socket.close();
-
-						break;
-					} catch (Exception ee) {
-						break;
-					} // catch문 끝
-				} // 바깥 catch문끝
-
-			}
 		}
 	}
+
+
 
 	// 커밋을 위한 거짓 주석
 	public void SendObject(Object ob) { // 서버로 메세지를 보내는 메소드
 		try {
+			
 			oos.writeObject(ob);
 		} catch (IOException e) {
 			// textArea.append("메세지 송신 에러!!\n");
