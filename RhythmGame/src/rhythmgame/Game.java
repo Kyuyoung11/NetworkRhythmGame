@@ -92,9 +92,6 @@ public class Game extends Thread {
 			oos.flush();
 			ois = new ObjectInputStream(socket.getInputStream());
 
-			// SendMessage("/login " + UserName);
-			ChatMsg obcm = new ChatMsg(UserName, "100", "Hello");
-			SendObject(obcm);
 
 			ListenNetwork net = new ListenNetwork();
 			net.start();
@@ -585,33 +582,37 @@ public class Game extends Thread {
 			scorePoint += -4;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
-	         obcm.setNowSelected(scorePoint);
+	         obcm.setOtherScore(scorePoint);
 	         SendObject(obcm);
 		} else if (judge.equals("Late")) {
 			scorePoint += 2;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
-	         obcm.setNowSelected(scorePoint);
+	         obcm.setOtherScore(scorePoint);
+	         SendObject(obcm);
 		} else if (judge.equals("Good")) {
 			scorePoint += 5;
 
 			judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
-	         obcm.setNowSelected(scorePoint);
+	         obcm.setOtherScore(scorePoint);
+	         SendObject(obcm);
 		} else if (judge.equals("Great")) {
 			scorePoint += 10;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/great.png")).getImage();
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
-	         obcm.setNowSelected(scorePoint);
+	         obcm.setOtherScore(scorePoint);
+	         SendObject(obcm);
 		} else if (judge.equals("Perfect")) {
 			scorePoint += 20;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 			 ChatMsg obcm = new ChatMsg(UserName, "800");
-	         obcm.setNowSelected(scorePoint);
+	         obcm.setOtherScore(scorePoint);
+	         SendObject(obcm);
 		} else if (judge.equals("Early")) {
 			scorePoint += 4;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
@@ -659,7 +660,7 @@ public class Game extends Thread {
 						continue;
 					switch (cm.getCode()) {
 					case "800":
-						otherScorePoint = cm.getNowSelected();
+						otherScorePoint = cm.getOtherScore();
 		                break;
 
 					}
