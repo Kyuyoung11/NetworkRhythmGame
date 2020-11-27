@@ -806,16 +806,17 @@ public class DynamicBeat extends JFrame {
 						numButton2.setText(Integer.toString(room2) + "/2");
 						numButton3.setText(Integer.toString(room3) + "/2");
 						break;
-					case "600":
+					case "600": // 600 현재선택곡
 						nowSelected = cm.getNowSelected();
 						selectTrack(nowSelected);
 						break;
 
-					case "800":
-						game.gameCode(obcm);
+					case "800": // 800 점수
+						if (game != null) 
+							game.gameCode(obcm); // Game.java에서 처리
 						break;
 
-					case "1000":
+					case "1000": // 1000 1:게임시작 0:게임x (게임 상태 변경)
 						gameStart(nowSelected, "easy");
 						break;
 					}
