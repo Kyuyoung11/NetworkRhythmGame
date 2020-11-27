@@ -72,8 +72,8 @@ class ChatMsg implements Serializable {
 		this.nowSelected = nowSelected;
 	}
 	
-	public void setOtherScore() {
-		this.otherScore = otherScore;
+	public void setOtherScore(int score) {
+		this.otherScore = score;
 	}
 
 	public int getNum() {
