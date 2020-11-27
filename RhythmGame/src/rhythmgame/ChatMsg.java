@@ -21,6 +21,8 @@ class ChatMsg implements Serializable {
 	private int nowSelected;
 	
 	private int roomStatus;
+	
+	private int otherScore;
 
 	public ChatMsg(String id, String code) {
 		this.id = id;
@@ -40,6 +42,7 @@ class ChatMsg implements Serializable {
 	public int getRoom2() {
 		return room2;
 	}
+	
 
 	public int getRoom3() {
 		return room3;
@@ -47,6 +50,10 @@ class ChatMsg implements Serializable {
 
 	public int getNowSelected() {
 		return nowSelected;
+	}
+	
+	public int getOtherScore() {
+		return otherScore;
 	}
 
 	public void setRoom1(int room1) {
@@ -63,6 +70,10 @@ class ChatMsg implements Serializable {
 
 	public void setNowSelected(int nowSelected) {
 		this.nowSelected = nowSelected;
+	}
+	
+	public void setOtherScore() {
+		this.otherScore = otherScore;
 	}
 
 	public int getNum() {
