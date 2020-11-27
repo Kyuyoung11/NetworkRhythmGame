@@ -59,6 +59,8 @@ public class DynamicBeat extends JFrame {
 	private int room1 = 0;
 	private int room2 = 0;
 	private int room3 = 0;
+	
+	private String songTitle;
 
 	private Image screenImage;
 	private Graphics screenGraphic;
@@ -606,19 +608,37 @@ public class DynamicBeat extends JFrame {
 	}
 
 	public void selectLeft() {
-		if (nowSelected == 0)
-			nowSelected = trackList.size() - 1; // 가장 오른쪽에 있곡이 선택
-		else
+		if (nowSelected == 0) {
+			nowSelected = trackList.size() - 1;
+			ChatMsg obcm = new ChatMsg(UserName, "600");
+			obcm.setNowSelected(nowSelected);
+			SendObject(obcm);
+		}// 가장 오른쪽에 있곡이 선택
+		else {
 			nowSelected--;
-		selectTrack(nowSelected);
+			ChatMsg obcm = new ChatMsg(UserName, "600");
+			obcm.setNowSelected(nowSelected);
+			SendObject(obcm);
+			selectTrack(nowSelected);
+		}
 	}
 
 	public void selectRight() {
-		if (nowSelected == trackList.size() - 1)
+		if (nowSelected == trackList.size() - 1) {
+			ChatMsg obcm = new ChatMsg(UserName, "600");	
+			obcm.setNowSelected(nowSelected);
+			SendObject(obcm);
+			
 			nowSelected = 0; //
-		else
+		}
+			
+		else {
 			nowSelected++;
-		selectTrack(nowSelected);
+			ChatMsg obcm = new ChatMsg(UserName, "600");	
+			obcm.setNowSelected(nowSelected);
+			SendObject(obcm);
+			selectTrack(nowSelected);
+		}
 	}
 
 	public void gameStart(int nowSelected, String difficulty) {
@@ -772,7 +792,10 @@ public class DynamicBeat extends JFrame {
 						numButton2.setText(Integer.toString(room2) + "/2");
 						numButton3.setText(Integer.toString(room3) + "/2");
 						break;
-
+					case "600":
+						AppendText("600");
+						nowSelected = cm.getNowSelected();	
+						selectTrack(nowSelected);
 					}
 
 				} catch (IOException e) {
