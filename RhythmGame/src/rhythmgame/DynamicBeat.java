@@ -798,7 +798,7 @@ public class DynamicBeat extends JFrame {
 						numButton3.setText(Integer.toString(room3) + "/2");
 						break;
 					case "600":
-						AppendText("600");
+						//AppendText("600");
 						nowSelected = cm.getNowSelected();
 						selectTrack(nowSelected);
 						break;
@@ -806,6 +806,9 @@ public class DynamicBeat extends JFrame {
 					case "1000":
 						gameStart(nowSelected, "easy");
 						break;
+						
+					case "700":
+						
 					}
 
 				} catch (IOException e) {
