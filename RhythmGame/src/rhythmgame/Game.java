@@ -55,6 +55,7 @@ public class Game extends Thread {
 		this.titleName = titleName;
 		this.musicTitle = musicTitle;
 		gameMusic = new Music(this.musicTitle, false); // 한번만 실행
+		
 	}
 	
 

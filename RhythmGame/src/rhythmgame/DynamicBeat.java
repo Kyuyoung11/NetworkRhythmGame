@@ -550,6 +550,9 @@ public class DynamicBeat extends JFrame {
 		});
 
 		add(menuBar);
+		
+		setFocusable(true); // 메인 프레임에 키보드 포커스
+		
 
 		try {
 			socket = new Socket(ip_addr, Integer.parseInt(port_no));
@@ -602,6 +605,7 @@ public class DynamicBeat extends JFrame {
 	}
 
 	public void selectTrack(int nowSelected) {
+		
 		if (selectedMusic != null)
 			selectedMusic.close(); // 현재 재생되고 있는 음악 멈춤
 		selectedImage = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getStartImage()))
@@ -634,7 +638,7 @@ public class DynamicBeat extends JFrame {
 			obcm.setNowSelected(nowSelected);
 			SendObject(obcm);
 
-			 //
+			 
 		}
 
 		else {
@@ -661,6 +665,7 @@ public class DynamicBeat extends JFrame {
 		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
 		game.start();
 
+		
 		setFocusable(true); // 메인 프레임에 키보드 포커스
 	}
 
@@ -800,7 +805,6 @@ public class DynamicBeat extends JFrame {
 						numButton3.setText(Integer.toString(room3) + "/2");
 						break;
 					case "600":
-						AppendText("600");
 						nowSelected = cm.getNowSelected();
 						selectTrack(nowSelected);
 						break;
