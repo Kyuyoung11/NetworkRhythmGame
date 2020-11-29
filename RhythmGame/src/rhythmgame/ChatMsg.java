@@ -25,7 +25,11 @@ class ChatMsg implements Serializable {
 	private int otherScore;
 	
 	private String judge;
+
 	private String noteType;
+
+	private int appleAttack;
+
 
 	public ChatMsg(String id, String code) {
 		this.id = id;
@@ -70,6 +74,10 @@ class ChatMsg implements Serializable {
 	public int getOtherScore() {
 		return otherScore;
 	}
+	
+	public int getAppleAttack() {
+		return appleAttack;
+	}
 
 	public void setRoom1(int room1) {
 		this.room1 = room1;
@@ -89,6 +97,10 @@ class ChatMsg implements Serializable {
 	
 	public void setOtherScore(int score) {
 		this.otherScore = score;
+	}
+	
+	public void setAppleAttack(int appleAttack) {
+		this.appleAttack = appleAttack;
 	}
 
 	public int getNum() {

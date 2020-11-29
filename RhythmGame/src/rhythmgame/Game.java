@@ -31,6 +31,7 @@ public class Game extends Thread {
 	private int appleCount = 0;
 	private int saidaCount = 0;
 	public static int qq = 1;
+	public static int appleAttack = 0;
 
 	private static final int BUF_LEN = 128; // Windows 처럼 BUF_LEN 을 정의
 	private Socket socket; // 연결소켓
@@ -196,7 +197,8 @@ public class Game extends Thread {
 		for (int i = 0; i < noteList2.size(); i++) {
 			Note note = noteList2.get(i);
 			if (note.getY() > 620) {
-				//judgeImage2 = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+				// judgeImage2 = new
+				// ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 			}
 			if (!note.isProceeded()) {
 				noteList2.remove(i);
@@ -716,6 +718,12 @@ public class Game extends Thread {
 			appleCount += 1;
 			scorePoint += 50;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/item_apple.png")).getImage();
+			if (appleCount == 3) {
+				// appleAttack=1;
+				ChatMsg obcm = new ChatMsg(UserName, "500");
+				obcm.setAppleAttack(1);
+				SendObject(obcm);
+			}
 
 		} else if (judge.equals("saida")) {
 			saidaCount += 1;
@@ -748,8 +756,26 @@ public class Game extends Thread {
 
 	public void gameCode(ChatMsg cm) {
 		String msg = null;
-		
+
 		switch (cm.getCode()) {
+
+		case "500":
+			System.out.println("500");
+			appleAttack = cm.getAppleAttack();
+			Timer timerApple = new Timer();
+			TimerTask timerTaskApple = new TimerTask() {
+
+				@Override
+				public void run() {
+					appleAttack = 0;
+					appleCount = 0;
+
+				}
+
+			};
+			timerApple.schedule(timerTaskApple, 5000);
+
+			break;
 
 		case "700":
 			otherScorePoint = cm.getOtherScore();
@@ -790,8 +816,8 @@ public class Game extends Thread {
 				break;
 
 			}
-			switch(cm.getnoteType()) {
-			case "D" :
+			switch (cm.getnoteType()) {
+			case "D":
 				noteRouteDImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
 				keyPadDImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
 				Timer timer1 = new Timer();
@@ -806,7 +832,7 @@ public class Game extends Thread {
 				};
 				timer1.schedule(timertask1, 100);
 				break;
-			case "F" :
+			case "F":
 				noteRouteFImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
 				keyPadFImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
 				Timer timer2 = new Timer();
@@ -821,7 +847,7 @@ public class Game extends Thread {
 				};
 				timer2.schedule(timertask2, 100);
 				break;
-			case "J" :
+			case "J":
 				noteRouteJImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
 				keyPadJImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
 				Timer timer3 = new Timer();
@@ -836,7 +862,7 @@ public class Game extends Thread {
 				};
 				timer3.schedule(timertask3, 100);
 				break;
-			case "K" :
+			case "K":
 				noteRouteKImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
 				keyPadKImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
 				Timer timer4 = new Timer();
@@ -852,8 +878,6 @@ public class Game extends Thread {
 				timer4.schedule(timertask4, 100);
 				break;
 			}
-			
-			
 
 			break;
 		}
