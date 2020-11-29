@@ -60,21 +60,28 @@ public class Game extends Thread {
    private Image itemSaida = new ImageIcon(Main.class.getResource("../images/saida.png")).getImage();
    private Image itemApple = new ImageIcon(Main.class.getResource("../images/apple.png")).getImage();
 
-   private Image blueFlareImage;
-   private Image judgeImage;
+   private Image blueFlareImage, blueFlareImage2;
+   private Image judgeImage, judgeImage2;
 
    private Image keyPadDImage = new ImageIcon(Main.class.getResource("../images/keypadBasic.png")).getImage();
    private Image keyPadFImage = new ImageIcon(Main.class.getResource("../images/keypadBasic.png")).getImage();
    private Image keyPadJImage = new ImageIcon(Main.class.getResource("../images/keypadBasic.png")).getImage();
    private Image keyPadKImage = new ImageIcon(Main.class.getResource("../images/keypadBasic.png")).getImage();
 
+   private Image keyPadDImage1 = new ImageIcon(Main.class.getResource("../images/keypadBasic.png")).getImage();
+   private Image keyPadFImage1 = new ImageIcon(Main.class.getResource("../images/keypadBasic.png")).getImage();
+   private Image keyPadJImage1 = new ImageIcon(Main.class.getResource("../images/keypadBasic.png")).getImage();
+   private Image keyPadKImage1 = new ImageIcon(Main.class.getResource("../images/keypadBasic.png")).getImage();
    private String titleName;
    private String musicTitle;
    private Music gameMusic;
+   
+   private String noteType;
 
    ArrayList<Note> noteList = new ArrayList<Note>(); // 각 note를 저장할 배열
 
-   public Game(String titleName, String musicTitle, String username, ObjectInputStream ois, ObjectOutputStream oos, Socket socket) {
+   public Game(String titleName, String musicTitle, String username, ObjectInputStream ois, ObjectOutputStream oos,
+         Socket socket) {
       this.titleName = titleName;
       this.musicTitle = musicTitle;
       UserName = username;
@@ -82,8 +89,6 @@ public class Game extends Thread {
       this.oos = oos;
       this.socket = socket;
       gameMusic = new Music(this.musicTitle, false); // 한번만 실행
-      
-      
 
    }
 
@@ -163,6 +168,8 @@ public class Game extends Thread {
       g.drawImage(noteRouteLineImage, 1180, 90, null);
 
       g.drawImage(judgementLineImage, 796, 580, null);
+      g.drawImage(blueFlareImage2, 796, 400, null);
+      g.drawImage(judgeImage2, 816, 470, null);
 
       g.setFont(new Font("Arial", Font.PLAIN, 26));
       g.setColor(Color.DARK_GRAY);
@@ -180,10 +187,10 @@ public class Game extends Thread {
       g.drawString("User2", 935, 680);
       // g.drawImage(blueFlareImage, 280, 280, null);
       // g.drawImage(judgeImage, 450, 400, null);
-      g.drawImage(keyPadDImage, 796, 580, null);
-      g.drawImage(keyPadFImage, 892, 580, null);
-      g.drawImage(keyPadJImage, 988, 580, null);
-      g.drawImage(keyPadKImage, 1084, 580, null);
+      g.drawImage(keyPadDImage1, 796, 580, null);
+      g.drawImage(keyPadFImage1, 892, 580, null);
+      g.drawImage(keyPadJImage1, 988, 580, null);
+      g.drawImage(keyPadKImage1, 1084, 580, null);
 
    }
 
@@ -199,7 +206,6 @@ public class Game extends Thread {
 
       noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
       keyPadDImage = new ImageIcon(Main.class.getResource("../images/keyPadBasic.png")).getImage();
-
    }
 
    public void pressF() {
@@ -549,116 +555,100 @@ public class Game extends Thread {
 
    // 판정 함수 - 가장 아래있는 노트만을 판정
    public void judge(String input) {
+      String judge;
       for (int i = 0; i < noteList.size(); i++) {
          Note note = noteList.get(i);
          if (input.equals(note.getNoteType())) {
-            judgeEvent(note.judge());
-            break;
+            judge = note.judge();
+            judgeEvent(judge);
+            ChatMsg cm = new ChatMsg(UserName, "700");
+            cm.setJudge(judge);
+            cm.setOtherScore(scorePoint);
+            SendObject(cm);
             
+            
+            break;
          }
-         
       }
    }
 
    public void judgeEvent(String judge) {
-	  
-      if (!judge.equals("None")) {
-         blueFlareImage = new ImageIcon(Main.class.getResource("../images/blueFlare.png")).getImage();
-      }
-      if (judge.equals("Miss")) {
-         scorePoint -= 10;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
-          ChatMsg obcm = new ChatMsg(UserName, "800");
-            obcm.setOtherScore(scorePoint);
-            SendObject(obcm);
-      } else if (judge.equals("Late")) {
-    	  
-         scorePoint += 10;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
-         
-          ChatMsg obcm = new ChatMsg(UserName, "800");
-            obcm.setOtherScore(scorePoint);
-            SendObject(obcm);
-      } else if (judge.equals("Good")) {
-         scorePoint += 40;
-
-         judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
-         
-          ChatMsg obcm = new ChatMsg(UserName, "800");
-            obcm.setOtherScore(scorePoint);
-            SendObject(obcm);
-      } else if (judge.equals("Great")) {
-         scorePoint += 60;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/great.png")).getImage();
-         
-          ChatMsg obcm = new ChatMsg(UserName, "800");
-            obcm.setOtherScore(scorePoint);
-            SendObject(obcm);
-      } else if (judge.equals("Perfect")) {
-         scorePoint += 100;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
-         
-          ChatMsg obcm = new ChatMsg(UserName, "800");
-            obcm.setOtherScore(scorePoint);
-            SendObject(obcm);
-      } else if (judge.equals("Early")) {
-         scorePoint += 10;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
-         ChatMsg obcm = new ChatMsg(UserName, "800");
-         obcm.setOtherScore(scorePoint);
-         SendObject(obcm);
-      } else if (judge.equals("money")) {
-         scorePoint += 250;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/item_bell.png")).getImage();
-         ChatMsg obcm = new ChatMsg(UserName, "800");
-         obcm.setOtherScore(scorePoint);
-         SendObject(obcm);
-
-      } else if (judge.equals("apple")) {
-         appleCount += 1;
-         scorePoint += 50;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/item_apple.png")).getImage();
-         ChatMsg obcm = new ChatMsg(UserName, "800");
-         obcm.setOtherScore(scorePoint);
-         SendObject(obcm);
-         
-
-      } else if (judge.equals("saida")) {
-         saidaCount += 1;
-         scorePoint += 50;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/item_saida.png")).getImage();
-         ChatMsg obcm = new ChatMsg(UserName, "800");
-         obcm.setOtherScore(scorePoint);
-         SendObject(obcm);
-         if(saidaCount==3)
-         {
-        	 qq=0;
-        	 judge = "perfect";
-        	 Timer timer1 = new Timer();
-        	 TimerTask timertask1 = new TimerTask() {
-
-				@Override
-				public void run() {
-					qq=1;
-					saidaCount = 0;
-					
-				}
-        		 
-        	 };
-        	 timer1.schedule(timertask1,5000);
+        
+         if (!judge.equals("None")) {
+            blueFlareImage = new ImageIcon(Main.class.getResource("../images/blueFlare.png")).getImage();
          }
+         if (judge.equals("Miss")) {
+            scorePoint -= 10;
+            judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+            
+         } else if (judge.equals("Late")) {
+            
+            scorePoint += 10;
+            judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
+            
+         } else if (judge.equals("Good")) {
+            scorePoint += 40;
 
-      } else if (judge.equals("bee")) {
-         scorePoint *= 2;
-         scorePoint += 50;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/item_bee.png")).getImage();
-         ChatMsg obcm = new ChatMsg(UserName, "800");
-         obcm.setOtherScore(scorePoint);
-         SendObject(obcm);
+            judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
+            
+         } else if (judge.equals("Great")) {
+            scorePoint += 60;
+            judgeImage = new ImageIcon(Main.class.getResource("../images/great.png")).getImage();
+            
+         } else if (judge.equals("Perfect")) {
+            scorePoint += 100;
+            judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+            
+           
+         } else if (judge.equals("Early")) {
+            scorePoint += 10;
+            judgeImage = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
+            
+         } else if (judge.equals("money")) {
+            scorePoint += 250;
+            judgeImage = new ImageIcon(Main.class.getResource("../images/item_bell.png")).getImage();
+            
 
+         } else if (judge.equals("apple")) {
+            appleCount += 1;
+            scorePoint += 50;
+            judgeImage = new ImageIcon(Main.class.getResource("../images/item_apple.png")).getImage();
+           
+            
+
+         } else if (judge.equals("saida")) {
+            saidaCount += 1;
+            scorePoint += 50;
+            judgeImage = new ImageIcon(Main.class.getResource("../images/item_saida.png")).getImage();
+            if(saidaCount==3)
+            {
+               qq=0;
+               //judge = "perfect";
+               Timer timer1 = new Timer();
+               TimerTask timertask1 = new TimerTask() {
+
+               @Override
+               public void run() {
+                  qq=1;
+                  saidaCount = 0;
+                  
+               }
+                  
+               };
+               timer1.schedule(timertask1,5000);
+            }
+            
+
+         } else if (judge.equals("bee")) {
+            scorePoint *= 2;
+            scorePoint += 50;
+            judgeImage = new ImageIcon(Main.class.getResource("../images/item_bee.png")).getImage();
+            
+            
+
+         }
       }
-   }
-   
+
    public void gameCode(Object obcm) {
       String msg = null;
       ChatMsg cm = null;
@@ -676,20 +666,57 @@ public class Game extends Thread {
          msg = String.format("[%s] %s", cm.getId(), cm.getData());
       }
       switch (cm.getCode()) {
-      case "800":
-         
+   
+      case "700":
          otherScorePoint = cm.getOtherScore();
-         System.out.println(otherScorePoint);
+         System.out.println("Received : " + cm.getJudge());
+         if (!cm.getJudge().equals("None")) {
+            blueFlareImage2 = new ImageIcon(Main.class.getResource("../images/blueFlare.png")).getImage();
+         }
+         switch(cm.getJudge()) {
+         case "Perfect":
+            judgeImage2 = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
             break;
-
+         case "Great":
+            judgeImage2 = new ImageIcon(Main.class.getResource("../images/great.png")).getImage();
+            break;
+         case "Good":
+            judgeImage2 = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
+            break;
+         case "Early":
+            judgeImage2 = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
+            break;
+         case "Late":
+            judgeImage2 = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
+            break;
+         case "Miss":
+            judgeImage2 = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+            break;
+         case "money":
+            judgeImage2 = new ImageIcon(Main.class.getResource("../images/item_bell.png")).getImage();
+            break;
+         case "apple":
+            judgeImage2 = new ImageIcon(Main.class.getResource("../images/itme_apple.png")).getImage();
+            break;
+         case "saida":
+            judgeImage2 = new ImageIcon(Main.class.getResource("../images/item_saida.png")).getImage();
+            break;
+         case "bee":
+            judgeImage2 = new ImageIcon(Main.class.getResource("../images/item_bee.png")).getImage();
+            break;
+         
+         
+         }
+      
+         break;
       }
+      
    }
 
-
-
+   // 커밋을 위한 거짓 주석
    public void SendObject(Object ob) { // 서버로 메세지를 보내는 메소드
       try {
-         
+
          oos.writeObject(ob);
       } catch (IOException e) {
          // textArea.append("메세지 송신 에러!!\n");
