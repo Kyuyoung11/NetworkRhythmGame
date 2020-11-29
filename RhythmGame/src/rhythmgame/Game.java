@@ -1,5 +1,5 @@
 package rhythmgame;
-//°ÔÀÓ¿¡ ´ëÇÑ ÄÁÆ®·Ñ ÀÛ¾÷
+//ê²Œì„ì— ëŒ€í•œ ì»¨íŠ¸ë¡¤ ì‘ì—…
 
 import java.awt.Color;
 import java.awt.Font;
@@ -33,8 +33,8 @@ public class Game extends Thread {
 	public static int qq = 1;
 	public static int appleAttack = 0;
 
-	private static final int BUF_LEN = 128; // Windows Ã³·³ BUF_LEN À» Á¤ÀÇ
-	private Socket socket; // ¿¬°á¼ÒÄÏ
+	private static final int BUF_LEN = 128; // Windows ì²˜ëŸ¼ BUF_LEN ì„ ì •ì˜
+	private Socket socket; // ì—°ê²°ì†Œì¼“
 	private InputStream is;
 	private OutputStream os;
 	private DataInputStream dis;
@@ -52,7 +52,7 @@ public class Game extends Thread {
 	private Image noteRouteJImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
 	private Image noteRouteKImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
 
-	// ´Ù¸¥ »ç¿ëÀÚ 1ÀÇ ³ëÆ® ÀÌ¹ÌÁö
+	// ë‹¤ë¥¸ ì‚¬ìš©ì 1ì˜ ë…¸íŠ¸ ì´ë¯¸ì§€
 	private Image noteRouteDImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
 	private Image noteRouteFImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
 	private Image noteRouteJImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
@@ -79,7 +79,7 @@ public class Game extends Thread {
 
 	private String noteType;
 
-	ArrayList<Note> noteList = new ArrayList<Note>(); // °¢ note¸¦ ÀúÀåÇÒ ¹è¿­
+	ArrayList<Note> noteList = new ArrayList<Note>(); // ê° noteë¥¼ ì €ì¥í•  ë°°ì—´
 	ArrayList<Note> noteList2 = new ArrayList<Note>();
 
 	public Game(String titleName, String musicTitle, String username, ObjectInputStream ois, ObjectOutputStream oos,
@@ -90,7 +90,7 @@ public class Game extends Thread {
 		this.ois = ois;
 		this.oos = oos;
 		this.socket = socket;
-		gameMusic = new Music(this.musicTitle, false); // ÇÑ¹ø¸¸ ½ÇÇà
+		gameMusic = new Music(this.musicTitle, false); // í•œë²ˆë§Œ ì‹¤í–‰
 
 	}
 
@@ -115,7 +115,7 @@ public class Game extends Thread {
 		g.drawString("J", 335, 609);
 		g.drawString("K", 431, 609);
 
-		// Á¡¼ö Ç¥½Ã
+		// ì ìˆ˜ í‘œì‹œ
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Arial Black", Font.BOLD, 30));
 		String score = Integer.toString(scorePoint);
@@ -166,7 +166,7 @@ public class Game extends Thread {
 		g.drawString("J", 1031, 609);
 		g.drawString("K", 1127, 609);
 
-		// Á¡¼ö Ç¥½Ã
+		// ì ìˆ˜ í‘œì‹œ
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Arial Black", Font.BOLD, 30));
 		g.drawString("Score", 846, 70);
@@ -493,7 +493,7 @@ public class Game extends Thread {
 					new Beat(StartTime + gap * 6, "J"), new Beat(StartTime + gap * 8, "S"),
 					new Beat(StartTime + gap * 11, "F"), new Beat(StartTime + gap * 13, "Space"),
 
-					// µÎ¹ø¤Š
+					// ë‘ë²ˆÂŠ
 					new Beat(StartTime + gap * 15, "K"), new Beat(StartTime + gap * 19, "D"),
 					new Beat(StartTime + gap * 21, "J"), new Beat(StartTime + gap * 23, "S"),
 					new Beat(StartTime + gap * 26, "F"), new Beat(StartTime + gap * 28, "Space"),
@@ -597,7 +597,7 @@ public class Game extends Thread {
 					new Beat(startTime + gap * 213, "J"), new Beat(startTime + gap * 216, "F"),
 					new Beat(startTime + gap * 219, "D"), new Beat(startTime + gap * 222, "F"),
 					new Beat(startTime + gap * 222, "J"),
-					// ¹İº¹
+					// ë°˜ë³µ
 					new Beat(startTime + gap * 244, "D"), new Beat(startTime + gap * 246, "F"),
 					new Beat(startTime + gap * 255, "D"), new Beat(startTime + gap * 256, "F"),
 					new Beat(startTime + gap * 257, "J"), new Beat(startTime + gap * 258, "K"),
@@ -660,7 +660,7 @@ public class Game extends Thread {
 		}
 	}
 
-	// ÆÇÁ¤ ÇÔ¼ö - °¡Àå ¾Æ·¡ÀÖ´Â ³ëÆ®¸¸À» ÆÇÁ¤
+	// íŒì • í•¨ìˆ˜ - ê°€ì¥ ì•„ë˜ìˆëŠ” ë…¸íŠ¸ë§Œì„ íŒì •
 	public void judge(String input) {
 		String judge;
 		for (int i = 0; i < noteList.size(); i++) {
@@ -884,13 +884,13 @@ public class Game extends Thread {
 
 	}
 
-	// Ä¿¹ÔÀ» À§ÇÑ °ÅÁş ÁÖ¼®
-	public void SendObject(Object ob) { // ¼­¹ö·Î ¸Ş¼¼Áö¸¦ º¸³»´Â ¸Ş¼Òµå
+	// ì»¤ë°‹ì„ ìœ„í•œ ê±°ì§“ ì£¼ì„
+	public void SendObject(Object ob) { // ì„œë²„ë¡œ ë©”ì„¸ì§€ë¥¼ ë³´ë‚´ëŠ” ë©”ì†Œë“œ
 		try {
 
 			oos.writeObject(ob);
 		} catch (IOException e) {
-			// textArea.append("¸Ş¼¼Áö ¼Û½Å ¿¡·¯!!\n");
+			// textArea.append("ë©”ì„¸ì§€ ì†¡ì‹  ì—ëŸ¬!!\n");
 
 		}
 	}
