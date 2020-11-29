@@ -609,7 +609,7 @@ public class Game extends Thread {
          SendObject(obcm);
       } else if (judge.equals("money")) {
          scorePoint += 250;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/item_money.png")).getImage();
+         judgeImage = new ImageIcon(Main.class.getResource("../images/item_bell.png")).getImage();
          ChatMsg obcm = new ChatMsg(UserName, "800");
          obcm.setOtherScore(scorePoint);
          SendObject(obcm);
