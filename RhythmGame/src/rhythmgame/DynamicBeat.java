@@ -814,7 +814,7 @@ public class DynamicBeat extends JFrame {
 					case "700": // 700 판정 점수
 						AppendText(cm.getJudge());
 						if (game != null) {
-							game.gameCode(obcm); // Game.java에서 처리
+							game.gameCode(cm); // Game.java에서 처리
 						}
 						break;
 
