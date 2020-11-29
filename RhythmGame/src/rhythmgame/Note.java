@@ -43,6 +43,15 @@ public class Note extends Thread {
 		} else if (noteType.contentEquals("K")) {
 			x = 380;
 		}
+		else if (noteType.contentEquals("D2")) {
+			x = 786;
+		} else if (noteType.contentEquals("F2")) {
+			x = 886;
+		} else if (noteType.contentEquals("J2")) {
+			x = 981;
+		} else if (noteType.contentEquals("K2")) {
+			x = 1076;
+		}
 		this.noteType = noteType;
 		this.titleName = titleName;
 		this.itemType = itemType;
