@@ -11,6 +11,9 @@ public class KeyListener extends KeyAdapter{
 		if(DynamicBeat.game == null) { //게임진행중 아니면 키 입력 무시
 			return;
 		}
+		//else if(Game.qq==0) {
+		//	return;
+		//}
 		else if(e.getKeyCode() == KeyEvent.VK_D) {
 			DynamicBeat.game.pressD();
 		}
