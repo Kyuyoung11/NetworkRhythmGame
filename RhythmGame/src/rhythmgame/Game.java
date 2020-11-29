@@ -570,63 +570,64 @@ public class Game extends Thread {
 	}
 
 	public void judgeEvent(String judge) {
-		if (!judge.equals("None")) {
-			blueFlareImage = new ImageIcon(Main.class.getResource("../images/blueFlare.png")).getImage();
-		}
-		if (judge.equals("Miss")) {
-			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
-			
-			
-		} else if (judge.equals("Late")) {
-			scorePoint += 10;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
-		
+	     
+	      if (!judge.equals("None")) {
+	         blueFlareImage = new ImageIcon(Main.class.getResource("../images/blueFlare.png")).getImage();
+	      }
+	      if (judge.equals("Miss")) {
+	         scorePoint -= 10;
+	         judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+	         
+	      } else if (judge.equals("Late")) {
+	         
+	         scorePoint += 10;
+	         judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
+	         
+	      } else if (judge.equals("Good")) {
+	         scorePoint += 40;
 
-		
-		} else if (judge.equals("Good")) {
-			scorePoint += 40;
+	         judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
+	         
+	      } else if (judge.equals("Great")) {
+	         scorePoint += 60;
+	         judgeImage = new ImageIcon(Main.class.getResource("../images/great.png")).getImage();
+	         
+	      } else if (judge.equals("Perfect")) {
+	         scorePoint += 100;
+	         judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+	         
+	        
+	      } else if (judge.equals("Early")) {
+	         scorePoint += 10;
+	         judgeImage = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
+	         
+	      } else if (judge.equals("money")) {
+	         scorePoint += 250;
+	         judgeImage = new ImageIcon(Main.class.getResource("../images/item_bell.png")).getImage();
+	         
 
-			judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
-		
-			
-		} else if (judge.equals("Great")) {
-			scorePoint += 60;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/great.png")).getImage();
-			
-			
-		} else if (judge.equals("Perfect")) {
-			scorePoint += 100;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
-			
-			
-		} else if (judge.equals("Early")) {
-			scorePoint += 10;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
-		
-		} else if (judge.equals("money")) {
-			scorePoint += 250;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
-			
+	      } else if (judge.equals("apple")) {
+	         appleCount += 1;
+	         scorePoint += 50;
+	         judgeImage = new ImageIcon(Main.class.getResource("../images/item_apple.png")).getImage();
+	        
+	         
 
-		} else if (judge.equals("apple")) {
-			appleCount += 1;
-			scorePoint += 50;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
-		
+	      } else if (judge.equals("saida")) {
+	         saidaCount += 1;
+	         scorePoint += 50;
+	         judgeImage = new ImageIcon(Main.class.getResource("../images/item_saida.png")).getImage();
+	         
+	         
 
-		} else if (judge.equals("saida")) {
-			saidaCount += 1;
-			scorePoint += 50;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
-			
+	      } else if (judge.equals("bee")) {
+	         scorePoint *= 2;
+	         scorePoint += 50;
+	         judgeImage = new ImageIcon(Main.class.getResource("../images/item_bee.png")).getImage();
+	         
 
-		} else if (judge.equals("bee")) {
-			scorePoint *= 2;
-			scorePoint += 50;
-			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
-			
-		}
-	}
+	      }
+	   }
 
 	public void gameCode(Object obcm) {
 		String msg = null;
@@ -670,6 +671,18 @@ public class Game extends Thread {
 				break;
 			case "Miss":
 				judgeImage2 = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+				break;
+			case "money":
+				judgeImage2 = new ImageIcon(Main.class.getResource("../images/item_bell.png")).getImage();
+				break;
+			case "apple":
+				judgeImage2 = new ImageIcon(Main.class.getResource("../images/itme_apple.png")).getImage();
+				break;
+			case "saida":
+				judgeImage2 = new ImageIcon(Main.class.getResource("../images/item_saida.png")).getImage();
+				break;
+			case "bee":
+				judgeImage2 = new ImageIcon(Main.class.getResource("../images/item_bee.png")).getImage();
 				break;
 			
 			
