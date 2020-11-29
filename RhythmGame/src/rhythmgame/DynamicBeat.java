@@ -810,11 +810,12 @@ public class DynamicBeat extends JFrame {
 						nowSelected = cm.getNowSelected();
 						selectTrack(nowSelected);
 						break;
-
+					case "500":
+				//		AppendText("500");
 					case "700": // 700 판정 점수
-						AppendText(cm.getJudge());
+				//		AppendText(cm.getJudge());
 						if (game != null) {
-							game.gameCode(obcm); // Game.java에서 처리
+							game.gameCode(cm); // Game.java에서 처리
 						}
 						break;
 

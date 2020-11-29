@@ -1,13 +1,13 @@
 package rhythmgame;
 
-// ChatMsg.java Ã¤ÆÃ ¸Ş½ÃÁö ObjectStream ¿ë.
+// ChatMsg.java ì±„íŒ… ë©”ì‹œì§€ ObjectStream ìš©.
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 
 class ChatMsg implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String id;
-	private String code; // 100:·Î±×ÀÎ, 400:·Î±×¾Æ¿ô, 200:Ã¤ÆÃ¸Ş½ÃÁö, 300:Image
+	private String code; // 100:ë¡œê·¸ì¸, 400:ë¡œê·¸ì•„ì›ƒ, 200:ì±„íŒ…ë©”ì‹œì§€, 300:Image
 	private String data;
 	public ImageIcon img;
 
@@ -25,7 +25,11 @@ class ChatMsg implements Serializable {
 	private int otherScore;
 	
 	private String judge;
+
+	private String noteType;
+
 	private int appleAttack;
+
 
 	public ChatMsg(String id, String code) {
 		this.id = id;
@@ -43,6 +47,12 @@ class ChatMsg implements Serializable {
 	}
 	public void setJudge(String judge) {
 		this.judge = judge;
+	}
+	public String getnoteType() {
+		return noteType;
+	}
+	public void setnoteType(String noteType) {
+		this.noteType = noteType;
 	}
 	public int getRoom1() {
 		return room1;
