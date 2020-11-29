@@ -15,6 +15,8 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 
@@ -28,6 +30,7 @@ public class Game extends Thread {
    private int otherScorePoint;
    private int appleCount = 0;
    private int saidaCount = 0;
+   public static int qq=1;
 
    private static final int BUF_LEN = 128; // Windows 처럼 BUF_LEN 을 정의
    private Socket socket; // 연결소켓
@@ -551,11 +554,14 @@ public class Game extends Thread {
          if (input.equals(note.getNoteType())) {
             judgeEvent(note.judge());
             break;
+            
          }
+         
       }
    }
 
    public void judgeEvent(String judge) {
+	  
       if (!judge.equals("None")) {
          blueFlareImage = new ImageIcon(Main.class.getResource("../images/blueFlare.png")).getImage();
       }
@@ -566,6 +572,7 @@ public class Game extends Thread {
             obcm.setOtherScore(scorePoint);
             SendObject(obcm);
       } else if (judge.equals("Late")) {
+    	  
          scorePoint += 10;
          judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
          
@@ -614,6 +621,7 @@ public class Game extends Thread {
          ChatMsg obcm = new ChatMsg(UserName, "800");
          obcm.setOtherScore(scorePoint);
          SendObject(obcm);
+         
 
       } else if (judge.equals("saida")) {
          saidaCount += 1;
@@ -622,6 +630,23 @@ public class Game extends Thread {
          ChatMsg obcm = new ChatMsg(UserName, "800");
          obcm.setOtherScore(scorePoint);
          SendObject(obcm);
+         if(saidaCount==3)
+         {
+        	 qq=0;
+        	 judge = "perfect";
+        	 Timer timer1 = new Timer();
+        	 TimerTask timertask1 = new TimerTask() {
+
+				@Override
+				public void run() {
+					qq=1;
+					saidaCount = 0;
+					
+				}
+        		 
+        	 };
+        	 timer1.schedule(timertask1,5000);
+         }
 
       } else if (judge.equals("bee")) {
          scorePoint *= 2;
@@ -662,7 +687,6 @@ public class Game extends Thread {
 
 
 
-   // 커밋을 위한 거짓 주석
    public void SendObject(Object ob) { // 서버로 메세지를 보내는 메소드
       try {
          
