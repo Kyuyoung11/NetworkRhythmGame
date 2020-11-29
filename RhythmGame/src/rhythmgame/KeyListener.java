@@ -10,7 +10,7 @@ public class KeyListener extends KeyAdapter{
 	public void keyPressed(KeyEvent e) {
 		if(DynamicBeat.game == null) { //게임진행중 아니면 키 입력 무시
 			return;
-		}
+		}  
 		else if(Game.appleAttack==1) {
 			return;
 		}

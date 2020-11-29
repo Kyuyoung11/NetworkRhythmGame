@@ -109,7 +109,7 @@ class ChatMsg implements Serializable {
 
 	public void setNum(int num) {
 		this.num = num;
-	}
+	}  
 
 	public String getCode() {
 		return code;

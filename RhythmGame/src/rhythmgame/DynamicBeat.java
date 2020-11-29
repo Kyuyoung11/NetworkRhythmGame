@@ -809,7 +809,7 @@ public class DynamicBeat extends JFrame {
 					case "600": // 600 현재선택곡
 						nowSelected = cm.getNowSelected();
 						selectTrack(nowSelected);
-						break;
+						break;    
 					case "500":
 				//		AppendText("500");
 					case "700": // 700 판정 점수

@@ -764,7 +764,7 @@ public class Game extends Thread {
 			appleAttack = cm.getAppleAttack();
 			Timer timerApple = new Timer();
 			TimerTask timerTaskApple = new TimerTask() {
-
+  
 				@Override
 				public void run() {
 					appleAttack = 0;
