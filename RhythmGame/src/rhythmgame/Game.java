@@ -602,7 +602,7 @@ public class Game extends Thread {
          SendObject(obcm);
       } else if (judge.equals("money")) {
          scorePoint += 250;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+         judgeImage = new ImageIcon(Main.class.getResource("../images/item_money.png")).getImage();
          ChatMsg obcm = new ChatMsg(UserName, "800");
          obcm.setOtherScore(scorePoint);
          SendObject(obcm);
@@ -610,7 +610,7 @@ public class Game extends Thread {
       } else if (judge.equals("apple")) {
          appleCount += 1;
          scorePoint += 50;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+         judgeImage = new ImageIcon(Main.class.getResource("../images/item_apple.png")).getImage();
          ChatMsg obcm = new ChatMsg(UserName, "800");
          obcm.setOtherScore(scorePoint);
          SendObject(obcm);
@@ -618,7 +618,7 @@ public class Game extends Thread {
       } else if (judge.equals("saida")) {
          saidaCount += 1;
          scorePoint += 50;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+         judgeImage = new ImageIcon(Main.class.getResource("../images/item_saida.png")).getImage();
          ChatMsg obcm = new ChatMsg(UserName, "800");
          obcm.setOtherScore(scorePoint);
          SendObject(obcm);
@@ -626,7 +626,7 @@ public class Game extends Thread {
       } else if (judge.equals("bee")) {
          scorePoint *= 2;
          scorePoint += 50;
-         judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+         judgeImage = new ImageIcon(Main.class.getResource("../images/item_bee.png")).getImage();
          ChatMsg obcm = new ChatMsg(UserName, "800");
          obcm.setOtherScore(scorePoint);
          SendObject(obcm);
