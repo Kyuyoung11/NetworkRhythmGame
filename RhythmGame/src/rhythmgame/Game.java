@@ -64,6 +64,8 @@ public class Game extends Thread {
 
    private Image blueFlareImage, blueFlareImage2;
    private Image judgeImage, judgeImage2;
+   private Image attack;
+   
 
    private Image keyPadDImage = new ImageIcon(Main.class.getResource("../images/keypadBasic.png")).getImage();
    private Image keyPadFImage = new ImageIcon(Main.class.getResource("../images/keypadBasic.png")).getImage();
@@ -129,6 +131,7 @@ public class Game extends Thread {
       g.drawImage(keyPadFImage, 196, 580, null);
       g.drawImage(keyPadJImage, 292, 580, null);
       g.drawImage(keyPadKImage, 388, 580, null);
+      
 
       g.setColor(Color.BLACK);
       g.setFont(new Font("Arial Black", Font.BOLD, 30));
@@ -183,7 +186,7 @@ public class Game extends Thread {
 
       for (int i = 0; i < noteList.size(); i++) {
          Note note = noteList.get(i);
-         if (note.getY() > 620) {
+         if (note.getY() > 620 && appleAttack==0) {
             judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
          }
          if (!note.isProceeded()) {
@@ -718,7 +721,7 @@ public class Game extends Thread {
          appleCount += 1;
          scorePoint += 50;
          judgeImage = new ImageIcon(Main.class.getResource("../images/item_apple.png")).getImage();
-         if(appleCount==3) {
+         if(appleCount % 2==0) {
              //appleAttack=1;
              ChatMsg obcm = new ChatMsg(UserName, "500");
              obcm.setAppleAttack(1);
@@ -764,12 +767,12 @@ public class Game extends Thread {
           System.out.println("500");
           appleAttack = cm.getAppleAttack();
           Timer timerApple = new Timer();
+          judgeImage = new ImageIcon(Main.class.getResource("../images/attack.png")).getImage();
            TimerTask timerTaskApple = new TimerTask() {
 
            @Override
            public void run() {
               appleAttack=0;
-              appleCount = 0;
               
            }
               
