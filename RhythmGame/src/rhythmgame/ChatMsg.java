@@ -2,6 +2,8 @@ package rhythmgame;
 
 // ChatMsg.java 채팅 메시지 ObjectStream 용.
 import java.io.Serializable;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
 class ChatMsg implements Serializable {
@@ -10,6 +12,8 @@ class ChatMsg implements Serializable {
 	private String code; // 100:로그인, 400:로그아웃, 200:채팅메시지, 300:Image
 	private String data;
 	public ImageIcon img;
+	
+	private String otherUser;
 
 	private int beatNum;
 	private String itemType;
@@ -19,6 +23,8 @@ class ChatMsg implements Serializable {
 	private int room1;
 	private int room2;
 	private int room3;
+	
+	private ArrayList<String> userList;
 
 	private String songTitle;
 	private int nowSelected;
@@ -43,6 +49,21 @@ class ChatMsg implements Serializable {
 		this.id = id;
 		this.code = code;
 		this.data = msg;
+	}
+	
+	public ArrayList<String> getUserList() {
+		return userList;
+	}
+	public void setUserList(ArrayList<String> userList) {
+		this.userList = userList;
+	}
+	
+	public String getOtherUser() {
+		return otherUser;
+	}
+
+	public void setOtherUser(String otherUser) {
+		this.otherUser = otherUser;
 	}
 
 	public String getItemType() {
