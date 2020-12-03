@@ -534,6 +534,7 @@ public class Game extends Thread {
 					new Beat(StartTime + gap * 141, "J"), new Beat(StartTime + gap * 143, "S"),
 					new Beat(StartTime + gap * 146, "F"), new Beat(StartTime + gap * 148, "Space"),
 
+
 					new Beat(StartTime + gap * 150, "K"), new Beat(StartTime + gap * 154, "D"),
 					new Beat(StartTime + gap * 156, "J"), new Beat(StartTime + gap * 158, "S"),
 					new Beat(StartTime + gap * 161, "F"), new Beat(StartTime + gap * 163, "Space"),
@@ -720,6 +721,7 @@ public class Game extends Thread {
 			}
 		}
 	}
+
 
 	public void judgeEvent(String judge) {
 
