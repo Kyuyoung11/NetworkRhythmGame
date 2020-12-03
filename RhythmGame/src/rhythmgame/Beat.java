@@ -7,37 +7,53 @@ public class Beat {
 	private int time;
 	private String noteName;
 	private String type;
-	
+
 	public int getTime() {
 		return time;
 	}
+
 	public void setTime(int time) {
 		this.time = time;
 	}
+
 	public String getNoteName() {
 		return noteName;
 	}
+
 	public String getItemType() {
 		return type;
 	}
+
+	public void setItemType(String type) {
+		this.type = type;
+	}
+
 	public void setNoteName(String noteName) {
 		this.noteName = noteName;
 	}
+
 	public Beat(int time, String noteName) {
 		super();
 		this.time = time;
 		this.noteName = noteName;
 		this.type = setType();
 	}
-	
+
 	public String setType() {
-		
-		int rannum = random.nextInt(100);
-		if (rannum > 97) return "item1"; //애플
-		else if (rannum > 94) return "item2"; //벨주머니
-		else if (rannum >91) return "item3"; //사이다
-		else if (rannum >88) return "item4"; //벌집
-		else return "basic";
-		
+		if (getNoteName().equals("D") || getNoteName().equals("F") || getNoteName().equals("J")
+				|| getNoteName().equals("K")) {
+			int rannum = random.nextInt(100);
+			if (rannum > 97)
+				return "item1"; // 애플
+			else if (rannum > 94)
+				return "item2"; // 벨주머니
+			else if (rannum > 91)
+				return "item3"; // 사이다
+			else if (rannum > 88)
+				return "item4"; // 벌집
+			else
+				return "basic";
+		}
+		return "basic";
 	}
 }
