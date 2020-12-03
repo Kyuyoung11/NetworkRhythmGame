@@ -793,6 +793,13 @@ public class DynamicBeat extends JFrame {
 						if (cm.getNum() == 1) {
 							nowSelected = cm.getNowSelected();
 							enterGame(); // 코드 하단에 있음
+							
+							room1 = cm.getRoom1();
+							room2 = cm.getRoom2();
+							room3 = cm.getRoom3();
+							numButton1.setText(Integer.toString(room1) + "/2");
+							numButton2.setText(Integer.toString(room2) + "/2");
+							numButton3.setText(Integer.toString(room3) + "/2");
 						} else if (cm.getNum() == -1)
 							AppendText("방 입장 실패");
 						// AppendImage(cm.img);
@@ -812,9 +819,8 @@ public class DynamicBeat extends JFrame {
 						selectTrack(nowSelected);
 						break;    
 					case "500":
-				//		AppendText("500");
 					case "501":
-						
+					case "800":
 					case "700": // 700 판정 점수
 				//		AppendText(cm.getJudge());
 						if (game != null) {

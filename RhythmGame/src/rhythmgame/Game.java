@@ -35,7 +35,6 @@ public class Game extends Thread {
 	public static int qq = 1;
 	public static int appleAttack = 0;
 	private int beeAttack = 0;
-	
 
 	private static final int BUF_LEN = 128; // Windows 처럼 BUF_LEN 을 정의
 	private Socket socket; // 연결소켓
@@ -113,7 +112,6 @@ public class Game extends Thread {
 		g.drawImage(noteRouteLineImage, 484, 90, null);
 
 		g.drawImage(judgementLineImage, 100, 580, null);
-		
 
 		g.setFont(new Font("Arial", Font.PLAIN, 26));
 		g.setColor(Color.DARK_GRAY);
@@ -192,7 +190,11 @@ public class Game extends Thread {
 			if (note.getY() > 620 && appleAttack == 0) {
 				judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
 				ChatMsg cm = new ChatMsg(UserName, "700");
-				
+				cm.setJudge("Miss");
+				cm.setOtherScore(scorePoint);
+				cm.setnoteType(note.getNoteType());
+				SendObject(cm);
+
 			}
 			if (!note.isProceeded()) {
 				noteList.remove(i);
@@ -797,7 +799,7 @@ public class Game extends Thread {
 			}
 
 		} else if (judge.equals("bee")) {
-			
+
 			scorePoint += 50;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/item_bee.png")).getImage();
 			ChatMsg obcm = new ChatMsg(UserName, "501");
@@ -813,7 +815,7 @@ public class Game extends Thread {
 		switch (cm.getCode()) {
 
 		case "500":
-			
+
 			System.out.println("500");
 			appleAttack = cm.getAppleAttack();
 			Timer timerApple = new Timer();
@@ -888,67 +890,81 @@ public class Game extends Thread {
 				break;
 
 			}
-			switch (cm.getnoteType()) {
-			case "D":
-				noteRouteDImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
-				keyPadDImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
-				Timer timer1 = new Timer();
-				TimerTask timertask1 = new TimerTask() {
+			if (!cm.getJudge().equals("Miss")) {
+				switch (cm.getnoteType()) {
+				case "D":
+					noteRouteDImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png"))
+							.getImage();
+					keyPadDImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
+					Timer timer1 = new Timer();
+					TimerTask timertask1 = new TimerTask() {
 
-					@Override
-					public void run() {
-						noteRouteDImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-						keyPadDImage1 = new ImageIcon(Main.class.getResource("../images/keyPadBasic.png")).getImage();
-					}
+						@Override
+						public void run() {
+							noteRouteDImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
+									.getImage();
+							keyPadDImage1 = new ImageIcon(Main.class.getResource("../images/keyPadBasic.png"))
+									.getImage();
+						}
 
-				};
-				timer1.schedule(timertask1, 100);
-				break;
-			case "F":
-				noteRouteFImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
-				keyPadFImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
-				Timer timer2 = new Timer();
-				TimerTask timertask2 = new TimerTask() {
+					};
+					timer1.schedule(timertask1, 100);
+					break;
+				case "F":
+					noteRouteFImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png"))
+							.getImage();
+					keyPadFImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
+					Timer timer2 = new Timer();
+					TimerTask timertask2 = new TimerTask() {
 
-					@Override
-					public void run() {
-						noteRouteFImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-						keyPadFImage1 = new ImageIcon(Main.class.getResource("../images/keyPadBasic.png")).getImage();
-					}
+						@Override
+						public void run() {
+							noteRouteFImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
+									.getImage();
+							keyPadFImage1 = new ImageIcon(Main.class.getResource("../images/keyPadBasic.png"))
+									.getImage();
+						}
 
-				};
-				timer2.schedule(timertask2, 100);
-				break;
-			case "J":
-				noteRouteJImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
-				keyPadJImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
-				Timer timer3 = new Timer();
-				TimerTask timertask3 = new TimerTask() {
+					};
+					timer2.schedule(timertask2, 100);
+					break;
+				case "J":
+					noteRouteJImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png"))
+							.getImage();
+					keyPadJImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
+					Timer timer3 = new Timer();
+					TimerTask timertask3 = new TimerTask() {
 
-					@Override
-					public void run() {
-						noteRouteJImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-						keyPadJImage1 = new ImageIcon(Main.class.getResource("../images/keyPadBasic.png")).getImage();
-					}
+						@Override
+						public void run() {
+							noteRouteJImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
+									.getImage();
+							keyPadJImage1 = new ImageIcon(Main.class.getResource("../images/keyPadBasic.png"))
+									.getImage();
+						}
 
-				};
-				timer3.schedule(timertask3, 100);
-				break;
-			case "K":
-				noteRouteKImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
-				keyPadKImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
-				Timer timer4 = new Timer();
-				TimerTask timertask4 = new TimerTask() {
+					};
+					timer3.schedule(timertask3, 100);
+					break;
+				case "K":
+					noteRouteKImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png"))
+							.getImage();
+					keyPadKImage1 = new ImageIcon(Main.class.getResource("../images/keyPadPressed.png")).getImage();
+					Timer timer4 = new Timer();
+					TimerTask timertask4 = new TimerTask() {
 
-					@Override
-					public void run() {
-						noteRouteKImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
-						keyPadKImage1 = new ImageIcon(Main.class.getResource("../images/keyPadBasic.png")).getImage();
-					}
+						@Override
+						public void run() {
+							noteRouteKImageU1 = new ImageIcon(Main.class.getResource("../images/noteRoute.png"))
+									.getImage();
+							keyPadKImage1 = new ImageIcon(Main.class.getResource("../images/keyPadBasic.png"))
+									.getImage();
+						}
 
-				};
-				timer4.schedule(timertask4, 100);
-				break;
+					};
+					timer4.schedule(timertask4, 100);
+					break;
+				}
 			}
 
 			break;
