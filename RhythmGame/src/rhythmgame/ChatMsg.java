@@ -5,166 +5,175 @@ import java.io.Serializable;
 import javax.swing.ImageIcon;
 
 class ChatMsg implements Serializable {
-   private static final long serialVersionUID = 1L;
-   private String id;
-   private String code; // 100:로그인, 400:로그아웃, 200:채팅메시지, 300:Image
-   private String data;
-   public ImageIcon img;
-   
-   private int beatNum;
-   private String itemType;
+	private static final long serialVersionUID = 1L;
+	private String id;
+	private String code; // 100:로그인, 400:로그아웃, 200:채팅메시지, 300:Image
+	private String data;
+	public ImageIcon img;
 
-  
-   private int num;
+	private int beatNum;
+	private String itemType;
 
-   private int room1;
-   private int room2;
-   private int room3;
+	private int num;
 
-   private String songTitle;
-   private int nowSelected;
-   
-   private int roomStatus;
-   
-   private int otherScore;
-   
-   private String judge;
+	private int room1;
+	private int room2;
+	private int room3;
 
-   private String noteType;
+	private String songTitle;
+	private int nowSelected;
 
-   private int appleAttack;
+	private int roomStatus;
 
+	private int otherScore;
 
-   public ChatMsg(String id, String code) {
-      this.id = id;
-      this.code = code;
-   }
+	private String judge;
 
-   public ChatMsg(String id, String code, String msg) {
-      this.id = id;
-      this.code = code;
-      this.data = msg;
-   }
-   
-   public String getItemType() {
-	   return itemType;
-   }
-   
-   public void setItemType(String itemType) {
-	   this.itemType = itemType;
-   }
+	private String noteType;
 
-   public int getBeatNum() { 
-	   return beatNum;
-   }
-   public void setBeatNum(int beatNum) {
-	   this.beatNum = beatNum;
-   }
-   
-   public String getJudge() {
-      return judge;
-   }
-   public void setJudge(String judge) {
-      this.judge = judge;
-   }
-   public String getnoteType() {
-      return noteType;
-   }
-   public void setnoteType(String noteType) {
-      this.noteType = noteType;
-   }
-   public int getRoom1() {
-      return room1;
-   }
+	private int appleAttack;
+	private int beeAttack;
 
-   public int getRoom2() {
-      return room2;
-   }
-   
+	public ChatMsg(String id, String code) {
+		this.id = id;
+		this.code = code;
+	}
 
-   public int getRoom3() {
-      return room3;
-   }
+	public ChatMsg(String id, String code, String msg) {
+		this.id = id;
+		this.code = code;
+		this.data = msg;
+	}
 
-   public int getNowSelected() {
-      return nowSelected;
-   }
-   
-   public int getOtherScore() {
-      return otherScore;
-   }
-   
-   public int getAppleAttack() {
-      return appleAttack;
-   }
+	public String getItemType() {
+		return itemType;
+	}
 
-   public void setRoom1(int room1) {
-      this.room1 = room1;
-   }
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
+	}
 
-   public void setRoom2(int room2) {
-      this.room2 = room2;
-   }
+	public int getBeatNum() {
+		return beatNum;
+	}
 
-   public void setRoom3(int room3) {
-      this.room3 = room3;
-   }
+	public void setBeatNum(int beatNum) {
+		this.beatNum = beatNum;
+	}
 
-   public void setNowSelected(int nowSelected) {
-      this.nowSelected = nowSelected;
-   }
-   
-   public void setOtherScore(int score) {
-      this.otherScore = score;
-   }
-   
-   public void setAppleAttack(int appleAttack) {
-      this.appleAttack = appleAttack;
-   }
+	public String getJudge() {
+		return judge;
+	}
 
-   public int getNum() {
-      return num;
-   }
+	public void setJudge(String judge) {
+		this.judge = judge;
+	}
 
-   public void setNum(int num) {
-      this.num = num;
-   }
+	public String getnoteType() {
+		return noteType;
+	}
 
-   public String getCode() {
-      return code;
-   }
+	public void setnoteType(String noteType) {
+		this.noteType = noteType;
+	}
 
-   public void setCode(String code) {
-      this.code = code;
-   }
+	public int getRoom1() {
+		return room1;
+	}
 
-   public String getData() {
-      return data;
-   }
+	public int getRoom2() {
+		return room2;
+	}
 
-   public String getId() {
-      return id;
-   }
+	public int getRoom3() {
+		return room3;
+	}
 
-   public void setId(String id) {
-      this.id = id;
-   }
+	public int getNowSelected() {
+		return nowSelected;
+	}
 
-   public void setData(String data) {
-      this.data = data;
-   }
+	public int getOtherScore() {
+		return otherScore;
+	}
 
-   public void setImg(ImageIcon img) {
-      this.img = img;
-   }
+	public int getAppleAttack() {
+		return appleAttack;
+	}
 
-   
+	public void setRoom1(int room1) {
+		this.room1 = room1;
+	}
 
-   public void setroomStatus(int roomStatus) {
-      this.roomStatus = roomStatus;
-   }
+	public void setRoom2(int room2) {
+		this.room2 = room2;
+	}
 
-   public int getroomStatus() {
-      return roomStatus;
-   }
+	public void setRoom3(int room3) {
+		this.room3 = room3;
+	}
+
+	public void setNowSelected(int nowSelected) {
+		this.nowSelected = nowSelected;
+	}
+
+	public void setOtherScore(int score) {
+		this.otherScore = score;
+	}
+
+	public void setAppleAttack(int appleAttack) {
+		this.appleAttack = appleAttack;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public void setImg(ImageIcon img) {
+		this.img = img;
+	}
+
+	public void setroomStatus(int roomStatus) {
+		this.roomStatus = roomStatus;
+	}
+
+	public int getroomStatus() {
+		return roomStatus;
+	}
+
+	public void setBeeAttack(int BeeAttack) {
+		this.beeAttack = BeeAttack;
+	}
+
+	public int getBeeAttack() {
+		return beeAttack;
+	}
 }
