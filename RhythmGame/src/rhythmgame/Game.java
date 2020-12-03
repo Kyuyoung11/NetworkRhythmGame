@@ -35,6 +35,7 @@ public class Game extends Thread {
 	public static int qq = 1;
 	public static int appleAttack = 0;
 	private int beeAttack = 0;
+	private int winner = 3;
 
 	private static final int BUF_LEN = 128; // Windows 처럼 BUF_LEN 을 정의
 	private Socket socket; // 연결소켓
@@ -50,6 +51,8 @@ public class Game extends Thread {
 	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameinfo.png")).getImage();
 	private Image judgementLineImage = new ImageIcon(Main.class.getResource("../images/judgementLine.png")).getImage();
 	private Image feverTimeImage = new ImageIcon(Main.class.getResource("../images/feverTime.png")).getImage();
+	private Image defeatImage = new ImageIcon(Main.class.getResource("../images/defeat.png")).getImage();
+	private Image victoryImage = new ImageIcon(Main.class.getResource("../images/victory.png")).getImage();
 
 	private Image noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
 	private Image noteRouteFImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage();
@@ -112,6 +115,14 @@ public class Game extends Thread {
 		g.drawImage(noteRouteLineImage, 484, 90, null);
 
 		g.drawImage(judgementLineImage, 100, 580, null);
+		if(qq==0)
+			g.drawImage(feverTimeImage, 130, 180, null);
+		if(winner==0)
+			g.drawImage(defeatImage, 140, 200, null);
+		else if(winner==1)
+			g.drawImage(victoryImage, 140, 200, null);
+
+		
 
 		g.setFont(new Font("Arial", Font.PLAIN, 26));
 		g.setColor(Color.DARK_GRAY);
@@ -170,6 +181,11 @@ public class Game extends Thread {
 		g.drawString("F", 935, 609);
 		g.drawString("J", 1031, 609);
 		g.drawString("K", 1127, 609);
+		
+		if(winner==0)
+			g.drawImage(victoryImage, 850, 200, null);
+		else if(winner==1)
+			g.drawImage(defeatImage, 850, 200, null);
 
 		// 점수 표시
 		g.setColor(Color.BLACK);
@@ -285,6 +301,8 @@ public class Game extends Thread {
 	}
 
 	public void close() {
+		if(otherScorePoint>scorePoint) winner=0;
+		else winner = 1;
 		gameMusic.close();
 		this.interrupt();
 	}
@@ -497,6 +515,7 @@ public class Game extends Thread {
 					new Beat(StartTime + gap * 933, "K"), new Beat(StartTime + gap * 933, "K2"),
 
 			};
+			
 
 		} else if (titleName.equals("K.K._House")) {
 			int StartTime = 3500 - Main.REACH_TIME * 1000;
@@ -656,6 +675,7 @@ public class Game extends Thread {
 					new Beat(startTime + gap * 419, "J"), new Beat(startTime + gap * 419, "J2"),
 
 			};
+			
 		}
 
 		int i = 0, j = 0;
@@ -851,6 +871,8 @@ public class Game extends Thread {
 
 			break;
 
+		
+			
 		case "700":
 			otherScorePoint = cm.getOtherScore();
 			System.out.println("Received : " + cm.getJudge());
