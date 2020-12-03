@@ -24,7 +24,8 @@ import rhythmgame.DynamicBeat.ListenNetwork;
 
 public class Game extends Thread {
 
-	private String UserName;
+	private String UserName=" ";
+	private String otherUser=" ";
 
 	private Beat[] beats = null;
 
@@ -137,7 +138,7 @@ public class Game extends Thread {
 		String score = Integer.toString(scorePoint);
 		g.drawString("Score", 160, 70);
 		g.drawString(score, 310, 70);
-		g.drawString("User1", 239, 680);
+		g.drawString(UserName, 239, 680);
 		g.drawImage(blueFlareImage, 100, 400, null);
 		g.drawImage(judgeImage, 120, 470, null);
 		g.drawImage(keyPadDImage, 100, 580, null);
@@ -193,7 +194,7 @@ public class Game extends Thread {
 		g.drawString("Score", 846, 70);
 		String otherScore = Integer.toString(otherScorePoint);
 		g.drawString(otherScore, 996, 70);
-		g.drawString("User2", 935, 680);
+		g.drawString(otherUser, 935, 680);
 		// g.drawImage(blueFlareImage, 280, 280, null);
 		// g.drawImage(judgeImage, 450, 400, null);
 		g.drawImage(keyPadDImage1, 796, 580, null);
@@ -1009,6 +1010,11 @@ public class Game extends Thread {
 			// textArea.append("메세지 송신 에러!!\n");
 
 		}
+	}
+
+	public void setOtherUser(String otherUser) {
+		this.otherUser = otherUser;
+		
 	}
 
 }

@@ -73,6 +73,7 @@ public class DynamicBeat extends JFrame {
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
 
+	private String otherUser=" ";
 	private String UserName;
 	private String ip_addr;
 	private String port_no;
@@ -130,6 +131,7 @@ public class DynamicBeat extends JFrame {
 	private boolean isGamingroom3 = false;
 
 	ArrayList<Track> trackList = new ArrayList<Track>();
+	ArrayList<String> userList = new ArrayList<String>();
 
 	// 곡이 선택되는 거에 필요한 변수들
 	private Image selectedImage;
@@ -594,9 +596,13 @@ public class DynamicBeat extends JFrame {
 		g.drawImage(background, 0, 0, null); // 변하는 이미지는 draw로
 		if (isMainScreen) {
 			g.drawImage(selectedImage, 550, 345, null);
+			g.setColor(Color.BLACK);
+			g.setFont(new Font("Arial Black", Font.BOLD, 30));
+			g.drawString(otherUser, 935, 680);
 		}
 		if (isGameScreen) {// 게임 컨트롤 class로 가기
 			game.screenDraw(g);
+			
 		}
 		paintComponents(g); // 항상 고정되어있는 이미지는 paintComponent로
 		try {
@@ -800,6 +806,23 @@ public class DynamicBeat extends JFrame {
 							numButton1.setText(Integer.toString(room1) + "/2");
 							numButton2.setText(Integer.toString(room2) + "/2");
 							numButton3.setText(Integer.toString(room3) + "/2");
+							
+							if (game != null && cm.getUserList().size()>1) {
+								userList = cm.getUserList();
+								for (int i=0; i<userList.size(); i++) {
+									if (!UserName.equals(userList.get(i))) {
+										
+										otherUser = userList.get(i);
+									}
+									game.setOtherUser(otherUser);; // Game.java에서 처리
+									
+									
+								}
+								
+							}
+							
+							
+							
 						} else if (cm.getNum() == -1)
 							AppendText("방 입장 실패");
 						// AppendImage(cm.img);
@@ -813,6 +836,13 @@ public class DynamicBeat extends JFrame {
 						numButton2.setText(Integer.toString(room2) + "/2");
 						numButton3.setText(Integer.toString(room3) + "/2");
 						
+						
+						
+						break;
+						
+					case "302":
+						
+						otherUser = cm.getOtherUser();
 						break;
 					case "600": // 600 현재선택곡
 						nowSelected = cm.getNowSelected();
@@ -855,6 +885,7 @@ public class DynamicBeat extends JFrame {
 	// 화면에 출력
 	public void AppendText(String msg) {
 		// textArea.append(msg + "\n");
+		
 		// AppendIcon(icon1);
 		msg = msg.trim(); // 앞뒤 blank와 \n을 제거한다.
 		int len = textArea.getDocument().getLength();
