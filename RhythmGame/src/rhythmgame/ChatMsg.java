@@ -10,7 +10,11 @@ class ChatMsg implements Serializable {
    private String code; // 100:로그인, 400:로그아웃, 200:채팅메시지, 300:Image
    private String data;
    public ImageIcon img;
+   
+   private int beatNum;
+   private String itemType;
 
+  
    private int num;
 
    private int room1;
@@ -41,7 +45,22 @@ class ChatMsg implements Serializable {
       this.code = code;
       this.data = msg;
    }
+   
+   public String getItemType() {
+	   return itemType;
+   }
+   
+   public void setItemType(String itemType) {
+	   this.itemType = itemType;
+   }
 
+   public int getBeatNum() { 
+	   return beatNum;
+   }
+   public void setBeatNum(int beatNum) {
+	   this.beatNum = beatNum;
+   }
+   
    public String getJudge() {
       return judge;
    }

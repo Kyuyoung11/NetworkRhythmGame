@@ -810,8 +810,9 @@ public class DynamicBeat extends JFrame {
 						nowSelected = cm.getNowSelected();
 						selectTrack(nowSelected);
 						break;    
+					
+					case "800":
 					case "500":
-				//		AppendText("500");
 					case "700": // 700 판정 점수
 				//		AppendText(cm.getJudge());
 						if (game != null) {
@@ -844,7 +845,7 @@ public class DynamicBeat extends JFrame {
 	}
 
 	// 화면에 출력
-	public void AppendText(String msg) {
+	public synchronized void AppendText(String msg) {
 		// textArea.append(msg + "\n");
 		// AppendIcon(icon1);
 		msg = msg.trim(); // 앞뒤 blank와 \n을 제거한다.
@@ -855,7 +856,7 @@ public class DynamicBeat extends JFrame {
 	}
 
 	// 커밋을 위한 거짓 주석
-	public void SendObject(Object ob) { // 서버로 메세지를 보내는 메소드
+	public synchronized void SendObject(Object ob) { // 서버로 메세지를 보내는 메소드
 		try {
 			oos.writeObject(ob);
 		} catch (IOException e) {

@@ -24,6 +24,14 @@ public class Note extends Thread {
 	public String getNoteType() {
 		return noteType;
 	}
+	
+	public String getItemType() {
+		return itemType;
+	}
+	
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
+	}
 
 	public boolean isProceeded() {
 		return proceeded;
