@@ -113,10 +113,8 @@ public class Note extends Thread {
 	}
 
 	public String judge() {
-		if (Game.qq == 0) {
-			close();
-			return "Perfect";
-		} else {
+		 
+		
 			if (y >= 633) {
 				System.out.println("Late");
 				close();
@@ -132,6 +130,10 @@ public class Note extends Thread {
 					return "saida";
 				else if (itemType.equals("item4"))
 					return "bee";
+				else if (Game.qq == 0) {
+					close();
+					return "Perfect";
+				}
 				return "Good";
 			} else if (y >= 553) {
 				System.out.println("Great");
@@ -145,6 +147,10 @@ public class Note extends Thread {
 					return "saida";
 				else if (itemType.equals("item4"))
 					return "bee";
+				else if (Game.qq == 0) {
+					close();
+					return "Perfect";
+				}
 				return "Great";
 			} else if (y >= 513) {
 				System.out.println("Perfect");
@@ -157,6 +163,10 @@ public class Note extends Thread {
 					return "saida";
 				else if (itemType.equals("item4"))
 					return "bee";
+				else if (Game.qq == 0) {
+					close();
+					return "Perfect";
+				}
 				return "Perfect";
 			} else if (y >= 473) {
 				System.out.println("Great");
@@ -169,6 +179,10 @@ public class Note extends Thread {
 					return "saida";
 				else if (itemType.equals("item4"))
 					return "bee";
+				else if (Game.qq == 0) {
+					close();
+					return "Perfect";
+				}
 				return "Great";
 			} else if (y >= 433) {
 				System.out.println("Good");
@@ -181,6 +195,10 @@ public class Note extends Thread {
 					return "saida";
 				else if (itemType.equals("item4"))
 					return "bee";
+				else if (Game.qq == 0) {
+					close();
+					return "Perfect";
+				}
 				return "Good";
 			} else if (y >= 403) {
 				System.out.println("Early");
@@ -193,9 +211,13 @@ public class Note extends Thread {
 					return "saida";
 				else if (itemType.equals("item4"))
 					return "bee";
+				else if (Game.qq == 0) {
+					close();
+					return "Perfect";
+				}
 				return "Early";
 			}
-		}
+		
 		return "None";
 	}
 
