@@ -85,12 +85,12 @@ public class DynamicBeat extends JFrame {
 	private ImageIcon startButtonBasicImage = new ImageIcon(Main.class.getResource("../images/bang.png"));
 	private ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/bang2.png"));
 
-	private static ImageIcon leftButtonBasicImage = new ImageIcon(Main.class.getResource("../images/leftButtonBasic.png"));
+	private ImageIcon leftButtonBasicImage = new ImageIcon(Main.class.getResource("../images/leftButtonBasic.png"));
 	private ImageIcon leftButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/leftButtonEntered.png"));
-	private static ImageIcon rightButtonBasicImage = new ImageIcon(Main.class.getResource("../images/rightButtonBasic.png"));
+	private ImageIcon rightButtonBasicImage = new ImageIcon(Main.class.getResource("../images/rightButtonBasic.png"));
 	private ImageIcon rightButtonEnteredImage = new ImageIcon(
 			Main.class.getResource("../images/rightButtonEntered.png"));
-	private static ImageIcon easyButtonBasicImage = new ImageIcon(Main.class.getResource("../images/oolBasic.png"));
+	private ImageIcon easyButtonBasicImage = new ImageIcon(Main.class.getResource("../images/oolBasic.png"));
 	private ImageIcon easyButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/oolEnter.png"));
 	private ImageIcon backButtonBasicImage = new ImageIcon(Main.class.getResource("../images/guriguriBasic.png"));
 	private ImageIcon backButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/guriguriEntered.png"));
@@ -102,9 +102,9 @@ public class DynamicBeat extends JFrame {
 	private JButton startButton = new JButton(startButtonBasicImage);
 	private JButton startButton1 = new JButton(startButtonBasicImage);
 	private JButton startButton2 = new JButton(startButtonBasicImage);
-	public static JButton leftButton = new JButton(leftButtonBasicImage);
-	public static JButton rightButton = new JButton(rightButtonBasicImage);
-	public static JButton easyButton = new JButton(easyButtonBasicImage);
+	public  JButton leftButton = new JButton(leftButtonBasicImage);
+	public  JButton rightButton = new JButton(rightButtonBasicImage);
+	public  JButton easyButton = new JButton(easyButtonBasicImage);
 	private JButton backButton = new JButton(backButtonBasicImage);
 
 	private JButton roomButton1 = new JButton("1");
@@ -898,8 +898,13 @@ public class DynamicBeat extends JFrame {
 						}
 						break;
 
-					case "1000": // 1000 1:게임시작 0:게임x (게임 상태 변경)
-						gameStart(nowSelected, "easy");
+					case "1000": // 1000 1:게임시작 2:게임x (게임 상태 변경)
+						if (cm.getroomStatus()==1)
+							gameStart(nowSelected, "easy");
+						else if (cm.getroomStatus()==2) {
+							game.close();
+							enterGame();
+						}
 						break;
 					}
 
