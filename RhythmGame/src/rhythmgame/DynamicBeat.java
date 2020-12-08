@@ -110,6 +110,9 @@ public class DynamicBeat extends JFrame {
 	private JButton roomButton1 = new JButton("1");
 	private JButton roomButton2 = new JButton("2");
 	private JButton roomButton3 = new JButton("3");
+	
+	private JButton userButton1 = new JButton(" ");
+	private JButton userButton2 = new JButton(" ");
 
 	private JButton numButton1 = new JButton("0");
 	private JButton numButton2 = new JButton("0");
@@ -205,13 +208,35 @@ public class DynamicBeat extends JFrame {
 				buttonEnteredMusic.start();
 				try {
 					Thread.sleep(2000);
+					ChatMsg cm = new ChatMsg(UserName,"400");
+					SendObject(cm);
+					
+					System.exit(0);
+					
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
-				System.exit(0);
+				
 			}
 		});
 		add(exitButton);
+		
+		userButton1.setVisible(false);
+		userButton1.setText(UserName);
+		userButton1.setBounds(230, 640, 150, 50);
+		userButton1.setBorderPainted(false);
+		userButton1.setFocusPainted(false);
+		userButton1.setContentAreaFilled(false);
+		userButton1.setFont(new Font("Arial Black", Font.BOLD, 30));
+		add(userButton1);
+		
+		userButton2.setVisible(false);
+		userButton2.setBounds(930, 640, 150, 50);
+		userButton2.setBorderPainted(false);
+		userButton2.setFocusPainted(false);
+		userButton2.setContentAreaFilled(false);
+		userButton2.setFont(new Font("Arial Black", Font.BOLD, 30));
+		add(userButton2);
 
 		// 1번방 표시할 버튼
 		roomButton1.setBounds(430, 310, 50, 40);
@@ -531,6 +556,9 @@ public class DynamicBeat extends JFrame {
 				Music buttonEnteredMusic = new Music("startPressedMusic.mp3", false);
 				buttonEnteredMusic.start();
 				backMain();
+				
+				ChatMsg cm = new ChatMsg(UserName, "900");
+				SendObject(cm);
 
 			}
 		});
@@ -598,7 +626,7 @@ public class DynamicBeat extends JFrame {
 			g.drawImage(selectedImage, 550, 345, null);
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial Black", Font.BOLD, 30));
-			g.drawString(otherUser, 935, 680);
+			//g.drawString(otherUser, 935, 680);
 		}
 		if (isGameScreen) {// 게임 컨트롤 class로 가기
 			game.screenDraw(g);
@@ -685,6 +713,9 @@ public class DynamicBeat extends JFrame {
 		startButton.setVisible(true);
 		startButton1.setVisible(true);
 		startButton2.setVisible(true);
+		
+		userButton1.setVisible(false);
+		userButton2.setVisible(false);
 
 		roomButton1.setVisible(true);
 		roomButton2.setVisible(true);
@@ -721,6 +752,10 @@ public class DynamicBeat extends JFrame {
 		startButton.setVisible(false); // 버튼 숨기기
 		startButton1.setVisible(false);
 		startButton2.setVisible(false);
+		
+		userButton1.setVisible(true);
+
+		userButton2.setVisible(true);
 
 		roomButton1.setVisible(false);
 		roomButton2.setVisible(false);
@@ -812,7 +847,8 @@ public class DynamicBeat extends JFrame {
 								for (int i=0; i<userList.size(); i++) {
 									if (!UserName.equals(userList.get(i))) {
 										
-										otherUser = userList.get(i);
+										//otherUser = userList.get(i);
+										userButton2.setText(userList.get(i));
 									}
 									game.setOtherUser(otherUser);; // Game.java에서 처리
 									
@@ -841,8 +877,12 @@ public class DynamicBeat extends JFrame {
 						break;
 						
 					case "302":
-						
-						otherUser = cm.getOtherUser();
+						AppendText(cm.getCode() + cm.getOtherUser());
+						if(cm.getOtherUser().equals("/empty")) userButton2.setText(" ");
+						else userButton2.setText(cm.getOtherUser());
+						break;
+					case "400":
+						System.exit(0);
 						break;
 					case "600": // 600 현재선택곡
 						nowSelected = cm.getNowSelected();
