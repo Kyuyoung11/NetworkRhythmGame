@@ -37,6 +37,7 @@ public class Game extends Thread {
 	public static int appleAttack = 0;
 	private int beeAttack = 0;
 	private int winner = 3;
+	public int beatCount=0;
 
 	private static final int BUF_LEN = 128; // Windows 처럼 BUF_LEN 을 정의
 	private Socket socket; // 연결소켓
@@ -104,6 +105,9 @@ public class Game extends Thread {
 	}
 
 	public void screenDraw(Graphics2D g) {
+		
+		
+		
 		g.drawImage(noteRouteDImage, 100, 90, null);
 		g.drawImage(noteRouteFImage, 196, 90, null);
 		g.drawImage(noteRouteJImage, 292, 90, null);
@@ -138,7 +142,7 @@ public class Game extends Thread {
 		String score = Integer.toString(scorePoint);
 		g.drawString("Score", 160, 70);
 		g.drawString(score, 310, 70);
-		g.drawString(UserName, 239, 680);
+		//g.drawString(UserName, 239, 680);
 		g.drawImage(blueFlareImage, 100, 400, null);
 		g.drawImage(judgeImage, 120, 470, null);
 		g.drawImage(keyPadDImage, 100, 580, null);
@@ -194,15 +198,73 @@ public class Game extends Thread {
 		g.drawString("Score", 846, 70);
 		String otherScore = Integer.toString(otherScorePoint);
 		g.drawString(otherScore, 996, 70);
-		g.drawString(otherUser, 935, 680);
+		//g.drawString(otherUser, 935, 680);
 		// g.drawImage(blueFlareImage, 280, 280, null);
 		// g.drawImage(judgeImage, 450, 400, null);
 		g.drawImage(keyPadDImage1, 796, 580, null);
 		g.drawImage(keyPadFImage1, 892, 580, null);
 		g.drawImage(keyPadJImage1, 988, 580, null);
 		g.drawImage(keyPadKImage1, 1084, 580, null);
+		
+		if(titleName.equals("K.K._Idol") && beatCount==178) {
+			
+			
+			Timer timerEnd = new Timer();
+			TimerTask timerTaskEnd = new TimerTask() {
 
+				@Override
+				public void run() {
+					if(otherScorePoint>scorePoint) winner=0;
+					else winner = 1;
+					DynamicBeat.easyButton.setVisible(true);
+					DynamicBeat.leftButton.setVisible(true);
+					DynamicBeat.rightButton.setVisible(true);
+				}
+
+			};
+			timerEnd.schedule(timerTaskEnd, 6000);
+		
+	}
+		if(titleName.equals("K.K._House") && beatCount==92) {
+			
+				
+				Timer timerEnd = new Timer();
+				TimerTask timerTaskEnd = new TimerTask() {
+
+					@Override
+					public void run() {
+						if(otherScorePoint>scorePoint) winner=0;
+						else winner = 1;
+						DynamicBeat.easyButton.setVisible(true);
+						DynamicBeat.rightButton.setVisible(true);
+						DynamicBeat.leftButton.setVisible(true);
+					}
+
+				};
+				timerEnd.schedule(timerTaskEnd, 7000);
+			
+		}
+		if(titleName.equals("K.K._Western") && beatCount==92) {
+			
+				
+				Timer timerEnd = new Timer();
+				TimerTask timerTaskEnd = new TimerTask() {
+
+					@Override
+					public void run() {
+						if(otherScorePoint>scorePoint) winner=0;
+						else winner = 1;
+						DynamicBeat.easyButton.setVisible(true);
+						DynamicBeat.leftButton.setVisible(true);
+						DynamicBeat.rightButton.setVisible(true);
+					}
+
+				};
+				timerEnd.schedule(timerTaskEnd, 7000);
+			
+		}
 		for (int i = 0; i < noteList.size(); i++) {
+			//beatCount++;
 			Note note = noteList.get(i);
 			if (note.getY() > 620 && appleAttack == 0) {
 				judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
@@ -211,6 +273,8 @@ public class Game extends Thread {
 				cm.setOtherScore(scorePoint);
 				cm.setnoteType(note.getNoteType());
 				SendObject(cm);
+				
+				
 
 			}
 			if (!note.isProceeded()) {
@@ -302,8 +366,7 @@ public class Game extends Thread {
 	}
 
 	public void close() {
-		if(otherScorePoint>scorePoint) winner=0;
-		else winner = 1;
+		
 		gameMusic.close();
 		this.interrupt();
 	}
@@ -408,14 +471,11 @@ public class Game extends Thread {
 					new Beat(StartTime + gap * 551, "D"), new Beat(StartTime + gap * 551, "D2"),
 					new Beat(StartTime + gap * 558, "D"), new Beat(StartTime + gap * 558, "D2"),
 					new Beat(StartTime + gap * 565, "D"), new Beat(StartTime + gap * 565, "D2"),
-
 					new Beat(StartTime + gap * 575, "D"), new Beat(StartTime + gap * 575, "D2"),
 					new Beat(StartTime + gap * 575, "K"), new Beat(StartTime + gap * 575, "K2"),
-
 					new Beat(StartTime + gap * 591, "K"), new Beat(StartTime + gap * 591, "K2"),
 					new Beat(StartTime + gap * 598, "J"), new Beat(StartTime + gap * 598, "J2"),
 					new Beat(StartTime + gap * 605, "F"), new Beat(StartTime + gap * 605, "F2"),
-
 					new Beat(StartTime + gap * 609, "D"), new Beat(StartTime + gap * 609, "D2"),
 					new Beat(StartTime + gap * 613, "F"), new Beat(StartTime + gap * 613, "F2"),
 					new Beat(StartTime + gap * 617, "D"), new Beat(StartTime + gap * 617, "D2"),
@@ -424,7 +484,6 @@ public class Game extends Thread {
 					new Beat(StartTime + gap * 629, "F"), new Beat(StartTime + gap * 629, "F2"),
 					new Beat(StartTime + gap * 633, "D"), new Beat(StartTime + gap * 633, "D2"),
 					new Beat(StartTime + gap * 637, "F"), new Beat(StartTime + gap * 637, "F2"),
-
 					new Beat(StartTime + gap * 640, "J"), new Beat(StartTime + gap * 640, "J2"),
 					new Beat(StartTime + gap * 644, "K"), new Beat(StartTime + gap * 644, "K2"),
 					new Beat(StartTime + gap * 648, "J"), new Beat(StartTime + gap * 648, "J2"),
@@ -433,7 +492,6 @@ public class Game extends Thread {
 					new Beat(StartTime + gap * 660, "K"), new Beat(StartTime + gap * 660, "K2"),
 					new Beat(StartTime + gap * 664, "J"), new Beat(StartTime + gap * 664, "J2"),
 					new Beat(StartTime + gap * 668, "K"), new Beat(StartTime + gap * 668, "K2"),
-
 					new Beat(StartTime + gap * 677, "D"), new Beat(StartTime + gap * 677, "D2"),
 					new Beat(StartTime + gap * 677, "K"), new Beat(StartTime + gap * 677, "K2"),
 					new Beat(StartTime + gap * 684, "D"), new Beat(StartTime + gap * 684, "D2"),
@@ -579,7 +637,8 @@ public class Game extends Thread {
 		} else if (titleName.equals("K.K._Western")) {
 			int startTime = 4650 - Main.REACH_TIME * 1000;
 			int gap = 140;
-			beats = new Beat[] { new Beat(startTime + gap * 1, "D"), new Beat(startTime + gap * 1, "D2"),
+			beats = new Beat[] { 
+					new Beat(startTime + gap * 1, "D"), new Beat(startTime + gap * 1, "D2"),
 					new Beat(startTime + gap * 1, "K"), new Beat(startTime + gap * 1, "K2"),
 					new Beat(startTime + gap * 2, "J"), new Beat(startTime + gap * 2, "J2"),
 					new Beat(startTime + gap * 2, "F"), new Beat(startTime + gap * 2, "F2"),
@@ -674,10 +733,14 @@ public class Game extends Thread {
 					new Beat(startTime + gap * 414, "D"), new Beat(startTime + gap * 414, "D2"),
 					new Beat(startTime + gap * 419, "F"), new Beat(startTime + gap * 419, "F2"),
 					new Beat(startTime + gap * 419, "J"), new Beat(startTime + gap * 419, "J2"),
-
+										
+						
 			};
 			
+				
+		
 		}
+		
 
 		int i = 0, j = 0;
 		gameMusic.start();
@@ -703,6 +766,7 @@ public class Game extends Thread {
 				if (beats[i].getNoteName().contentEquals("D") || beats[i].getNoteName().contentEquals("F")
 						|| beats[i].getNoteName().contentEquals("J") || beats[i].getNoteName().contentEquals("K")) {
 					noteList.add(note);
+					
 					/*
 					 * if (!note.getItemType().equals("basic")) { System.out.println("800 send" + j
 					 * + note.getItemType()); ChatMsg cm = new ChatMsg(UserName, "800");
@@ -713,6 +777,8 @@ public class Game extends Thread {
 
 				else {
 					noteList2.add(note);
+					beatCount++;
+					System.out.println(beatCount);
 
 				}
 				note.start();
@@ -754,41 +820,50 @@ public class Game extends Thread {
 
 		if (!judge.equals("None")) {
 			blueFlareImage = new ImageIcon(Main.class.getResource("../images/blueFlare.png")).getImage();
+			//beatCount++;
 		}
 		if (judge.equals("Miss")) {
 			scorePoint -= 10;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+			//beatCount++;
 
 		} else if (judge.equals("Late")) {
 
 			scorePoint += 10;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/late.png")).getImage();
+			//beatCount++;
 
 		} else if (judge.equals("Good")) {
 			scorePoint += 40;
 
 			judgeImage = new ImageIcon(Main.class.getResource("../images/good.png")).getImage();
+			//beatCount++;
 
 		} else if (judge.equals("Great")) {
 			scorePoint += 60;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/great.png")).getImage();
+			//beatCount++;
 
 		} else if (judge.equals("Perfect")) {
 			scorePoint += 100;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+			//beatCount++;
 
 		} else if (judge.equals("Early")) {
 			scorePoint += 10;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/early.png")).getImage();
+			//beatCount++;
 
 		} else if (judge.equals("money")) {
 			scorePoint += 250;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/item_bell.png")).getImage();
+			//beatCount++;
 
 		} else if (judge.equals("apple")) {
 			appleCount += 1;
 			scorePoint += 50;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/item_apple.png")).getImage();
+			//beatCount++;
 			if (appleCount == 2) {
 				// appleAttack=1;
 				ChatMsg obcm = new ChatMsg(UserName, "500");
@@ -802,6 +877,7 @@ public class Game extends Thread {
 			saidaCount += 1;
 			scorePoint += 50;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/item_saida.png")).getImage();
+			//beatCount++;
 			if (saidaCount == 3) {
 				qq = 0;
 				// judge = "perfect";
@@ -823,11 +899,13 @@ public class Game extends Thread {
 
 			scorePoint += 50;
 			judgeImage = new ImageIcon(Main.class.getResource("../images/item_bee.png")).getImage();
+			//beatCount++;
 			ChatMsg obcm = new ChatMsg(UserName, "501");
 			obcm.setBeeAttack(1);
 			SendObject(obcm);
 
 		}
+		
 	}
 
 	public void gameCode(ChatMsg cm) {
