@@ -8,6 +8,9 @@ public class Beat {
 	private String noteName;
 	private String type;
 
+	
+
+
 	public int getTime() {
 		return time;
 	}
