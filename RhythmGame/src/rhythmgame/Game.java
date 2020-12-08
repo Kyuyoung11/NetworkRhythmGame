@@ -26,6 +26,8 @@ public class Game extends Thread {
 
 	private String UserName=" ";
 	private String otherUser=" ";
+	
+	private int isGameDone = 0;
 
 	private Beat[] beats = null;
 
@@ -206,61 +208,37 @@ public class Game extends Thread {
 		g.drawImage(keyPadJImage1, 988, 580, null);
 		g.drawImage(keyPadKImage1, 1084, 580, null);
 		
-		if(titleName.equals("K.K._Idol") && beatCount==178) {
+		if(titleName.equals("K.K._Idol") && beatCount==178 && isGameDone ==0) {
 			
+			isGameDone = 1;
+			System.out.println(isGameDone);
+			if (isGameDone == 1) {
+				myTimer(6000);
+				
+			}
 			
-			Timer timerEnd = new Timer();
-			TimerTask timerTaskEnd = new TimerTask() {
-
-				@Override
-				public void run() {
-					if(otherScorePoint>scorePoint) winner=0;
-					else winner = 1;
-					DynamicBeat.easyButton.setVisible(true);
-					DynamicBeat.leftButton.setVisible(true);
-					DynamicBeat.rightButton.setVisible(true);
-				}
-
-			};
-			timerEnd.schedule(timerTaskEnd, 6000);
 		
-	}
-		if(titleName.equals("K.K._House") && beatCount==92) {
+		}
+		if(titleName.equals("K.K._House") && beatCount==92 && isGameDone ==0) {
 			
 				
-				Timer timerEnd = new Timer();
-				TimerTask timerTaskEnd = new TimerTask() {
-
-					@Override
-					public void run() {
-						if(otherScorePoint>scorePoint) winner=0;
-						else winner = 1;
-						DynamicBeat.easyButton.setVisible(true);
-						DynamicBeat.rightButton.setVisible(true);
-						DynamicBeat.leftButton.setVisible(true);
-					}
-
-				};
-				timerEnd.schedule(timerTaskEnd, 7000);
+			isGameDone = 1;
+			System.out.println(isGameDone);
+			if (isGameDone == 1) {
+				myTimer(7000);
+				
+			}
 			
 		}
-		if(titleName.equals("K.K._Western") && beatCount==92) {
+		if(titleName.equals("K.K._Western") && beatCount==92  && isGameDone ==0) {
 			
 				
-				Timer timerEnd = new Timer();
-				TimerTask timerTaskEnd = new TimerTask() {
-
-					@Override
-					public void run() {
-						if(otherScorePoint>scorePoint) winner=0;
-						else winner = 1;
-						DynamicBeat.easyButton.setVisible(true);
-						DynamicBeat.leftButton.setVisible(true);
-						DynamicBeat.rightButton.setVisible(true);
-					}
-
-				};
-				timerEnd.schedule(timerTaskEnd, 7000);
+			isGameDone = 1;
+			System.out.println(isGameDone);
+			if (isGameDone == 1) {
+				myTimer(7000);
+				
+			}
 			
 		}
 		for (int i = 0; i < noteList.size(); i++) {
@@ -303,6 +281,38 @@ public class Game extends Thread {
 
 	}
 
+	public void myTimer(int time) {
+		Timer timerEnd = new Timer();
+		TimerTask timerTaskEnd = new TimerTask() {
+
+			@Override
+			public void run() {
+				if(otherScorePoint>scorePoint) winner=0;
+				else winner = 1;
+				
+				
+				
+			}
+
+		};
+		timerEnd.schedule(timerTaskEnd, time);
+		
+		Timer timerEnd2 = new Timer();
+		TimerTask timerTaskEnd2 = new TimerTask() {
+
+			@Override
+			public void run() {
+				
+				ChatMsg cm = new ChatMsg(UserName, "1000");
+				cm.setroomStatus(2);
+				SendObject(cm);
+				
+				
+			}
+
+		};
+		timerEnd2.schedule(timerTaskEnd2, time+3000);
+	}
 	public void pressD() {
 		judge("D");
 		noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage();
@@ -577,61 +587,55 @@ public class Game extends Thread {
 			
 
 		} else if (titleName.equals("K.K._House")) {
-			int StartTime = 3500 - Main.REACH_TIME * 1000;
-			int gap = 214;
-			beats = new Beat[] { new Beat(StartTime, "K"), new Beat(StartTime + gap * 4, "D"),
-					new Beat(StartTime + gap * 6, "J"), new Beat(StartTime + gap * 8, "S"),
-					new Beat(StartTime + gap * 11, "F"), new Beat(StartTime + gap * 13, "Space"),
-
-					// µÎ¹ø¤Š
-					new Beat(StartTime + gap * 15, "K"), new Beat(StartTime + gap * 19, "D"),
-					new Beat(StartTime + gap * 21, "J"), new Beat(StartTime + gap * 23, "S"),
-					new Beat(StartTime + gap * 26, "F"), new Beat(StartTime + gap * 28, "Space"),
-
-					new Beat(StartTime + gap * 30, "K"), new Beat(StartTime + gap * 34, "D"),
-					new Beat(StartTime + gap * 36, "J"), new Beat(StartTime + gap * 38, "S"),
-					new Beat(StartTime + gap * 41, "F"), new Beat(StartTime + gap * 43, "Space"),
-
-					new Beat(StartTime + gap * 45, "K"), new Beat(StartTime + gap * 49, "D"),
-					new Beat(StartTime + gap * 51, "J"), new Beat(StartTime + gap * 53, "S"),
-					new Beat(StartTime + gap * 56, "F"), new Beat(StartTime + gap * 58, "Space"),
-
-					new Beat(StartTime + gap * 60, "K"), new Beat(StartTime + gap * 64, "D"),
-					new Beat(StartTime + gap * 66, "J"), new Beat(StartTime + gap * 68, "S"),
-					new Beat(StartTime + gap * 71, "F"), new Beat(StartTime + gap * 73, "Space"),
-
-					new Beat(StartTime + gap * 75, "K"), new Beat(StartTime + gap * 79, "D"),
-					new Beat(StartTime + gap * 81, "J"), new Beat(StartTime + gap * 83, "S"),
-					new Beat(StartTime + gap * 86, "F"), new Beat(StartTime + gap * 88, "Space"),
-
-					new Beat(StartTime + gap * 90, "K"), new Beat(StartTime + gap * 94, "D"),
-					new Beat(StartTime + gap * 96, "J"), new Beat(StartTime + gap * 98, "S"),
-					new Beat(StartTime + gap * 101, "F"), new Beat(StartTime + gap * 103, "Space"),
-
-					new Beat(StartTime + gap * 105, "K"), new Beat(StartTime + gap * 109, "D"),
-					new Beat(StartTime + gap * 111, "J"), new Beat(StartTime + gap * 113, "S"),
-					new Beat(StartTime + gap * 116, "F"), new Beat(StartTime + gap * 118, "Space"),
-
-					new Beat(StartTime + gap * 120, "K"), new Beat(StartTime + gap * 124, "D"),
-					new Beat(StartTime + gap * 126, "J"), new Beat(StartTime + gap * 128, "S"),
-					new Beat(StartTime + gap * 131, "F"), new Beat(StartTime + gap * 133, "Space"),
-
-					new Beat(StartTime + gap * 135, "K"), new Beat(StartTime + gap * 139, "D"),
-					new Beat(StartTime + gap * 141, "J"), new Beat(StartTime + gap * 143, "S"),
-					new Beat(StartTime + gap * 146, "F"), new Beat(StartTime + gap * 148, "Space"),
-
-					new Beat(StartTime + gap * 150, "K"), new Beat(StartTime + gap * 154, "D"),
-					new Beat(StartTime + gap * 156, "J"), new Beat(StartTime + gap * 158, "S"),
-					new Beat(StartTime + gap * 161, "F"), new Beat(StartTime + gap * 163, "Space"),
-
-					new Beat(StartTime + gap * 165, "K"), new Beat(StartTime + gap * 169, "D"),
-					new Beat(StartTime + gap * 171, "J"), new Beat(StartTime + gap * 173, "S"),
-					new Beat(StartTime + gap * 176, "F"), new Beat(StartTime + gap * 178, "Space"),
-
-					new Beat(StartTime + gap * 180, "K"), new Beat(StartTime + gap * 184, "D"),
-					new Beat(StartTime + gap * 186, "J"), new Beat(StartTime + gap * 188, "S"),
-					new Beat(StartTime + gap * 191, "F"), new Beat(StartTime + gap * 193, "Space")
-
+			int StartTime = 4200 - Main.REACH_TIME * 1000;
+			int gap = 140;
+			beats = new Beat[] { 
+					new Beat(StartTime, "D"), new Beat(StartTime, "D2"), 
+					new Beat(StartTime, "K"),new Beat(StartTime, "K2"), 
+					new Beat(StartTime + gap * 3, "F"), new Beat(StartTime + gap * 3, "F2"), 
+					new Beat(StartTime + gap * 3, "J"), new Beat(StartTime + gap * 3, "J2"), 
+					
+					new Beat(StartTime + gap * 5, "F"), new Beat(StartTime + gap * 5, "F2"), 
+					new Beat(StartTime + gap * 8, "J"), new Beat(StartTime + gap * 8, "J2"),
+					new Beat(StartTime + gap * 10, "F"), new Beat(StartTime + gap * 10, "F2"), 
+					new Beat(StartTime + gap * 12, "J"), new Beat(StartTime + gap *12,  "J2"),
+					
+					new Beat(StartTime + gap * 14, "D"), new Beat(StartTime + gap * 14, "D2"), 
+					new Beat(StartTime + gap * 16, "F"), new Beat(StartTime + gap * 16, "F2"),
+					new Beat(StartTime + gap * 16, "J"), new Beat(StartTime + gap * 16, "J2"), 
+					new Beat(StartTime + gap * 19, "K"), new Beat(StartTime + gap * 19,  "K2"),
+					new Beat(StartTime + gap * 21, "J"), new Beat(StartTime + gap * 21, "J2"),
+					new Beat(StartTime + gap * 23, "F"), new Beat(StartTime + gap * 23, "F2"), 
+					new Beat(StartTime + gap * 25, "D"), new Beat(StartTime + gap * 25,  "D2"),
+					
+					new Beat(StartTime + gap * 27, "J"), new Beat(StartTime + gap * 27, "J2"), 
+					new Beat(StartTime + gap * 29, "F"), new Beat(StartTime + gap * 29, "F2"),
+					new Beat(StartTime + gap * 31, "D"), new Beat(StartTime + gap * 31, "D2"), 
+					new Beat(StartTime + gap * 32, "F"), new Beat(StartTime + gap * 32, "F2"),
+					new Beat(StartTime + gap * 34, "J"), new Beat(StartTime + gap * 34, "J2"),
+					
+					new Beat(StartTime + gap * 38, "D"), new Beat(StartTime + gap * 38, "D2"),
+					new Beat(StartTime + gap * 38, "K"), new Beat(StartTime + gap * 38, "K2"),
+					
+					new Beat(StartTime + gap * 43, "J"), new Beat(StartTime + gap * 43, "J2"), 
+					new Beat(StartTime + gap * 45, "J"), new Beat(StartTime + gap * 45, "J2"),
+					new Beat(StartTime + gap * 46, "K"), new Beat(StartTime + gap * 46, "K2"), 
+					new Beat(StartTime + gap * 48, "J"), new Beat(StartTime + gap * 48, "J2"),
+					
+					new Beat(StartTime + gap * 53, "D"), new Beat(StartTime + gap * 53, "D2"), 
+					new Beat(StartTime + gap * 56, "F"), new Beat(StartTime + gap * 56, "F2"),
+					new Beat(StartTime + gap * 58, "J"), new Beat(StartTime + gap * 58, "J2"), 
+					new Beat(StartTime + gap * 61, "F"), new Beat(StartTime + gap * 61, "F2"),
+					new Beat(StartTime + gap * 63, "J"), new Beat(StartTime + gap * 63, "J2"), 
+					new Beat(StartTime + gap * 65, "F"), new Beat(StartTime + gap * 65, "F2"),
+					
+					new Beat(StartTime + gap * 70, "D"), new Beat(StartTime + gap * 70, "D2"), 
+					new Beat(StartTime + gap * 70, "K"), new Beat(StartTime + gap * 70, "K2"),
+					
+					new Beat(StartTime + gap * 75, "F"), new Beat(StartTime + gap * 75, "F2"), 
+					new Beat(StartTime + gap * 75, "J"), new Beat(StartTime + gap * 75, "J2"),
+					new Beat(StartTime + gap * 78, "F"), new Beat(StartTime + gap * 78, "F2"),
+					new Beat(StartTime + gap * 78, "J"), new Beat(StartTime + gap * 78, "J2"),
 			};
 
 		} else if (titleName.equals("K.K._Western")) {

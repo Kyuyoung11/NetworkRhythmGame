@@ -87,7 +87,7 @@ public class Note extends Thread {
 		else if (titleName.equals("K.K._Western"))
 			y += (Main.NOTE_SPEED + 1);
 		else if (titleName.equals("K.K._House"))
-			y += (Main.NOTE_SPEED + 1);
+			y += (Main.NOTE_SPEED);
 		if (y > 620) { // 노트가 판정바를 벗어나는 지점
 			System.out.println("Miss");
 			close();
