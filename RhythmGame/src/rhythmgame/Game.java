@@ -880,6 +880,7 @@ public class Game extends Thread {
 			//beatCount++;
 			if (saidaCount == 3) {
 				qq = 0;
+				saidaCount = 0;
 				// judge = "perfect";
 				Timer timer1 = new Timer();
 				TimerTask timertask1 = new TimerTask() {
@@ -887,7 +888,7 @@ public class Game extends Thread {
 					@Override
 					public void run() {
 						qq = 1;
-						saidaCount = 0;
+						
 
 					}
 
