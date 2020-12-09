@@ -151,7 +151,7 @@ public class DynamicBeat extends JFrame {
 		this.port_no = port_no;
 
 		trackList.add(new Track("IdolGameImage.jpg", "mainBackground.jpg", "kk_idol.mp3", "kk_idol.mp3", "K.K._Idol"));
-		trackList.add(new Track("HouseGameImage.jpg", "mainBackground.jpg", "nabi.mp3", "nabi.mp3", "K.K._House"));
+		trackList.add(new Track("HouseGameImage.jpg", "mainBackground.jpg", "nabi_Part.mp3", "nabi_Part.mp3", "K.K._House"));
 		trackList.add(
 				new Track("WesternGameImage.jpg", "mainBackground.jpg", "western.mp3", "western.mp3", "K.K._Western"));
 

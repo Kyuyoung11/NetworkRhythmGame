@@ -219,7 +219,7 @@ public class Game extends Thread {
 			
 		
 		}
-		if(titleName.equals("K.K._House") && beatCount==92 && isGameDone ==0) {
+		if(titleName.equals("K.K._House") && beatCount==59 && isGameDone ==0) {
 			
 				
 			isGameDone = 1;
@@ -622,20 +622,45 @@ public class Game extends Thread {
 					new Beat(StartTime + gap * 46, "K"), new Beat(StartTime + gap * 46, "K2"), 
 					new Beat(StartTime + gap * 48, "J"), new Beat(StartTime + gap * 48, "J2"),
 					
-					new Beat(StartTime + gap * 53, "D"), new Beat(StartTime + gap * 53, "D2"), 
-					new Beat(StartTime + gap * 56, "F"), new Beat(StartTime + gap * 56, "F2"),
-					new Beat(StartTime + gap * 58, "J"), new Beat(StartTime + gap * 58, "J2"), 
-					new Beat(StartTime + gap * 61, "F"), new Beat(StartTime + gap * 61, "F2"),
-					new Beat(StartTime + gap * 63, "J"), new Beat(StartTime + gap * 63, "J2"), 
-					new Beat(StartTime + gap * 65, "F"), new Beat(StartTime + gap * 65, "F2"),
+					new Beat(StartTime + gap * 55, "D"), new Beat(StartTime + gap * 55, "D2"), 
+					new Beat(StartTime + gap * 58, "F"), new Beat(StartTime + gap * 58, "F2"),
+					new Beat(StartTime + gap * 60, "J"), new Beat(StartTime + gap * 60, "J2"), 
+					new Beat(StartTime + gap * 63, "F"), new Beat(StartTime + gap * 63, "F2"),
+					new Beat(StartTime + gap * 65, "J"), new Beat(StartTime + gap * 65, "J2"), 
+					new Beat(StartTime + gap * 67, "F"), new Beat(StartTime + gap * 67, "F2"),
 					
 					new Beat(StartTime + gap * 70, "D"), new Beat(StartTime + gap * 70, "D2"), 
 					new Beat(StartTime + gap * 70, "K"), new Beat(StartTime + gap * 70, "K2"),
 					
-					new Beat(StartTime + gap * 75, "F"), new Beat(StartTime + gap * 75, "F2"), 
-					new Beat(StartTime + gap * 75, "J"), new Beat(StartTime + gap * 75, "J2"),
-					new Beat(StartTime + gap * 78, "F"), new Beat(StartTime + gap * 78, "F2"),
-					new Beat(StartTime + gap * 78, "J"), new Beat(StartTime + gap * 78, "J2"),
+					new Beat(StartTime + gap * 76, "F"), new Beat(StartTime + gap * 76, "F2"), 
+					new Beat(StartTime + gap * 76, "J"), new Beat(StartTime + gap * 76, "J2"),
+					new Beat(StartTime + gap * 80, "F"), new Beat(StartTime + gap * 80, "F2"),
+					new Beat(StartTime + gap * 80, "J"), new Beat(StartTime + gap * 80, "J2"),
+					
+					new Beat(StartTime + gap * 84, "J"), new Beat(StartTime + gap * 84, "J2"), 
+					new Beat(StartTime + gap * 86, "F"), new Beat(StartTime + gap * 86, "F2"),
+					new Beat(StartTime + gap * 87, "D"), new Beat(StartTime + gap * 87, "D2"), 
+					new Beat(StartTime + gap * 88, "F"), new Beat(StartTime + gap * 88, "F2"),
+					new Beat(StartTime + gap * 90, "J"), new Beat(StartTime + gap * 90, "J2"),
+					
+					new Beat(StartTime + gap * 94, "D"), new Beat(StartTime + gap * 94, "D2"),
+					new Beat(StartTime + gap * 94, "K"), new Beat(StartTime + gap * 94, "K2"),
+					
+					new Beat(StartTime + gap * 99, "J"), new Beat(StartTime + gap * 99, "J2"), 
+					new Beat(StartTime + gap * 101, "J"), new Beat(StartTime + gap * 101, "J2"),
+					new Beat(StartTime + gap * 102, "K"), new Beat(StartTime + gap * 102, "K2"), 
+					new Beat(StartTime + gap * 104, "J"), new Beat(StartTime + gap * 104, "J2"),
+					
+					new Beat(StartTime + gap * 114, "D"), new Beat(StartTime + gap * 114, "D2"), 
+					new Beat(StartTime + gap * 114, "K"), new Beat(StartTime + gap * 114, "K2"), 
+					new Beat(StartTime + gap * 116, "D"), new Beat(StartTime + gap * 116, "D2"),
+					new Beat(StartTime + gap * 116, "K"), new Beat(StartTime + gap * 116, "K2"), 
+					new Beat(StartTime + gap * 117, "F"), new Beat(StartTime + gap * 117, "F2"), 
+					new Beat(StartTime + gap * 117, "J"), new Beat(StartTime + gap * 117, "J2"),
+					new Beat(StartTime + gap * 119, "J"), new Beat(StartTime + gap * 119, "J2"), 
+					new Beat(StartTime + gap * 119, "F"), new Beat(StartTime + gap * 119, "F2"),
+					new Beat(StartTime + gap * 119, "D"), new Beat(StartTime + gap * 119, "D2"), 
+					new Beat(StartTime + gap * 119, "K"), new Beat(StartTime + gap * 119, "K2"),
 			};
 
 		} else if (titleName.equals("K.K._Western")) {
