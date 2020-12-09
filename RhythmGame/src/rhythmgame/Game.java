@@ -244,13 +244,23 @@ public class Game extends Thread {
 		for (int i = 0; i < noteList.size(); i++) {
 			//beatCount++;
 			Note note = noteList.get(i);
-			if (note.getY() > 620 && appleAttack == 0) {
-				judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
-				ChatMsg cm = new ChatMsg(UserName, "700");
-				cm.setJudge("Miss");
-				cm.setOtherScore(scorePoint);
-				cm.setnoteType(note.getNoteType());
-				SendObject(cm);
+			if (note.getY() > 620 && appleAttack == 0 ) {
+				if(qq==0) {
+					judgeImage = new ImageIcon(Main.class.getResource("../images/perfect.png")).getImage();
+					ChatMsg cm = new ChatMsg(UserName, "700");
+					cm.setJudge("Perfect");
+					cm.setOtherScore(scorePoint);
+					cm.setnoteType(note.getNoteType());
+					SendObject(cm);
+				}
+				else {
+					judgeImage = new ImageIcon(Main.class.getResource("../images/miss.png")).getImage();
+					ChatMsg cm = new ChatMsg(UserName, "700");
+					cm.setJudge("Miss");
+					cm.setOtherScore(scorePoint);
+					cm.setnoteType(note.getNoteType());
+					SendObject(cm);
+				}
 				
 				
 
