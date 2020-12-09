@@ -170,8 +170,10 @@ public class DynamicBeat extends JFrame {
 		// 시작하자마자 음악
 		introMusic.start();
 
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 10, 200, 100);
+		scrollPane.setVisible(false);
 		add(scrollPane);
 
 		textArea = new JTextPane();
@@ -695,7 +697,7 @@ public class DynamicBeat extends JFrame {
 		easyButton.setVisible(false);
 		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(nowSelected).getGameImage()))
 				.getImage();
-		backButton.setVisible(true);// 게임 도중 나가기 버튼
+		backButton.setVisible(false);// 게임 도중 나가기 버튼
 		isGameScreen = true;
 
 		game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic(), UserName,
